@@ -7,7 +7,7 @@
   <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f7f6; color: #333; }
     h1 { text-align: center; color: #2e7d32; margin-bottom: 20px; }
-    .container { max-width: 900px; margin: 0 auto; padding-bottom: 120px; }
+    .container { max-width: 900px; margin: 0 auto; padding-bottom: 40px; }
     .card-produto { background: #fff; border-radius: 8px; padding: 15px; margin-bottom: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
     .info { max-width: 55%; }
     .info h3 { margin: 0 0 5px 0; color: #1b5e20; }
@@ -18,13 +18,14 @@
     input[type="number"] { width: 70px; text-align: center; }
     .subtotal { font-weight: bold; min-width: 80px; text-align: right; color: #2e7d32; }
     
-    .painel-total { position: fixed; bottom: 0; left: 0; right: 0; background: #2e7d32; color: #fff; padding: 15px 20px; box-shadow: 0 -4px 10px rgba(0,0,0,0.2); }
-    .painel-conteudo { max-width: 900px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; }
-    .opcoes-pagamento { display: flex; align-items: center; gap: 8px; font-size: 0.95em; }
+    /* Painel no final da página */
+    .painel-finalizacao { background: #2e7d32; color: #fff; padding: 20px; border-radius: 8px; margin-top: 25px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+    .val-total { font-size: 1.3em; font-weight: bold; }
+    .opcoes-pagamento { display: flex; align-items: center; gap: 8px; font-size: 1em; }
     .botoes-acao { display: flex; gap: 10px; }
     
-    .btn-zerar { background: #e53935; color: #fff; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-    .btn-whatsapp { background: #25d366; color: #fff; border: none; padding: 10px 18px; border-radius: 5px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; }
+    .btn-zerar { background: #e53935; color: #fff; border: none; padding: 12px 18px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.95em; }
+    .btn-whatsapp { background: #25d366; color: #fff; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.95em; }
     .btn-whatsapp:hover { background: #1eb954; }
   </style>
 </head>
@@ -32,19 +33,20 @@
 
   <div class="container">
     <h1>Cardápio Vida Mix</h1>
+    
+    <!-- Lista dos Produtos -->
     <div id="lista-produtos"></div>
-  </div>
 
-  <div class="painel-total">
-    <div class="painel-conteudo">
-      <div>
-        <strong>Total: R$ <span id="valor-total">0,00</span></strong>
+    <!-- PAINEL VISÍVEL: Total, Pagamento e Botões -->
+    <div class="painel-finalizacao">
+      <div class="val-total">
+        Total: R$ <span id="valor-total">0,00</span>
       </div>
 
       <div class="opcoes-pagamento">
         <label for="pagamento"><strong>Pagamento:</strong></label>
         <select id="pagamento">
-          <option value="Pix">Pix</option>
+          <option value="Pix - chave: belabelpeixoto@gmail.com">Pix - chave: belabelpeixoto@gmail.com) </option>
           <option value="Cartão de Crédito">Cartão de Crédito</option>
           <option value="Cartão de Débito">Cartão de Débito</option>
           <option value="Dinheiro">Dinheiro</option>
@@ -52,15 +54,15 @@
       </div>
 
       <div class="botoes-acao">
-        <button class="btn-zerar" onclick="zerarPedido()">Zerar</button>
-        <button class="btn-whatsapp" onclick="enviarWhatsApp()">Enviar Pedido</button>
+        <button class="btn-zerar" onclick="zerarPedido()">Zerar Quantidades</button>
+        <button class="btn-whatsapp" onclick="enviarWhatsApp()">Enviar Pedido no WhatsApp</button>
       </div>
     </div>
   </div>
 
   <script>
-    // Digite aqui o número do WhatsApp com DDD (exemplo: 5544999999999)
-    var numeroWhatsApp = "5500000000000"; 
+    // Coloque seu número do WhatsApp com DDD aqui (Exemplo Maringá/PR: 5544999999999)
+    var numeroWhatsApp = "5544998546285"; 
 
     var produtos = [
       { id: 1, nome: "Cesta: Amor que nutre. (Dia das Mães)", preco: 120.00, unidade: "unidade", ingredientes: "Bolo de chocolate; Pão recheado; Esfihas; Biscoito da vovó; Pão tipo bisnaguinha; suco." },
@@ -128,7 +130,6 @@
         }
       }
       document.getElementById('valor-total').innerText = total.toFixed(2).replace('.', ',');
-      return total;
     }
 
     function zerarPedido() {
@@ -175,6 +176,8 @@
   </script>
 </body>
 </html>
+
+    
 
 
 
