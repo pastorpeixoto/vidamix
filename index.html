@@ -17,8 +17,11 @@
     .card p { margin: 5px 0; font-size: 14px; color: #666; }
     .price { font-weight: bold; color: #1F5F2B; font-size: 16px; }
     
-    .calc-box { margin-top: 15px; background: #f1f8e9; padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; }
-    .btn-qty { background: #1F5F2B; color: white; border: none; width: 35px; height: 35px; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; }
+    .calc-box { margin-top: 15px; background: #f1f8e9; padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .controls { display: flex; align-items: center; gap: 6px; }
+    
+    .btn-qty { background: #1F5F2B; color: white; border: none; width: 36px; height: 36px; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: pointer; }
+    .btn-zero { background: #dc3545; color: white; border: none; padding: 0 10px; height: 36px; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; }
     .qty-val { font-size: 16px; font-weight: bold; min-width: 60px; text-align: center; }
     
     .btn-wa { background-color: #1F5F2B; color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
@@ -37,11 +40,14 @@
     <p>Sem glúten, sem lactose, com sementes de girassol, linhaça e chia.</p>
     <p class="price">R$ 48,00 / kg</p>
     <div class="calc-box">
-      <button class="btn-qty" onclick="alterarQtd('pao', -0.1)">-</button>
-      <span class="qty-val"><span id="qtd-pao">0.5</span> kg</span>
-      <button class="btn-qty" onclick="alterarQtd('pao', 0.1)">+</button>
+      <div class="controls">
+        <button class="btn-qty" onclick="alterarQtd('pao', -0.1)">-</button>
+        <span class="qty-val"><span id="qtd-pao">0.5</span> kg</span>
+        <button class="btn-qty" onclick="alterarQtd('pao', 0.1)">+</button>
+        <button class="btn-zero" onclick="zerar('pao')">Zerar</button>
+      </div>
+      <div>Total: <strong>R$ <span id="total-pao">24,00</span></strong></div>
     </div>
-    <p style="text-align: right; margin-top: 10px;">Total: <strong>R$ <span id="total-pao">24,00</span></strong></p>
   </div>
 
   <!-- Produto 2 -->
@@ -50,11 +56,14 @@
     <p>Feito com cacau puro, sem leite e adoçado com açúcar de coco.</p>
     <p class="price">R$ 65,00 / kg</p>
     <div class="calc-box">
-      <button class="btn-qty" onclick="alterarQtd('bolo', -0.1)">-</button>
-      <span class="qty-val"><span id="qtd-bolo">0.5</span> kg</span>
-      <button class="btn-qty" onclick="alterarQtd('bolo', 0.1)">+</button>
+      <div class="controls">
+        <button class="btn-qty" onclick="alterarQtd('bolo', -0.1)">-</button>
+        <span class="qty-val"><span id="qtd-bolo">0.5</span> kg</span>
+        <button class="btn-qty" onclick="alterarQtd('bolo', 0.1)">+</button>
+        <button class="btn-zero" onclick="zerar('bolo')">Zerar</button>
+      </div>
+      <div>Total: <strong>R$ <span id="total-bolo">32,50</span></strong></div>
     </div>
-    <p style="text-align: right; margin-top: 10px;">Total: <strong>R$ <span id="total-bolo">32,50</span></strong></p>
   </div>
 
   <button class="btn-wa" onclick="enviarWhatsapp()">Finalizar Pedido via WhatsApp</button>
@@ -65,8 +74,16 @@
 
     function alterarQtd(produto, valor) {
       qtds[produto] = Math.max(0, Math.round((qtds[produto] + valor) * 10) / 10);
+      atualizarTela(produto);
+    }
+
+    function zerar(produto) {
+      qtds[produto] = 0;
+      atualizarTela(produto);
+    }
+
+    function atualizarTela(produto) {
       document.getElementById(qtd-${produto}).innerText = qtds[produto].toFixed(1);
-      
       const total = (qtds[produto] * precos[produto]).toFixed(2);
       document.getElementById(total-${produto}).innerText = total.replace('.', ',');
     }
@@ -95,4 +112,6 @@
 
 </body>
 </html>
+
+
 
