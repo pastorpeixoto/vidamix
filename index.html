@@ -5,41 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vida Mix - Cardápio e Pedidos</title>
   <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f4f7f6; color: #333; }
-    h1 { text-align: center; color: #2e7d32; margin-bottom: 20px; }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f7f6; color: #333; }
+    h1 { text-align: center; color: #2e7d32; }
     .container { max-width: 900px; margin: 0 auto; }
-    .card-produto { background: #fff; border-radius: 8px; padding: 15px 20px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; }
-    .info-produto { flex: 1 1 300px; }
-    .info-produto h3 { margin: 0 0 5px 0; color: #1b5e20; }
-    .preco-unitario { font-weight: bold; color: #388e3c; }
+    .card-produto { background: #fff; border-radius: 8px; padding: 15px; margin-bottom: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
+    .info { max-width: 60%; }
+    .info h3 { margin: 0 0 5px 0; color: #1b5e20; }
+    .preco { font-weight: bold; color: #388e3c; }
     .ingredientes { font-size: 0.85em; color: #666; margin-top: 5px; }
     .controles { display: flex; align-items: center; gap: 10px; }
-    .controles label { font-size: 0.9em; font-weight: bold; }
-    .controles input { width: 80px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; text-align: center; font-size: 1em; }
-    .subtotal { font-weight: bold; min-width: 90px; text-align: right; color: #2e7d32; }
-    .painel-total { position: sticky; bottom: 20px; background: #2e7d32; color: #fff; padding: 15px 25px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-top: 20px; }
-    .painel-total span { font-size: 1.2em; font-weight: bold; }
-    .btn-zerar { background-color: #e53935; color: white; border: none; padding: 10px 18px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 0.9em; transition: background 0.2s; }
-    .btn-zerar:hover { background-color: #c62828; }
+    input { width: 70px; padding: 6px; text-align: center; font-size: 1em; }
+    .subtotal { font-weight: bold; min-width: 80px; text-align: right; color: #2e7d32; }
+    .painel-total { position: sticky; bottom: 10px; background: #2e7d32; color: #fff; padding: 15px 20px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+    .btn-zerar { background: #e53935; color: #fff; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
   </style>
 </head>
 <body>
 
   <div class="container">
     <h1>Cardápio Vida Mix</h1>
-    
     <div id="lista-produtos"></div>
-
     <div class="painel-total">
-      <div>
-        <span>Total do Pedido: R$ <span id="valor-total">0,00</span></span>
-      </div>
+      <span>Total do Pedido: R$ <span id="valor-total">0,00</span></span>
       <button class="btn-zerar" onclick="zerarPedido()">Zerar Quantidades</button>
     </div>
   </div>
 
   <script>
-    const produtos = [
+    var produtos = [
       { id: 1, nome: "Cesta: Amor que nutre. (Dia das Mães)", preco: 120.00, unidade: "unidade", ingredientes: "Bolo de chocolate; Pão recheado; Esfihas; Biscoito da vovó; Pão tipo bisnaguinha; suco." },
       { id: 2, nome: "Pão Australiano", preco: 80.00, unidade: "kg", ingredientes: "Cacau; mel; Farinha de arroz." },
       { id: 3, nome: "Pão Low carb", preco: 80.00, unidade: "kg", ingredientes: "Farinha de caju; Psyllium; Farinha de linhaça." },
@@ -71,62 +64,55 @@
       { id: 29, nome: "Bolo mesclado com cobertura de brigadeiro", preco: 80.00, unidade: "kg", ingredientes: "Açúcar demerara; óleo de girassol; leite de inhame; mix de farinhas; cacau em pó 100%; manteiga ghee; ovos." }
     ];
 
-    function renderizarProdutos() {
-      const container = document.getElementById('lista-produtos');
-      if (!container) return;
-      container.innerHTML = '';
-
-      produtos.forEach(p => {
-        const div = document.createElement('div');
-        div.className = 'card-produto';
-        div.innerHTML = `
-          <div class="info-produto">
-            <h3>${p.nome}</h3>
-            <div class="preco-unitario">R$ ${p.preco.toFixed(2).replace('.', ',')} / ${p.unidade}</div>
-            <div class="ingredientes"><strong>Ingredientes:</strong> ${p.ingredientes}</div>
-          </div>
-          <div class="controles">
-            <label for="qtd-${p.id}">${p.unidade === 'kg' ? 'Peso (kg):' : 'Qtd:'}</label>
-            <input type="number" id="qtd-${p.id}" min="0" step="${p.unidade === 'kg' ? '0.1' : '1'}" value="0" oninput="calcularTotal()">
-          </div>
-          <div class="subtotal">R$ <span id="subtotal-${p.id}">0,00</span></div>
-        `;
-        container.appendChild(div);
-      });
+    function montarTela() {
+      var html = "";
+      for (var i = 0; i < produtos.length; i++) {
+        var p = produtos[i];
+        html += '<div class="card-produto">';
+        html += '  <div class="info">';
+        html += '    <h3>' + p.nome + '</h3>';
+        html += '    <div class="preco">R$ ' + p.preco.toFixed(2).replace('.', ',') + ' / ' + p.unidade + '</div>';
+        html += '    <div class="ingredientes"><strong>Ingredientes:</strong> ' + p.ingredientes + '</div>';
+        html += '  </div>';
+        html += '  <div class="controles">';
+        html += '    <label>' + (p.unidade === 'kg' ? 'Peso (kg):' : 'Qtd:') + '</label>';
+        html += '    <input type="number" id="qtd-' + p.id + '" min="0" step="' + (p.unidade === 'kg' ? '0.1' : '1') + '" value="0" oninput="calcularTotal()">';
+        html += '  </div>';
+        html += '  <div class="subtotal">R$ <span id="subtotal-' + p.id + '">0,00</span></div>';
+        html += '</div>';
+      }
+      document.getElementById('lista-produtos').innerHTML = html;
     }
 
     function calcularTotal() {
-      let totalGeral = 0;
-
-      produtos.forEach(p => {
-        const input = document.getElementById(qtd-${p.id});
-        const subtotalSpan = document.getElementById(subtotal-${p.id});
+      var total = 0;
+      for (var i = 0; i < produtos.length; i++) {
+        var p = produtos[i];
+        var input = document.getElementById('qtd-' + p.id);
+        var subtotalSpan = document.getElementById('subtotal-' + p.id);
         if (input && subtotalSpan) {
-          const quantidade = parseFloat(input.value) || 0;
-          const subtotal = quantidade * p.preco;
-          subtotalSpan.innerText = subtotal.toFixed(2).replace('.', ',');
-          totalGeral += subtotal;
+          var qtd = parseFloat(input.value) || 0;
+          var sub = qtd * p.preco;
+          subtotalSpan.innerText = sub.toFixed(2).replace('.', ',');
+          total += sub;
         }
-      });
-
-      const totalSpan = document.getElementById('valor-total');
-      if (totalSpan) totalSpan.innerText = totalGeral.toFixed(2).replace('.', ',');
+      }
+      document.getElementById('valor-total').innerText = total.toFixed(2).replace('.', ',');
     }
 
     function zerarPedido() {
-      produtos.forEach(p => {
-        const input = document.getElementById(qtd-${p.id});
+      for (var i = 0; i < produtos.length; i++) {
+        var input = document.getElementById('qtd-' + produtos[i].id);
         if (input) input.value = 0;
-      });
+      }
       calcularTotal();
     }
 
-    // Executa a montagem da tela assim que o documento é carregado
-    window.addEventListener('DOMContentLoaded', renderizarProdutos);
+    montarTela();
   </script>
-
 </body>
 </html>
+
 
 
 
