@@ -7,24 +7,18 @@
   <style>
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f4f7f6; color: #333; }
     h1 { text-align: center; color: #2e7d32; margin-bottom: 20px; }
-    
     .container { max-width: 900px; margin: 0 auto; }
-    
     .card-produto { background: #fff; border-radius: 8px; padding: 15px 20px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; }
     .info-produto { flex: 1 1 300px; }
     .info-produto h3 { margin: 0 0 5px 0; color: #1b5e20; }
     .preco-unitario { font-weight: bold; color: #388e3c; }
     .ingredientes { font-size: 0.85em; color: #666; margin-top: 5px; }
-    
     .controles { display: flex; align-items: center; gap: 10px; }
     .controles label { font-size: 0.9em; font-weight: bold; }
     .controles input { width: 80px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; text-align: center; font-size: 1em; }
-    
     .subtotal { font-weight: bold; min-width: 90px; text-align: right; color: #2e7d32; }
-    
     .painel-total { position: sticky; bottom: 20px; background: #2e7d32; color: #fff; padding: 15px 25px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-top: 20px; }
     .painel-total span { font-size: 1.2em; font-weight: bold; }
-    
     .btn-zerar { background-color: #e53935; color: white; border: none; padding: 10px 18px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 0.9em; transition: background 0.2s; }
     .btn-zerar:hover { background-color: #c62828; }
   </style>
@@ -51,7 +45,7 @@
       { id: 3, nome: "Pão Low carb", preco: 80.00, unidade: "kg", ingredientes: "Farinha de caju; Psyllium; Farinha de linhaça." },
       { id: 4, nome: "Pão de sementes - Integral", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz integral; Fécula de batata; Fécula de mandioca; farinha de grão de bico; farinha de linhaça dourada; farinha de chia; quinoa em flocos; ovos." },
       { id: 5, nome: "Pão Italiano", preco: 75.00, unidade: "kg", ingredientes: "Farinha de grão de bico; Farinha de arroz; Fécula de batata." },
-      { id: 6, nome: "Bolinho frito da \"vovó\"", preco: 80.00, unidade: "kg", ingredientes: "Polvilho doce; farinha de arroz." },
+      { id: 6, nome: "Bolinho frito da vovó", preco: 80.00, unidade: "kg", ingredientes: "Polvilho doce; farinha de arroz." },
       { id: 7, nome: "Pão de Hambúrguer", preco: 80.00, unidade: "kg", ingredientes: "Fécula de batata; farinha de grão de bico." },
       { id: 8, nome: "Pãozinho recheado", preco: 8.00, unidade: "un (mínimo 6)", ingredientes: "Recheado com: Frango, mussarela e presunto, carne." },
       { id: 9, nome: "Esfirra de carne ou frango", preco: 8.00, unidade: "un (mínimo 6)", ingredientes: "Mix de farinhas para pão; farinha de grão de bico; psyllium." },
@@ -79,6 +73,7 @@
 
     function renderizarProdutos() {
       const container = document.getElementById('lista-produtos');
+      if (!container) return;
       container.innerHTML = '';
 
       produtos.forEach(p => {
@@ -106,14 +101,16 @@
       produtos.forEach(p => {
         const input = document.getElementById(qtd-${p.id});
         const subtotalSpan = document.getElementById(subtotal-${p.id});
-        const quantidade = parseFloat(input.value) || 0;
-        
-        const subtotal = quantidade * p.preco;
-        subtotalSpan.innerText = subtotal.toFixed(2).replace('.', ',');
-        totalGeral += subtotal;
+        if (input && subtotalSpan) {
+          const quantidade = parseFloat(input.value) || 0;
+          const subtotal = quantidade * p.preco;
+          subtotalSpan.innerText = subtotal.toFixed(2).replace('.', ',');
+          totalGeral += subtotal;
+        }
       });
 
-      document.getElementById('valor-total').innerText = totalGeral.toFixed(2).replace('.', ',');
+      const totalSpan = document.getElementById('valor-total');
+      if (totalSpan) totalSpan.innerText = totalGeral.toFixed(2).replace('.', ',');
     }
 
     function zerarPedido() {
@@ -124,8 +121,8 @@
       calcularTotal();
     }
 
-    // Inicializa a página
-    renderizarProdutos();
+    // Executa a montagem da tela assim que o documento é carregado
+    window.addEventListener('DOMContentLoaded', renderizarProdutos);
   </script>
 
 </body>
