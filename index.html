@@ -19,7 +19,7 @@
     .price { font-weight: bold; color: #1F5F2B; font-size: 16px; }
     
     .calc-box { margin-top: 10px; background: #f1f8e9; padding: 10px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; }
-    .calc-box input { width: 70px; padding: 8px; border: 1px solid #ccc; border-radius: 5px; text-align: center; font-size: 14px; }
+    .calc-box input { width: 80px; padding: 8px; border: 1px solid #ccc; border-radius: 5px; text-align: center; font-size: 15px; font-weight: bold; }
     
     .btn-wa { background-color: #1F5F2B; color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
     .btn-wa:hover { background-color: #16441e; }
@@ -40,7 +40,7 @@
     <p class="price">R$ 48,00 / kg</p>
     <div class="calc-box">
       <label for="qtd-pao">Peso (kg):</label>
-      <input type="number" id="qtd-pao" value="0.500" step="0.100" min="0.100" onchange="calcular()">
+      <input type="number" id="qtd-pao" value="0.5" step="0.1" min="0" oninput="calcular()" onchange="calcular()">
       <span>Total: <strong>R$ <span id="total-pao">24,00</span></strong></span>
     </div>
   </div>
@@ -53,7 +53,7 @@
     <p class="price">R$ 65,00 / kg</p>
     <div class="calc-box">
       <label for="qtd-bolo">Peso (kg):</label>
-      <input type="number" id="qtd-bolo" value="0.500" step="0.100" min="0.100" onchange="calcular()">
+      <input type="number" id="qtd-bolo" value="0.5" step="0.1" min="0" oninput="calcular()" onchange="calcular()">
       <span>Total: <strong>R$ <span id="total-bolo">32,50</span></strong></span>
     </div>
   </div>
@@ -76,7 +76,31 @@
     }
 
     function enviarWhatsapp() {
-      const qtdPao = document.getElementById('qtd-pao').value;
+      const qtdPao = parseFloat(document.getElementById('qtd-pao').value) || 0;
       const totalPao = document.getElementById('total-pao').innerText;
       
-      const qtdBolo = document.getElementById('q…
+      const qtdBolo = parseFloat(document.getElementById('qtd-bolo').value) || 0;
+      const totalBolo = document.getElementById('total-bolo').innerText;
+
+      if (qtdPao === 0 && qtdBolo === 0) {
+        alert("Por favor, selecione ao menos um produto informando o peso.");
+        return;
+      }
+
+      let mensagem = "Olá! Gostaria de fazer o seguinte pedido na Vidamix:\n\n";
+      
+      if (qtdPao > 0) {
+        mensagem += - Pão Multigrãos (${qtdPao} kg) - R$ ${totalPao}\n;
+      }
+      if (qtdBolo > 0) {
+        mensagem += - Bolo de Cacau (${qtdBolo} kg) - R$ ${totalBolo}\n;
+      }
+
+      const url = https://wa.me/5544998646285?text=${encodeURIComponent(mensagem)};
+      window.open(url, '_blank');
+    }
+  </script>
+
+</body>
+</html>
+
