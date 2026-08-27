@@ -3,148 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vidamix - Pães e Bolos Sem Glúten e Sem Lactose</title>
+  <title>Vida Mix - Cardápio</title>
   <style>
-    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: #f8f9fa; margin: 0; padding: 15px; color: #333; }
-    
-    .header { text-align: center; padding: 15px; background: #ffffff; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-    .header h1 { color: #1F5F2B; margin: 0; font-size: 26px; }
-    .header p { color: #AEC818; margin: 5px 0 0 0; font-weight: bold; }
-    
-    .card { background: #ffffff; border-radius: 12px; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 5px solid #AEC818; }
-    .card h3 { margin-top: 0; color: #1F5F2B; }
-    .card p { margin: 5px 0; font-size: 14px; color: #666; }
-    .price { font-weight: bold; color: #1F5F2B; font-size: 16px; }
-    
-    .calc-box { margin-top: 15px; background: #f1f8e9; padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-    .controls { display: flex; align-items: center; gap: 8px; }
-    
-    .btn-qty { background: #1F5F2B; color: #ffffff; border: none; width: 40px; height: 40px; border-radius: 8px; font-size: 20px; font-weight: bold; cursor: pointer; }
-    .btn-zero { background: #dc3545; color: #ffffff; border: none; padding: 0 12px; height: 40px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer; }
-    .qty-val { font-size: 16px; font-weight: bold; min-width: 60px; text-align: center; }
-    
-    .btn-wa { background-color: #1F5F2B; color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
+    h1 { color: #2e7d32; text-align: center; }
+    .cardapio-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+    .card-produto { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    .card-produto h3 { margin-top: 0; color: #333; }
+    .preco { font-weight: bold; color: #2e7d32; font-size: 1.1em; }
+    .ingredientes { font-size: 0.9em; color: #666; margin-top: 10px; }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <h1>Vidamix</h1>
-    <p>Sem Glúten & Sem Lactose</p>
-  </div>
-
-  <!-- Produto 1 -->
-  <div class="card">
-    <h3>Pão Artesanal Multigrãos</h3>
-    <p>Sem glúten, sem lactose, com sementes de girassol, linhaça e chia.</p>
-    <p class="price">R$ 48,00 / kg</p>
-    <div class="calc-box">
-      <div class="controls">
-        <button type="button" class="btn-qty" onclick="diminuirPao()">-</button>
-        <span class="qty-val"><span id="qtd-pao">0.5</span> kg</span>
-        <button type="button" class="btn-qty" onclick="aumentarPao()">+</button>
-        <button type="button" class="btn-zero" onclick="zerarPao()">Zerar</button>
-      </div>
-      <div>Total: <strong>R$ <span id="total-pao">24,00</span></strong></div>
-    </div>
-  </div>
-
-  <!-- Produto 2 -->
-  <div class="card">
-    <h3>Bolo de Cacau 70% com Avelã</h3>
-    <p>Feito com cacau puro, sem leite e adoçado com açúcar de coco.</p>
-    <p class="price">R$ 65,00 / kg</p>
-    <div class="calc-box">
-      <div class="controls">
-        <button type="button" class="btn-qty" onclick="diminuirBolo()">-</button>
-        <span class="qty-val"><span id="qtd-bolo">0.5</span> kg</span>
-        <button type="button" class="btn-qty" onclick="aumentarBolo()">+</button>
-        <button type="button" class="btn-zero" onclick="zerarBolo()">Zerar</button>
-      </div>
-      <div>Total: <strong>R$ <span id="total-bolo">32,50</span></strong></div>
-    </div>
-  </div>
-
-  <button type="button" class="btn-wa" onclick="enviarWhatsapp()">Finalizar Pedido via WhatsApp</button>
+  <h1>Cardápio Vida Mix</h1>
+  <div id="cardapio" class="cardapio-container"></div>
 
   <script>
-    var pesoPao = 0.5;
-    var pesoBolo = 0.5;
-    var precoPao = 48.00;
-    var precoBolo = 65.00;
+    const produtos = [
+      { id: 1, nome: "Cesta: Amor que nutre. (Dia das Mães)", preco: 120.00, unidade: "unidade", ingredientes: "Bolo de chocolate; Pão recheado; Esfihas; Biscoito da vovó; Pão tipo bisnaguinha; suco." },
+      { id: 2, nome: "Pão Australiano", preco: 80.00, unidade: "quilo", ingredientes: "Cacau; mel; Farinha de arroz." },
+      { id: 3, nome: "Pão Low carb", preco: 80.00, unidade: "quilo", ingredientes: "Farinha de caju; Psyllium; Farinha de linhaça." },
+      { id: 4, nome: "Pão de sementes - Integral", preco: 75.00, unidade: "quilo", ingredientes: "Farinha de arroz integral; Fécula de batata; Fécula de mandioca; farinha de grão de bico; farinha de linhaça dourada; farinha de chia; quinoa em flocos; ovos." },
+      { id: 5, nome: "Pão Italiano", preco: 75.00, unidade: "quilo", ingredientes: "Farinha de grão de bico; Farinha de arroz; Fécula de batata." },
+      { id: 6, nome: "Bolinho frito da \"vovó\"", preco: 80.00, unidade: "quilo", ingredientes: "Polvilho doce; farinha de arroz." },
+      { id: 7, nome: "Pão de Hambúrguer", preco: 80.00, unidade: "quilo", ingredientes: "Fécula de batata; farinha de grão de bico." },
+      { id: 8, nome: "Pãozinho recheado", preco: 8.00, unidade: "unidade (mínimo 6 un)", ingredientes: "Recheado com: Frango, mussarela e presunto, carne." },
+      { id: 9, nome: "Esfirra de carne ou frango", preco: 8.00, unidade: "unidade (mínimo 6 un)", ingredientes: "Mix de farinhas para pão; farinha de grão de bico; psyllium." },
+      { id: 10, nome: "Bolo de Banana", preco: 75.00, unidade: "quilo", ingredientes: "Bolo de banana caramelizada." },
+      { id: 11, nome: "Bolo de Café", preco: 75.00, unidade: "quilo", ingredientes: "Açúcar demerara; farinha de aveia; cacau em pó 100%; ovos; farinha de linhaça dourada." },
+      { id: 12, nome: "Bolo mesclado simples", preco: 75.00, unidade: "quilo", ingredientes: "Açúcar demerara; óleo de girassol; vinagre de maçã; ovos; leite de coco; mix de farinhas." },
+      { id: 13, nome: "Pão de lanche", preco: 75.00, unidade: "quilo", ingredientes: "Mix de farinhas; açúcar demerara; óleo de girassol; ovos." },
+      { id: 14, nome: "Pão Multigrãos", preco: 75.00, unidade: "quilo", ingredientes: "Farinha de arroz; Fécula de mandioca; amido de milho; psyllium; ovos; vinagre de maçã." },
+      { id: 15, nome: "Pão tipo Bisnaguinha", preco: 75.00, unidade: "quilo", ingredientes: "Farinha de arroz; óleo de girassol; Fécula de mandioca; farinha de grão de bico; farinha de feijão branco; ovos." },
+      { id: 16, nome: "Pão de batata doce", preco: 75.00, unidade: "quilo", ingredientes: "Farinha de arroz; farinha de grão de bico; batata doce; farinha de feijão branco; Fécula de batata; óleo de girassol; ovos." },
+      { id: 17, nome: "Bolo de laranja", preco: 75.00, unidade: "quilo", ingredientes: "Bolo de laranja com cobertura." },
+      { id: 18, name: "Pão de sementes", preco: 75.00, unidade: "quilo", ingredientes: "Farinha de arroz; Fécula de mandioca; Fécula de batata; farinha de linhaça dourada; ovos; quinoa em flocos." },
+      { id: 19, nome: "Pão de milho", preco: 75.00, unidade: "quilo", ingredientes: "Farinha de arroz; amido de milho; fubá; açúcar demerara; vinagre de maçã; ovos; polvilho doce." },
+      { id: 20, nome: "Pão de batata doce e pão de hambúrguer", preco: 75.00, unidade: "quilo", ingredientes: "Farinha de arroz; polvilho azedo; Fécula de mandioca; amido de milho; vinagre de maçã; ovos; açúcar demerara." },
+      { id: 21, nome: "Pão de Forma branco", preco: 75.00, unidade: "quilo", ingredientes: "Farinha de arroz; Fécula de mandioca; Fécula de batata; amido de milho; fubá; açúcar demerara; ovos; óleo de girassol." },
+      { id: 22, nome: "Pão Recheado", preco: 130.00, unidade: "quilo", ingredientes: "Mix para pão; óleo de girassol; açúcar demerara." },
+      { id: 23, nome: "Bolo de amendoim", preco: 130.00, unidade: "quilo", ingredientes: "Açúcar demerara; farinha de arroz; óleo de girassol; amido de milho; cacau; ovos." },
+      { id: 24, nome: "Bolo de chocolate", preco: 85.00, unidade: "quilo", ingredientes: "Mix de bolo; açúcar demerara; cacau em pó 100%; óleo de girassol; sal do Himalaia." },
+      { id: 25, nome: "Empadão de Frango", preco: 110.00, unidade: "quilo", ingredientes: "Farinha de arroz; banha ou óleo de girassol." },
+      { id: 26, nome: "Bolo Tipo Charge", preco: 80.00, unidade: "quilo", ingredientes: "Bolo com cobertura de chocolate e amendoim." },
+      { id: 27, nome: "Bolo de Cenoura", preco: 80.00, unidade: "quilo", ingredientes: "Mix de farinhas; açúcar demerara; óleo de girassol." },
+      { id: 28, nome: "Bolo de Limão", preco: 80.00, unidade: "quilo", ingredientes: "Mix de farinhas; açúcar demerara; óleo de girassol." },
+      { id: 29, nome: "Bolo mesclado com cobertura de brigadeiro", preco: 80.00, unidade: "quilo", ingredientes: "Açúcar demerara; óleo de girassol; leite de inhame; mix de farinhas; cacau em pó 100%; manteiga ghee; ovos." }
+    ];
 
-    function atualizarPao() {
-      if (pesoPao < 0) pesoPao = 0;
-      pesoPao = Math.round(pesoPao * 10) / 10;
-      document.getElementById('qtd-pao').innerText = pesoPao.toFixed(1);
-      var total = (pesoPao * precoPao).toFixed(2);
-      document.getElementById('total-pao').innerText = total.replace('.', ',');
-    }
+    const container = document.getElementById('cardapio');
 
-    function aumentarPao() {
-      pesoPao += 0.1;
-      atualizarPao();
-    }
-
-    function diminuirPao() {
-      if (pesoPao > 0) {
-        pesoPao -= 0.1;
-        atualizarPao();
-      }
-    }
-
-    function zerarPao() {
-      pesoPao = 0;
-      atualizarPao();
-    }
-
-    function atualizarBolo() {
-      if (pesoBolo < 0) pesoBolo = 0;
-      pesoBolo = Math.round(pesoBolo * 10) / 10;
-      document.getElementById('qtd-bolo').innerText = pesoBolo.toFixed(1);
-      var total = (pesoBolo * precoBolo).toFixed(2);
-      document.getElementById('total-bolo').innerText = total.replace('.', ',');
-    }
-
-    function aumentarBolo() {
-      pesoBolo += 0.1;
-      atualizarBolo();
-    }
-
-    function diminuirBolo() {
-      if (pesoBolo > 0) {
-        pesoBolo -= 0.1;
-        atualizarBolo();
-      }
-    }
-
-    function zerarBolo() {
-      pesoBolo = 0;
-      atualizarBolo();
-    }
-
-    function enviarWhatsapp() {
-      if (pesoPao === 0 && pesoBolo === 0) {
-        alert("Por favor, selecione ao menos um produto.");
-        return;
-      }
-
-      var mensagem = "Olá! Gostaria de fazer o seguinte pedido na Vidamix:\n\n";
-
-      if (pesoPao > 0) {
-        var totalPao = (pesoPao * precoPao).toFixed(2).replace('.', ',');
-        mensagem += "- Pão Multigrãos (" + pesoPao.toFixed(1) + " kg) - R$ " + totalPao + "\n";
-      }
-
-      if (pesoBolo > 0) {
-        var totalBolo = (pesoBolo * precoBolo).toFixed(2).replace('.', ',');
-        mensagem += "- Bolo de Cacau (" + pesoBolo.toFixed(1) + " kg) - R$ " + totalBolo + "\n";
-      }
-
-      var url = "https://wa.me/5544998646285?text=" + encodeURIComponent(mensagem);
-      window.open(url, '_blank');
-    }
+    produtos.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'card-produto';
+      card.innerHTML = `
+        <h3>${item.nome}</h3>
+        <p class="preco">R$ ${item.preco.toFixed(2).replace('.', ',')} / ${item.unidade}</p>
+        <p class="ingredientes"><strong>Ingredientes:</strong> ${item.ingredientes}</p>
+      `;
+      container.appendChild(card);
+    });
   </script>
 
 </body>
