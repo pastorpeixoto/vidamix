@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vidamix - Pães e Bolos Sem Glúten e Sem Lactose</title>
   <style>
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     body { background-color: #f8f9fa; margin: 0; padding: 15px; color: #333; }
     
     .header { text-align: center; padding: 15px; background: #ffffff; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
@@ -18,10 +18,10 @@
     .price { font-weight: bold; color: #1F5F2B; font-size: 16px; }
     
     .calc-box { margin-top: 15px; background: #f1f8e9; padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-    .controls { display: flex; align-items: center; gap: 6px; }
+    .controls { display: flex; align-items: center; gap: 8px; }
     
-    .btn-qty { background: #1F5F2B; color: white; border: none; width: 36px; height: 36px; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: pointer; }
-    .btn-zero { background: #dc3545; color: white; border: none; padding: 0 10px; height: 36px; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; }
+    .btn-qty { background: #1F5F2B; color: #ffffff; border: none; width: 40px; height: 40px; border-radius: 8px; font-size: 20px; font-weight: bold; cursor: pointer; }
+    .btn-zero { background: #dc3545; color: #ffffff; border: none; padding: 0 12px; height: 40px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer; }
     .qty-val { font-size: 16px; font-weight: bold; min-width: 60px; text-align: center; }
     
     .btn-wa { background-color: #1F5F2B; color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
@@ -41,10 +41,10 @@
     <p class="price">R$ 48,00 / kg</p>
     <div class="calc-box">
       <div class="controls">
-        <button class="btn-qty" onclick="alterarQtd('pao', -0.1)">-</button>
+        <button type="button" class="btn-qty" onclick="diminuirPao()">-</button>
         <span class="qty-val"><span id="qtd-pao">0.5</span> kg</span>
-        <button class="btn-qty" onclick="alterarQtd('pao', 0.1)">+</button>
-        <button class="btn-zero" onclick="zerar('pao')">Zerar</button>
+        <button type="button" class="btn-qty" onclick="aumentarPao()">+</button>
+        <button type="button" class="btn-zero" onclick="zerarPao()">Zerar</button>
       </div>
       <div>Total: <strong>R$ <span id="total-pao">24,00</span></strong></div>
     </div>
@@ -57,61 +57,99 @@
     <p class="price">R$ 65,00 / kg</p>
     <div class="calc-box">
       <div class="controls">
-        <button class="btn-qty" onclick="alterarQtd('bolo', -0.1)">-</button>
+        <button type="button" class="btn-qty" onclick="diminuirBolo()">-</button>
         <span class="qty-val"><span id="qtd-bolo">0.5</span> kg</span>
-        <button class="btn-qty" onclick="alterarQtd('bolo', 0.1)">+</button>
-        <button class="btn-zero" onclick="zerar('bolo')">Zerar</button>
+        <button type="button" class="btn-qty" onclick="aumentarBolo()">+</button>
+        <button type="button" class="btn-zero" onclick="zerarBolo()">Zerar</button>
       </div>
       <div>Total: <strong>R$ <span id="total-bolo">32,50</span></strong></div>
     </div>
   </div>
 
-  <button class="btn-wa" onclick="enviarWhatsapp()">Finalizar Pedido via WhatsApp</button>
+  <button type="button" class="btn-wa" onclick="enviarWhatsapp()">Finalizar Pedido via WhatsApp</button>
 
   <script>
-    const precos = { pao: 48.00, bolo: 65.00 };
-    const qtds = { pao: 0.5, bolo: 0.5 };
+    var pesoPao = 0.5;
+    var pesoBolo = 0.5;
+    var precoPao = 48.00;
+    var precoBolo = 65.00;
 
-    function alterarQtd(produto, valor) {
-      qtds[produto] = Math.max(0, Math.round((qtds[produto] + valor) * 10) / 10);
-      atualizarTela(produto);
+    function atualizarPao() {
+      if (pesoPao < 0) pesoPao = 0;
+      pesoPao = Math.round(pesoPao * 10) / 10;
+      document.getElementById('qtd-pao').innerText = pesoPao.toFixed(1);
+      var total = (pesoPao * precoPao).toFixed(2);
+      document.getElementById('total-pao').innerText = total.replace('.', ',');
     }
 
-    function zerar(produto) {
-      qtds[produto] = 0;
-      atualizarTela(produto);
+    function aumentarPao() {
+      pesoPao += 0.1;
+      atualizarPao();
     }
 
-    function atualizarTela(produto) {
-      document.getElementById(qtd-${produto}).innerText = qtds[produto].toFixed(1);
-      const total = (qtds[produto] * precos[produto]).toFixed(2);
-      document.getElementById(total-${produto}).innerText = total.replace('.', ',');
+    function diminuirPao() {
+      if (pesoPao > 0) {
+        pesoPao -= 0.1;
+        atualizarPao();
+      }
+    }
+
+    function zerarPao() {
+      pesoPao = 0;
+      atualizarPao();
+    }
+
+    function atualizarBolo() {
+      if (pesoBolo < 0) pesoBolo = 0;
+      pesoBolo = Math.round(pesoBolo * 10) / 10;
+      document.getElementById('qtd-bolo').innerText = pesoBolo.toFixed(1);
+      var total = (pesoBolo * precoBolo).toFixed(2);
+      document.getElementById('total-bolo').innerText = total.replace('.', ',');
+    }
+
+    function aumentarBolo() {
+      pesoBolo += 0.1;
+      atualizarBolo();
+    }
+
+    function diminuirBolo() {
+      if (pesoBolo > 0) {
+        pesoBolo -= 0.1;
+        atualizarBolo();
+      }
+    }
+
+    function zerarBolo() {
+      pesoBolo = 0;
+      atualizarBolo();
     }
 
     function enviarWhatsapp() {
-      if (qtds.pao === 0 && qtds.bolo === 0) {
-        alert("Por favor, selecione a quantidade desejada de pelo menos um produto.");
+      if (pesoPao === 0 && pesoBolo === 0) {
+        alert("Por favor, selecione ao menos um produto.");
         return;
       }
 
-      let mensagem = "Olá! Gostaria de fazer o seguinte pedido na Vidamix:\n\n";
-      
-      if (qtds.pao > 0) {
-        const totalPao = (qtds.pao * precos.pao).toFixed(2).replace('.', ',');
-        mensagem += - Pão Multigrãos (${qtds.pao.toFixed(1)} kg) - R$ ${totalPao}\n;
-      }
-      if (qtds.bolo > 0) {
-        const totalBolo = (qtds.bolo * precos.bolo).toFixed(2).replace('.', ',');
-        mensagem += - Bolo de Cacau (${qtds.bolo.toFixed(1)} kg) - R$ ${totalBolo}\n;
+      var mensagem = "Olá! Gostaria de fazer o seguinte pedido na Vidamix:\n\n";
+
+      if (pesoPao > 0) {
+        var totalPao = (pesoPao * precoPao).toFixed(2).replace('.', ',');
+        mensagem += "- Pão Multigrãos (" + pesoPao.toFixed(1) + " kg) - R$ " + totalPao + "\n";
       }
 
-      const url = https://wa.me/5544998646285?text=${encodeURIComponent(mensagem)};
+      if (pesoBolo > 0) {
+        var totalBolo = (pesoBolo * precoBolo).toFixed(2).replace('.', ',');
+        mensagem += "- Bolo de Cacau (" + pesoBolo.toFixed(1) + " kg) - R$ " + totalBolo + "\n";
+      }
+
+      var url = "https://wa.me/5544998646285?text=" + encodeURIComponent(mensagem);
       window.open(url, '_blank');
     }
   </script>
 
 </body>
 </html>
+
 
 
 
