@@ -3,17 +3,17 @@
   "name": "Vidamix",
   "icons": [
     {
-      "src": "folha.jpg",
+      "src": "logo.png?v=2",
       "sizes": "192x192",
-      "type": "image/jpeg"
+      "type": "image/png"
     },
     {
-      "src": "folha.jpg",
+      "src": "logo.png?v=2",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/png"
     }
   ],
-  "start_url": ".",
+  "start_url": "./index.html?v=2",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "display": "standalone"
