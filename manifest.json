@@ -1,0 +1,20 @@
+{
+  "short_name": "Vida Mix",
+  "name": "Vida Mix",
+  "icons": [
+    {
+      "src": "WhatsApp imagem 2026 08 28 até 09.55.01.JPG",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "WhatsApp imagem 2026 08 28 até 09.55.01.JPG",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ],
+  "start_url": ".",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "display": "standalone"
+}
