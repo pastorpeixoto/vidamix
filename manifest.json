@@ -3,12 +3,12 @@
   "name": "Vidamix",
   "icons": [
     {
-      "src": "imagem.png",
+      "src": "logo.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "imagem.png",
+      "src": "logo.png",
       "sizes": "512x512",
       "type": "image/png"
     }
