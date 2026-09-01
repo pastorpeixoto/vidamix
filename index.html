@@ -8,12 +8,17 @@
     body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 20px; max-width: 600px; margin: 0 auto; padding-bottom: 220px; }
     h1 { text-align: center; color: #333; margin-bottom: 5px; }
     .subtitulo { text-align: center; color: #666; font-size: 14px; margin-bottom: 20px; }
+    
     .produto-item { background: #fff; padding: 14px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-    .produto-topo { display: flex; justify-content: space-between; align-items: center; }
+    .produto-topo { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    .produto-info { flex: 1; min-width: 0; }
+    .produto-controles { display: flex; align-items: center; white-space: nowrap; flex-shrink: 0; }
+    
     .produto-detalhes { font-size: 13px; color: #666; margin-top: 6px; font-style: italic; }
     .preco { color: #2e7d32; font-weight: bold; font-size: 14px; }
     
     .btn-qtd { width: 32px; height: 32px; font-weight: bold; cursor: pointer; border: 1px solid #ccc; background: #eee; border-radius: 4px; font-size: 16px; }
+    .qtd-display { min-width: 50px; text-align: center; font-weight: bold; font-size: 13px; display: inline-block; }
     
     .painel-fixo { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; box-shadow: 0 -2px 10px rgba(0,0,0,0.15); padding: 15px; max-width: 600px; margin: 0 auto; border-top-left-radius: 12px; border-top-right-radius: 12px; box-sizing: border-box; }
     
@@ -22,7 +27,6 @@
     .taxa-input { width: 60px; padding: 4px; border: 1px solid #ccc; border-radius: 4px; text-align: right; }
     
     .valor-total { font-weight: bold; color: #2e7d32; font-size: 18px; }
-    .select-pagamento { padding: 4px; border-radius: 4px; border: 1px solid #ccc; }
     
     .btn-acao { background: #ff5252; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 11px; }
     .btn-enviar { width: 100%; padding: 12px; background: #25d366; color: white; border: none; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 8px; }
@@ -48,12 +52,8 @@
     </div>
 
     <div class="resumo-linha">
-      <span>Pagamento:</span>
-      <select id="forma-pagamento" class="select-pagamento">
-        <option value="Pix">Pix</option>
-        <option value="Cartão na Entrega">Cartão na Entrega</option>
-        <option value="Dinheiro">Dinheiro</option>
-      </select>
+      <span>Forma de Pagamento:</span>
+      <strong style="color: #2e7d32;">Pix (Exclusivo)</strong>
     </div>
 
     <div class="resumo-linha">
@@ -70,10 +70,10 @@
   </div>
 
   <script>
-  // LINHA 60: Sua Chave Pix
+  // Sua Chave Pix
   var minhaChavePix = "belabelpeixoto@gmail.com"; 
 
-  // LINHA 63: Seu WhatsApp (5544998546285)
+  // Seu WhatsApp (coloque seu número completo com DDD)
   var numeroWhatsapp = "5544998546285"; 
 
   var produtos = [
@@ -108,21 +108,38 @@
       { id: 29, nome: "Bolo mesclado com cobertura de brigadeiro", preco: 80.00, unidade: "kg", ingredientes: "Açúcar demerara; óleo de girassol; leite de inhame; milho"} 
   ];
 
+  // Guarda as quantidades selecionadas (id -> quantidade decimal)
+  var quantidades = {};
+
+  function formatarQtdTexto(qtd, unidade) {
+    if (qtd === 0) return "0";
+    if (unidade === "kg") {
+      if (qtd < 1) {
+        return (qtd * 1000) + "g";
+      } else {
+        return qtd.toFixed(2).replace('.', ',').replace(',00', '') + "kg";
+      }
+    }
+    return qtd.toString();
+  }
+
   function montarTela() {
     var container = document.getElementById("produtos");
     if (!container) return;
     
     var html = "";
     produtos.forEach(function(p) {
+      quantidades[p.id] = 0;
+      
       html += '<div class="produto-item">';
       html += '  <div class="produto-topo">';
-      html += '    <div>';
+      html += '    <div class="produto-info">';
       html += '      <strong>' + p.nome + '</strong><br>';
       html += '      <span class="preco">R$ ' + p.preco.toFixed(2).replace('.', ',') + ' / ' + p.unidade + '</span>';
       html += '    </div>';
-      html += '    <div>';
+      html += '    <div class="produto-controles">';
       html += '      <button class="btn-qtd" onclick="alterarQtd(' + p.id + ', -1)">-</button>';
-      html += '      <span id="qtd-' + p.id + '" style="margin:0 10px; font-weight:bold;">0</span>';
+      html += '      <span id="qtd-' + p.id + '" class="qtd-display">0</span>';
       html += '      <button class="btn-qtd" onclick="alterarQtd(' + p.id + ', 1)">+</button>';
       html += '    </div>';
       html += '  </div>';
@@ -138,12 +155,22 @@
     if (elemPix) elemPix.textContent = minhaChavePix;
   }
 
-  function alterarQtd(id, delta) {
+  function alterarQtd(id, direcao) {
+    var prod = produtos.find(function(item) { return item.id === id; });
+    if (!prod) return;
+
+    var passo = (prod.unidade === "kg") ? 0.25 : 1.0;
+    var qtdAtual = quantidades[id] || 0;
+    var novaQtd = qtdAtual + (direcao * passo);
+
+    if (novaQtd < 0) novaQtd = 0;
+    quantidades[id] = Math.round(novaQtd * 100) / 100;
+
     var el = document.getElementById("qtd-" + id);
-    if (!el) return;
-    var qtd = parseInt(el.textContent) + delta;
-    if (qtd < 0) qtd = 0;
-    el.textContent = qtd;
+    if (el) {
+      el.textContent = formatarQtdTexto(quantidades[id], prod.unidade);
+    }
+    
     atualizarTotal();
   }
 
@@ -155,11 +182,8 @@
   function atualizarTotal() {
     var totalProdutos = 0;
     produtos.forEach(function(p) {
-      var el = document.getElementById("qtd-" + p.id);
-      if (el) {
-        var qtd = parseInt(el.textContent);
-        totalProdutos += qtd * p.preco;
-      }
+      var qtd = quantidades[p.id] || 0;
+      totalProdutos += qtd * p.preco;
     });
 
     var campoTaxa = parseFloat(document.getElementById("taxa-entrega").value);
@@ -171,6 +195,7 @@
 
   function zerarQuantidades() {
     produtos.forEach(function(p) {
+      quantidades[p.id] = 0;
       var el = document.getElementById("qtd-" + p.id);
       if (el) el.textContent = "0";
     });
@@ -180,7 +205,7 @@
 
   function copiarPix() {
     navigator.clipboard.writeText(minhaChavePix).then(function() {
-      alert("Chave Pix copiada com sucesso!");
+      alert("Chave Pix copiada com sucesso:\n" + minhaChavePix);
     }).catch(function() {
       alert("Chave Pix: " + minhaChavePix);
     });
@@ -192,15 +217,13 @@
     var totalProdutos = 0;
     
     produtos.forEach(function(p) {
-      var el = document.getElementById("qtd-" + p.id);
-      if (el) {
-        var qtd = parseInt(el.textContent);
-        if (qtd > 0) {
-          var subtotal = qtd * p.preco;
-          totalProdutos += subtotal;
-          texto += "• " + p.nome + " (" + qtd + "x) - R$ " + subtotal.toFixed(2).replace('.', ',') + "\n";
-          temItem = true;
-        }
+      var qtd = quantidades[p.id] || 0;
+      if (qtd > 0) {
+        var subtotal = qtd * p.preco;
+        totalProdutos += subtotal;
+        var qtdFormatada = formatarQtdTexto(qtd, p.unidade);
+        texto += "• " + p.nome + " (" + qtdFormatada + ") - R$ " + subtotal.toFixed(2).replace('.', ',') + "\n";
+        temItem = true;
       }
     });
 
@@ -212,7 +235,6 @@
     var campoTaxa = parseFloat(document.getElementById("taxa-entrega").value);
     var taxa = isNaN(campoTaxa) || campoTaxa < 0 ? 0 : campoTaxa;
     var totalGeral = totalProdutos + taxa;
-    var formaPagamento = document.getElementById("forma-pagamento").value;
 
     if (taxa > 0) {
       texto += "• Taxa de entrega: R$ " + taxa.toFixed(2).replace('.', ',') + "\n";
@@ -221,11 +243,8 @@
     }
 
     texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
-    texto += "\n*Forma de Pagamento:* " + formaPagamento + "\n";
-
-    if (formaPagamento === "Pix") {
-      texto += "\n💳 Chave Pix para Pagamento:\n`" + minhaChavePix + "`\n_(Toque na chave acima para copiar e pagar no app do seu banco)_";
-    }
+    texto += "\n*Forma de Pagamento:* Pix\n";
+    texto += "\n💳 Chave Pix (E-mail):\n" + minhaChavePix + "\n\n_(Copie o e-mail acima para fazer o pagamento no aplicativo do seu banco)_";
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
@@ -238,6 +257,7 @@
 
 </body>
 </html>
+
 
 
 
