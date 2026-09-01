@@ -15,7 +15,6 @@
     
     .btn-qtd { width: 32px; height: 32px; font-weight: bold; cursor: pointer; border: 1px solid #ccc; background: #eee; border-radius: 4px; font-size: 16px; }
     
-    /* Painel Fixo de Resumo e Ações */
     .painel-fixo { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; box-shadow: 0 -2px 10px rgba(0,0,0,0.15); padding: 15px; max-width: 600px; margin: 0 auto; border-top-left-radius: 12px; border-top-right-radius: 12px; box-sizing: border-box; }
     
     .resumo-linha { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 15px; }
@@ -37,9 +36,7 @@
   
   <div id="produtos"></div>
 
-  <!-- Painel Fixo Inferior -->
   <div class="painel-fixo">
-    <!-- Campo de Taxa de Entrega -->
     <div class="resumo-linha">
       <span>Taxa de Entrega (R$):</span>
       <div class="taxa-controle">
@@ -48,7 +45,6 @@
       </div>
     </div>
 
-    <!-- Valor Total e Zerar Carrinho -->
     <div class="resumo-linha">
       <div>Total: <span id="valor-total" class="valor-total">R$ 0,00</span></div>
       <button class="btn-acao" onclick="zerarQuantidades()">Zerar Produtos</button>
@@ -57,12 +53,19 @@
     <button class="btn-enviar" onclick="enviarPedido()">Enviar Pedido pelo WhatsApp</button>
     
     <div class="caixa-pix">
-      🔑 <strong>Chave Pix:</strong> <code>seu-pix-belabelpeixoto@gmail.com</code><br>
+      🔑 <strong>Chave Pix:</strong> <code id="chave-pix-exibicao">seu-pix-aqui@vidamix.com</code><br>
       <small>Informe o pagamento no WhatsApp ao enviar o pedido.</small>
     </div>
   </div>
 
   <script>
+  // LINHA 60: Sua chave Pix
+  var minhaChavePix = "belabelpeixoto@gmail.com"; 
+  
+  // Atualiza a chave Pix visualmente na tela
+  document.getElementById("chave-pix-exibicao").textContent = minhaChavePix;
+
+  // LINHA 66: Seu numero do WhatsApp
   var numeroWhatsapp = "5544998546285"; 
 
   var produtos = [
@@ -148,7 +151,6 @@
       }
     });
 
-    // Se houver ao menos um produto selecionado, aplica a taxa
     var campoTaxa = parseFloat(document.getElementById("taxa-entrega").value);
     var taxa = isNaN(campoTaxa) || campoTaxa < 0 ? 0 : campoTaxa;
 
@@ -199,6 +201,7 @@
     }
 
     texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
+    texto += "\n\n💳 Dados para Pagamento via Pix:\nChave Pix: " + minhaChavePix + "";
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
@@ -211,7 +214,6 @@
 
 </body>
 </html>
-    
 
 
 
