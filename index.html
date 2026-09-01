@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vida Mix - Cardápio Digital</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 20px; max-width: 600px; margin: 0 auto; padding-bottom: 180px; }
+    body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 20px; max-width: 600px; margin: 0 auto; padding-bottom: 200px; }
     h1 { text-align: center; color: #333; margin-bottom: 5px; }
     .subtitulo { text-align: center; color: #666; font-size: 14px; margin-bottom: 20px; }
     .produto-item { background: #fff; padding: 14px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
@@ -26,7 +26,8 @@
     .btn-acao { background: #ff5252; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 11px; }
     .btn-enviar { width: 100%; padding: 12px; background: #25d366; color: white; border: none; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 8px; }
     
-    .caixa-pix { background: #e8f5e9; border: 1px dashed #2e7d32; padding: 8px; border-radius: 8px; text-align: center; margin-top: 8px; font-size: 12px; color: #1b5e20; }
+    .caixa-pix { background: #e8f5e9; border: 1px dashed #2e7d32; padding: 10px; border-radius: 8px; text-align: center; margin-top: 8px; font-size: 13px; color: #1b5e20; }
+    .btn-copiar-pix { margin-top: 5px; background: #2e7d32; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -54,18 +55,15 @@
     
     <div class="caixa-pix">
       🔑 <strong>Chave Pix:</strong> <code id="chave-pix-exibicao">seu-pix-aqui@vidamix.com</code><br>
-      <small>Informe o pagamento no WhatsApp ao enviar o pedido.</small>
+      <button class="btn-copiar-pix" onclick="copiarPix()">📋 Copiar Chave Pix</button>
     </div>
   </div>
 
   <script>
-  // LINHA 60: Sua chave Pix
+  // LINHA 60: Coloque sua chave Pix entre as aspas
   var minhaChavePix = "belabelpeixoto@gmail.com"; 
-  
-  // Atualiza a chave Pix visualmente na tela
-  document.getElementById("chave-pix-exibicao").textContent = minhaChavePix;
 
-  // LINHA 66: Seu numero do WhatsApp
+  // LINHA 63: Coloque seu numero do WhatsApp entre as aspas (Ex: 5544998546285)
   var numeroWhatsapp = "5544998546285"; 
 
   var produtos = [
@@ -125,6 +123,10 @@
     });
     
     container.innerHTML = html;
+    
+    // Mostra a chave Pix configurada na tela
+    var elemPix = document.getElementById("chave-pix-exibicao");
+    if (elemPix) elemPix.textContent = minhaChavePix;
   }
 
   function alterarQtd(id, delta) {
@@ -167,6 +169,14 @@
     atualizarTotal();
   }
 
+  function copiarPix() {
+    navigator.clipboard.writeText(minhaChavePix).then(function() {
+      alert("Chave Pix copiada com sucesso!");
+    }).catch(function() {
+      alert("Chave Pix: " + minhaChavePix);
+    });
+  }
+
   function enviarPedido() {
     var texto = "Pedido Vida Mix:\n\n";
     var temItem = false;
@@ -201,7 +211,7 @@
     }
 
     texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
-    texto += "\n\n💳 Dados para Pagamento via Pix:\nChave Pix: " + minhaChavePix + "";
+    texto += "\n\n💳 Chave Pix para Pagamento:\n`" + minhaChavePix + "`\n_(Toque na chave acima para copiar e pagar no banco)_";
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
@@ -214,7 +224,6 @@
 
 </body>
 </html>
-
 
 
 
