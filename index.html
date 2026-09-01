@@ -99,22 +99,31 @@
       { id: 29, nome: "Bolo mesclado com cobertura de brigadeiro", preco: 80.00, unidade: "kg", ingredientes: "Açúcar demerara; óleo de girassol; leite de inhame; mix de farinhas; cacau em pó 100%; manteiga ghee; ovos." }
     
 
-    function montarTela() {
-      var html = "";
-      for (var i = 0; i < produtos.length; i++) {
-        var p = produtos[i];
-        html += '<div class="card-produto">';
-        html += '  <div class="info">';
-        html += '    <h3>' + p.nome + '</h3>';
-        html += '    <div class="preco">R$ ' + p.preco.toFixed(2).replace('.', ',') + ' / ' + p.unidade + '</div>';
-        html += '    <div class="ingredientes"><strong>Ingredientes:</strong> ' + p.ingredientes + '</div>';
-        html += '  </div>';
-        html += '  <div class="controles">';
-        html += '    <label>' + (p.unidade === 'kg' ? 'Peso (kg):' : 'Qtd:') + '</label>';
-        html += '    <input type="number" id="qtd-' + p.id + '" min="0" step="' + (p.unidade === 'kg' ? '0.1' : '1') + '" value="0" oninput="calcularTotal()">';
-        html += '  </div>';
-        html += '  <div class="subtotal">R$ <span id="subtotal-' + p.id + '">0,00</span></div>';
-        html += '</div>';
+function montarTela() {
+  var container = document.getElementById("produtos");
+  if (!container) return;
+  
+  var html = "";
+  produtos.forEach(function(p) {
+    html += '<div class="produto-item" style="background:#fff; padding:12px; margin-bottom:10px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 1px 3px rgba(0,0,0,0.1);">';
+    html += '  <div><strong>' + p.nome + '</strong></div>';
+    html += '  <div>';
+    html += '    <button onclick="alterarQtd(' + p.id + ', -1)" style="padding:4px 10px; font-weight:bold;">-</button>';
+    html += '    <span id="qtd-' + p.id + '" style="margin:0 8px; font-weight:bold;">0</span>';
+    html += '    <button onclick="alterarQtd(' + p.id + ', 1)" style="padding:4px 10px; font-weight:bold;">+</button>';
+    html += '  </div>';
+    html += '</div>';
+  });
+  
+  container.innerHTML = html;
+}
+
+window.onload = function() {
+  montarTela();
+};
+</script>
+</body>
+</html>
       }
       document.getElementById('lista-produtos').innerHTML = html;
     }
