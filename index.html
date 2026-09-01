@@ -7,7 +7,10 @@
   <style>
     body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 20px; max-width: 600px; margin: 0 auto; }
     h1 { text-align: center; color: #333; }
-    .produto-item { background: #fff; padding: 12px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .produto-item { background: #fff; padding: 14px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .produto-topo { display: flex; justify-content: space-between; align-items: center; }
+    .produto-detalhes { font-size: 13px; color: #666; margin-top: 6px; font-style: italic; }
+    .preco { color: #2e7d32; font-weight: bold; font-size: 14px; }
     button { padding: 6px 12px; font-weight: bold; cursor: pointer; border: 1px solid #ccc; background: #eee; border-radius: 4px; }
     .btn-enviar { width: 100%; padding: 14px; background: #25d366; color: white; border: none; font-size: 16px; font-weight: bold; border-radius: 8px; margin-top: 20px; cursor: pointer; }
   </style>
@@ -20,10 +23,9 @@
   <button class="btn-enviar" onclick="enviarPedido()">Enviar Pedido pelo WhatsApp</button>
 
   <script>
-  // 1. SEU NÚMERO DE WHATSAPP (Ajuste os dígitos se necessário)
-  var numeroWhatsapp = "55449985462985"; 
+  var numeroWhatsapp = "5544998546285"; 
 
-  // 2. SUA LISTA DE PRODUTOS var produtos = [
+  var produtos = [
       { id: 1, nome: "Cesta: Amor que nutre. (Dia das Mães)", preco: 120.00, unidade: "unidade", ingredientes: "Bolo de chocolate; Pão recheado; Esfihas; Biscoito da vovó; Pão tipo bisnaguinha; suco"},
       { id: 2, nome: "Pão Australiano", preco: 80.00, unidade: "kg", ingredientes: "Cacau; mel; Farinha de arroz"},
       { id: 3, nome: "Pão Low carb", preco: 80.00, unidade: "kg", ingredientes: "Farinha de caju; Psyllium; Farinha de linhaça"},
@@ -55,20 +57,27 @@
       { id: 29, nome: "Bolo mesclado com cobertura de brigadeiro", preco: 80.00, unidade: "kg", ingredientes: "Açúcar demerara; óleo de girassol; leite de inhame; milho"} 
   ];
 
-  // 3. FUNÇÕES DO CARDÁPIO E ENVIO DE PEDIDO
   function montarTela() {
     var container = document.getElementById("produtos");
-    if (!container || typeof produtos === "undefined") return;
+    if (!container) return;
     
     var html = "";
     produtos.forEach(function(p) {
       html += '<div class="produto-item">';
-      html += '  <div><strong>' + p.nome + '</strong></div>';
-      html += '  <div>';
-      html += '    <button onclick="alterarQtd(' + p.id + ', -1)">-</button>';
-      html += '    <span id="qtd-' + p.id + '" style="margin:0 10px; font-weight:bold;">0</span>';
-      html += '    <button onclick="alterarQtd(' + p.id + ', 1)">+</button>';
+      html += '  <div class="produto-topo">';
+      html += '    <div>';
+      html += '      <strong>' + p.nome + '</strong><br>';
+      html += '      <span class="preco">R$ ' + p.preco.toFixed(2) + ' / ' + p.unidade + '</span>';
+      html += '    </div>';
+      html += '    <div>';
+      html += '      <button onclick="alterarQtd(' + p.id + ', -1)">-</button>';
+      html += '      <span id="qtd-' + p.id + '" style="margin:0 10px; font-weight:bold;">0</span>';
+      html += '      <button onclick="alterarQtd(' + p.id + ', 1)">+</button>';
+      html += '    </div>';
       html += '  </div>';
+      if (p.ingredientes) {
+        html += '  <div class="produto-detalhes">Ingredientes: ' + p.ingredientes + '</div>';
+      }
       html += '</div>';
     });
     
