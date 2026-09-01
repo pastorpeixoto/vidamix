@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vida Mix - Cardápio Digital</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 20px; max-width: 600px; margin: 0 auto; padding-bottom: 120px; }
+    body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 20px; max-width: 600px; margin: 0 auto; padding-bottom: 180px; }
     h1 { text-align: center; color: #333; margin-bottom: 5px; }
     .subtitulo { text-align: center; color: #666; font-size: 14px; margin-bottom: 20px; }
     .produto-item { background: #fff; padding: 14px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
@@ -17,13 +17,17 @@
     
     /* Painel Fixo de Resumo e Ações */
     .painel-fixo { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; box-shadow: 0 -2px 10px rgba(0,0,0,0.15); padding: 15px; max-width: 600px; margin: 0 auto; border-top-left-radius: 12px; border-top-right-radius: 12px; box-sizing: border-box; }
-    .resumo-linha { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 16px; }
+    
+    .resumo-linha { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 15px; }
+    .taxa-controle { display: flex; align-items: center; gap: 8px; }
+    .taxa-input { width: 60px; padding: 4px; border: 1px solid #ccc; border-radius: 4px; text-align: right; }
+    
     .valor-total { font-weight: bold; color: #2e7d32; font-size: 18px; }
     
-    .btn-zerar { background: #ff5252; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px; }
-    .btn-enviar { width: 100%; padding: 14px; background: #25d366; color: white; border: none; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; }
+    .btn-acao { background: #ff5252; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 11px; }
+    .btn-enviar { width: 100%; padding: 12px; background: #25d366; color: white; border: none; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 8px; }
     
-    .caixa-pix { background: #e8f5e9; border: 1px dashed #2e7d32; padding: 10px; border-radius: 8px; text-align: center; margin-top: 10px; font-size: 13px; color: #1b5e20; }
+    .caixa-pix { background: #e8f5e9; border: 1px dashed #2e7d32; padding: 8px; border-radius: 8px; text-align: center; margin-top: 8px; font-size: 12px; color: #1b5e20; }
   </style>
 </head>
 <body>
@@ -35,9 +39,19 @@
 
   <!-- Painel Fixo Inferior -->
   <div class="painel-fixo">
+    <!-- Campo de Taxa de Entrega -->
+    <div class="resumo-linha">
+      <span>Taxa de Entrega (R$):</span>
+      <div class="taxa-controle">
+        <input type="number" id="taxa-entrega" class="taxa-input" value="12.00" step="0.50" min="0" oninput="atualizarTotal()">
+        <button class="btn-acao" onclick="apagarTaxa()">Sem Taxa (Retirada)</button>
+      </div>
+    </div>
+
+    <!-- Valor Total e Zerar Carrinho -->
     <div class="resumo-linha">
       <div>Total: <span id="valor-total" class="valor-total">R$ 0,00</span></div>
-      <button class="btn-zerar" onclick="zerarQuantidades()">Zerar Quantidades</button>
+      <button class="btn-acao" onclick="zerarQuantidades()">Zerar Produtos</button>
     </div>
     
     <button class="btn-enviar" onclick="enviarPedido()">Enviar Pedido pelo WhatsApp</button>
@@ -49,7 +63,6 @@
   </div>
 
   <script>
-  // Altere para o seu numero de WhatsApp real (com DDD)
   var numeroWhatsapp = "5544998546285"; 
 
   var produtos = [
@@ -120,16 +133,27 @@
     atualizarTotal();
   }
 
+  function apagarTaxa() {
+    document.getElementById("taxa-entrega").value = "0.00";
+    atualizarTotal();
+  }
+
   function atualizarTotal() {
-    var total = 0;
+    var totalProdutos = 0;
     produtos.forEach(function(p) {
       var el = document.getElementById("qtd-" + p.id);
       if (el) {
         var qtd = parseInt(el.textContent);
-        total += qtd * p.preco;
+        totalProdutos += qtd * p.preco;
       }
     });
-    document.getElementById("valor-total").textContent = "R$ " + total.toFixed(2).replace('.', ',');
+
+    // Se houver ao menos um produto selecionado, aplica a taxa
+    var campoTaxa = parseFloat(document.getElementById("taxa-entrega").value);
+    var taxa = isNaN(campoTaxa) || campoTaxa < 0 ? 0 : campoTaxa;
+
+    var totalGeral = totalProdutos > 0 ? (totalProdutos + taxa) : 0;
+    document.getElementById("valor-total").textContent = "R$ " + totalGeral.toFixed(2).replace('.', ',');
   }
 
   function zerarQuantidades() {
@@ -137,13 +161,14 @@
       var el = document.getElementById("qtd-" + p.id);
       if (el) el.textContent = "0";
     });
+    document.getElementById("taxa-entrega").value = "12.00";
     atualizarTotal();
   }
 
   function enviarPedido() {
     var texto = "Pedido Vida Mix:\n\n";
     var temItem = false;
-    var total = 0;
+    var totalProdutos = 0;
     
     produtos.forEach(function(p) {
       var el = document.getElementById("qtd-" + p.id);
@@ -151,7 +176,7 @@
         var qtd = parseInt(el.textContent);
         if (qtd > 0) {
           var subtotal = qtd * p.preco;
-          total += subtotal;
+          totalProdutos += subtotal;
           texto += "• " + p.nome + " (" + qtd + "x) - R$ " + subtotal.toFixed(2).replace('.', ',') + "\n";
           temItem = true;
         }
@@ -163,7 +188,17 @@
       return;
     }
 
-    texto += "\n*Total do Pedido:* R$ " + total.toFixed(2).replace('.', ',');
+    var campoTaxa = parseFloat(document.getElementById("taxa-entrega").value);
+    var taxa = isNaN(campoTaxa) || campoTaxa < 0 ? 0 : campoTaxa;
+    var totalGeral = totalProdutos + taxa;
+
+    if (taxa > 0) {
+      texto += "• Taxa de entrega: R$ " + taxa.toFixed(2).replace('.', ',') + "\n";
+    } else {
+      texto += "• Opção: Retirada no local (Sem taxa)\n";
+    }
+
+    texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
