@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vida Mix - Cardápio Digital</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 20px; max-width: 600px; margin: 0 auto; padding-bottom: 200px; }
+    body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 20px; max-width: 600px; margin: 0 auto; padding-bottom: 220px; }
     h1 { text-align: center; color: #333; margin-bottom: 5px; }
     .subtitulo { text-align: center; color: #666; font-size: 14px; margin-bottom: 20px; }
     .produto-item { background: #fff; padding: 14px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
@@ -17,17 +17,18 @@
     
     .painel-fixo { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; box-shadow: 0 -2px 10px rgba(0,0,0,0.15); padding: 15px; max-width: 600px; margin: 0 auto; border-top-left-radius: 12px; border-top-right-radius: 12px; box-sizing: border-box; }
     
-    .resumo-linha { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 15px; }
+    .resumo-linha { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; }
     .taxa-controle { display: flex; align-items: center; gap: 8px; }
     .taxa-input { width: 60px; padding: 4px; border: 1px solid #ccc; border-radius: 4px; text-align: right; }
     
     .valor-total { font-weight: bold; color: #2e7d32; font-size: 18px; }
+    .select-pagamento { padding: 4px; border-radius: 4px; border: 1px solid #ccc; }
     
     .btn-acao { background: #ff5252; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 11px; }
     .btn-enviar { width: 100%; padding: 12px; background: #25d366; color: white; border: none; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 8px; }
     
-    .caixa-pix { background: #e8f5e9; border: 1px dashed #2e7d32; padding: 10px; border-radius: 8px; text-align: center; margin-top: 8px; font-size: 13px; color: #1b5e20; }
-    .btn-copiar-pix { margin-top: 5px; background: #2e7d32; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; }
+    .caixa-pix { background: #e8f5e9; border: 1px dashed #2e7d32; padding: 8px; border-radius: 8px; text-align: center; margin-top: 8px; font-size: 12px; color: #1b5e20; }
+    .btn-copiar-pix { margin-top: 4px; background: #2e7d32; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -47,6 +48,15 @@
     </div>
 
     <div class="resumo-linha">
+      <span>Pagamento:</span>
+      <select id="forma-pagamento" class="select-pagamento">
+        <option value="Pix">Pix</option>
+        <option value="Cartão na Entrega">Cartão na Entrega</option>
+        <option value="Dinheiro">Dinheiro</option>
+      </select>
+    </div>
+
+    <div class="resumo-linha">
       <div>Total: <span id="valor-total" class="valor-total">R$ 0,00</span></div>
       <button class="btn-acao" onclick="zerarQuantidades()">Zerar Produtos</button>
     </div>
@@ -54,16 +64,16 @@
     <button class="btn-enviar" onclick="enviarPedido()">Enviar Pedido pelo WhatsApp</button>
     
     <div class="caixa-pix">
-      🔑 <strong>Chave Pix:</strong> <code id="chave-pix-exibicao">seu-pix-aqui@vidamix.com</code><br>
+      🔑 <strong>Chave Pix:</strong> <code id="chave-pix-exibicao">belabelpeixoto@gmail.com</code><br>
       <button class="btn-copiar-pix" onclick="copiarPix()">📋 Copiar Chave Pix</button>
     </div>
   </div>
 
   <script>
-  // LINHA 60: Coloque sua chave Pix entre as aspas
+  // LINHA 60: Sua Chave Pix
   var minhaChavePix = "belabelpeixoto@gmail.com"; 
 
-  // LINHA 63: Coloque seu numero do WhatsApp entre as aspas (Ex: 5544998546285)
+  // LINHA 63: Seu WhatsApp (5544998546285)
   var numeroWhatsapp = "5544998546285"; 
 
   var produtos = [
@@ -124,7 +134,6 @@
     
     container.innerHTML = html;
     
-    // Mostra a chave Pix configurada na tela
     var elemPix = document.getElementById("chave-pix-exibicao");
     if (elemPix) elemPix.textContent = minhaChavePix;
   }
@@ -203,6 +212,7 @@
     var campoTaxa = parseFloat(document.getElementById("taxa-entrega").value);
     var taxa = isNaN(campoTaxa) || campoTaxa < 0 ? 0 : campoTaxa;
     var totalGeral = totalProdutos + taxa;
+    var formaPagamento = document.getElementById("forma-pagamento").value;
 
     if (taxa > 0) {
       texto += "• Taxa de entrega: R$ " + taxa.toFixed(2).replace('.', ',') + "\n";
@@ -211,7 +221,11 @@
     }
 
     texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
-    texto += "\n\n💳 Chave Pix para Pagamento:\n`" + minhaChavePix + "`\n_(Toque na chave acima para copiar e pagar no banco)_";
+    texto += "\n*Forma de Pagamento:* " + formaPagamento + "\n";
+
+    if (formaPagamento === "Pix") {
+      texto += "\n💳 Chave Pix para Pagamento:\n`" + minhaChavePix + "`\n_(Toque na chave acima para copiar e pagar no app do seu banco)_";
+    }
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
