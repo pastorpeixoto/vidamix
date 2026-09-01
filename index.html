@@ -97,8 +97,6 @@
       { id: 27, nome: "Bolo de Cenoura", preco: 80.00, unidade: "kg", ingredientes: "Mix de farinhas; açúcar demerara; óleo de girassol." },
       { id: 28, nome: "Bolo de Limão", preco: 80.00, unidade: "kg", ingredientes: "Mix de farinhas; açúcar demerara; óleo de girassol." },
       { id: 29, nome: "Bolo mesclado com cobertura de brigadeiro", preco: 80.00, unidade: "kg", ingredientes: "Açúcar demerara; óleo de girassol; leite de inhame; mix de farinhas; cacau em pó 100%; manteiga ghee; ovos." }
-    ];
-
 function montarTela() {
   var container = document.getElementById("produtos");
   if (!container) return;
@@ -118,76 +116,18 @@ function montarTela() {
   container.innerHTML = html;
 }
 
+function alterarQtd(id, delta) {
+  var el = document.getElementById("qtd-" + id);
+  if (!el) return;
+  var qtd = parseInt(el.textContent) + delta;
+  if (qtd < 0) qtd = 0;
+  el.textContent = qtd;
+}
+
 window.onload = function() {
   montarTela();
 };
 </script>
-</body>
-</html>
-
-
-      }
-      document.getElementById('lista-produtos').innerHTML = html;
-    }
-
-    function calcularTotal() {
-      var total = 0;
-      for (var i = 0; i < produtos.length; i++) {
-        var p = produtos[i];
-        var input = document.getElementById('qtd-' + p.id);
-        var subtotalSpan = document.getElementById('subtotal-' + p.id);
-        if (input && subtotalSpan) {
-          var qtd = parseFloat(input.value) || 0;
-          var sub = qtd * p.preco;
-          subtotalSpan.innerText = sub.toFixed(2).replace('.', ',');
-          total += sub;
-        }
-      }
-      document.getElementById('valor-total').innerText = total.toFixed(2).replace('.', ',');
-    }
-
-    function zerarPedido() {
-      for (var i = 0; i < produtos.length; i++) {
-        var input = document.getElementById('qtd-' + produtos[i].id);
-        if (input) input.value = 0;
-      }
-      calcularTotal();
-    }
-
-    function enviarWhatsApp() {
-      var texto = "Pedido Vida Mix\n\n";
-      var temItens = false;
-      var total = 0;
-
-      for (var i = 0; i < produtos.length; i++) {
-        var p = produtos[i];
-        var input = document.getElementById('qtd-' + p.id);
-        if (input) {
-          var qtd = parseFloat(input.value) || 0;
-          if (qtd > 0) {
-            temItens = true;
-            var sub = qtd * p.preco;
-            total += sub;
-            texto += "• " + p.nome + "\n  Qtd/Peso: " + qtd + " (" + p.unidade + ") - R$ " + sub.toFixed(2).replace('.', ',') + "\n";
-          }
-        }
-      }
-
-      if (!temItens) {
-        alert("Selecione pelo menos um item para enviar o pedido.");
-        return;
-      }
-
-      var formaPagamento = document.getElementById('pagamento').value;
-      texto += "\n*Total do Pedido:* R$ " + total.toFixed(2).replace('.', ',');
-      texto += "\n*Forma de Pagamento:* " + formaPagamento;
-
-      var link = "https://api.whatsapp.com/send?phone=" + numeroWhatsApp + "&text=" + encodeURIComponent(texto);
-      window.open(link, '_blank');
-    }
-
-    montarTela();
-  </script>
 </body>
 </html>
  
