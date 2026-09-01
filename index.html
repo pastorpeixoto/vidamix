@@ -70,7 +70,7 @@
   </div>
 
   <script>
-  // Sua Chave Pix
+  // Sua Chave Pix real (usada na cópia do site)
   var minhaChavePix = "belabelpeixoto@gmail.com"; 
 
   // Seu WhatsApp (coloque seu número completo com DDD)
@@ -244,8 +244,10 @@
     texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
     texto += "\n*Forma de Pagamento:* Pix\n";
     
-    // Formatação especial sem virar link azul clicável para o Gmail
-    texto += "\n🔑 Chave Pix:\n`" + minhaChavePix + "`\n\n_(Pressione o dedo sobre a chave acima para copiar e pagar no app do seu banco)_";
+    // Adicionamos espaços na chave para o WhatsApp NÃO criar link de e-mail azul
+    var chavePixWhatsapp = minhaChavePix.replace("@", " @ ");
+    
+    texto += "\n🔑 Chave Pix:\n" + chavePixWhatsapp + "\n\n_(Para pagar no banco: selecione o texto da chave acima, copie e cole no app do seu banco. Lembre-se de remover os espaços do e-mail ao colar no banco se necessário, ou use a chave de cópia do site)_";
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
