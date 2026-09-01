@@ -244,7 +244,7 @@
 
     texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
     texto += "\n*Forma de Pagamento:* Pix\n";
-    texto += "\n💳 Chave Pix (E-mail):\n" + minhaChavePix + "\n\n_(Copie o e-mail acima para fazer o pagamento no aplicativo do seu banco)_";
+   texto += "\n💳 Chave Pix:\n" + minhaChavePix + "\n\n_(Copie a chave Pix acima para fazer o pagamento no aplicativo do seu banco)_";
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
