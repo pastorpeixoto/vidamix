@@ -64,7 +64,7 @@
   </div>
 
   <script>
-    // Coloque seu número do WhatsApp com DDD aqui (Exemplo Maringá/PR: 5544999999999)
+    // Coloque seu número do WhatsApp com DDD aqui (Exemplo Maringá/PR: 5544998546285)
     var numeroWhatsApp = "5544998546285"; 
 
     var produtos = [
@@ -99,14 +99,13 @@
       { id: 29, nome: "Bolo mesclado com cobertura de brigadeiro", preco: 80.00, unidade: "kg", ingredientes: "Açúcar demerara; óleo de girassol; leite de inhame; mix de farinhas; cacau em pó 100%; manteiga ghee; ovos." }
     ];
 
-<script>
 function montarTela() {
   var container = document.getElementById("produtos");
   if (!container) return;
   
   var html = "";
   produtos.forEach(function(p) {
-    html += '<div class="produto-item" style="background:#fff; padding:12px; margin-bottom:10px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 1px 3px rgba(0,0,0,0.1);">';
+    html += '<div style="background:#fff; padding:12px; margin-bottom:10px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 1px 3px rgba(0,0,0,0.1);">';
     html += '  <div><strong>' + p.nome + '</strong></div>';
     html += '  <div>';
     html += '    <button onclick="alterarQtd(' + p.id + ', -1)" style="padding:4px 10px; font-weight:bold;">-</button>';
