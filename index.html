@@ -1,73 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<link rel="icon" type="image/png" href="logo.png">
-<link rel="shortcut icon" type="image/png" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
-<link rel="manifest" href="manifest.json">
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vida Mix - Cardápio e Pedidos</title>
-<tyle>vida Mix - cardápio e Pedidos</tyle>
- <link rel="icon" type=image/png" href=logo.png">
- <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f7f6; color: #333; }
-    h1 { text-align: center; color: #2e7d32; margin-bottom: 20px; }
-    .container { max-width: 900px; margin: 0 auto; padding-bottom: 40px; }
-    .card-produto { background: #fff; border-radius: 8px; padding: 15px; margin-bottom: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
-    .info { max-width: 55%; }
-    .info h3 { margin: 0 0 5px 0; color: #1b5e20; }
-    .preco { font-weight: bold; color: #388e3c; }
-    .ingredientes { font-size: 0.85em; color: #666; margin-top: 5px; }
-    .controles { display: flex; align-items: center; gap: 10px; }
-    input[type="number"], select { padding: 8px; font-size: 1em; border: 1px solid #ccc; border-radius: 4px; }
-    input[type="number"] { width: 70px; text-align: center; }
-    .subtotal { font-weight: bold; min-width: 80px; text-align: right; color: #2e7d32; }
-    
-    /* Painel no final da página */
-    .painel-finalizacao { background: #2e7d32; color: #fff; padding: 20px; border-radius: 8px; margin-top: 25px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-    .val-total { font-size: 1.3em; font-weight: bold; }
-    .opcoes-pagamento { display: flex; align-items: center; gap: 8px; font-size: 1em; }
-    .botoes-acao { display: flex; gap: 10px; }
-    
-    .btn-zerar { background: #e53935; color: #fff; border: none; padding: 12px 18px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.95em; }
-    .btn-whatsapp { background: #25d366; color: #fff; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.95em; }
-    .btn-whatsapp:hover { background: #1eb954; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vida Mix - Cardápio Digital</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 20px; max-width: 600px; margin: 0 auto; }
+    h1 { text-align: center; color: #333; }
+    .produto-item { background: #fff; padding: 12px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    button { padding: 6px 12px; font-weight: bold; cursor: pointer; border: 1px solid #ccc; background: #eee; border-radius: 4px; }
+    .btn-enviar { width: 100%; padding: 14px; background: #25d366; color: white; border: none; font-size: 16px; font-weight: bold; border-radius: 8px; margin-top: 20px; cursor: pointer; }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>Cardápio Vida Mix</h1>
-    
-    <!-- Lista dos Produtos -->
-    <div id="lista-produtos"></div>
-
-    <!-- PAINEL VISÍVEL: Total, Pagamento e Botões -->
-    <div class="painel-finalizacao">
-      <div class="val-total">
-        Total: R$ <span id="valor-total">0,00</span>
-      </div>
-
-      <div class="opcoes-pagamento">
-        <label for="pagamento"><strong>Pagamento:</strong></label>
-        <select id="pagamento">
-          <option value="Pix - chave: belabelpeixoto@gmail.com">Pix - chave: belabelpeixoto@gmail.com</option>
-        </select>
-      </div>
-
-      <div class="botoes-acao">
-        <button class="btn-zerar" onclick="zerarPedido()">Zerar Quantidades</button>
-        <button class="btn-whatsapp" onclick="enviarWhatsApp()">Enviar Pedido no WhatsApp</button>
-      </div>
-    </div>
-  </div>
+  <h1>Vida Mix - Cardápio</h1>
+  <div id="produtos"></div>
+  
+  <button class="btn-enviar" onclick="enviarPedido()">Enviar Pedido pelo WhatsApp</button>
 
   <script>
-    // Coloque seu número do WhatsApp com DDD aqui (Exemplo Maringá/PR: 5544998546285)
-    var numeroWhatsApp = "5544998546285"; 
+  // 1. SEU NÚMERO DE WHATSAPP (Ajuste os dígitos se necessário)
+  var numeroWhatsapp = "55449985462985"; 
 
-    var produtos = [
+  // 2. SUA LISTA DE PRODUTOS var produtos = [
       { id: 1, nome: "Cesta: Amor que nutre. (Dia das Mães)", preco: 120.00, unidade: "unidade", ingredientes: "Bolo de chocolate; Pão recheado; Esfihas; Biscoito da vovó; Pão tipo bisnaguinha; suco." },
       { id: 2, nome: "Pão Australiano", preco: 80.00, unidade: "kg", ingredientes: "Cacau; mel; Farinha de arroz." },
       { id: 3, nome: "Pão Low carb", preco: 80.00, unidade: "kg", ingredientes: "Farinha de caju; Psyllium; Farinha de linhaça." },
@@ -96,38 +52,66 @@
       { id: 26, nome: "Bolo Tipo Charge", preco: 80.00, unidade: "kg", ingredientes: "Bolo com cobertura de chocolate e amendoim." },
       { id: 27, nome: "Bolo de Cenoura", preco: 80.00, unidade: "kg", ingredientes: "Mix de farinhas; açúcar demerara; óleo de girassol." },
       { id: 28, nome: "Bolo de Limão", preco: 80.00, unidade: "kg", ingredientes: "Mix de farinhas; açúcar demerara; óleo de girassol." },
-      { id: 29, nome: "Bolo mesclado com cobertura de brigadeiro", preco: 80.00, unidade: "kg", ingredientes: "Açúcar demerara; óleo de girassol; leite de inhame; mix de farinhas; cacau em pó 100%; manteiga ghee; ovos." }
-function montarTela() {
-  var container = document.getElementById("produtos");
-  if (!container) return;
-  
-  var html = "";
-  produtos.forEach(function(p) {
-    html += '<div style="background:#fff; padding:12px; margin-bottom:10px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 1px 3px rgba(0,0,0,0.1);">';
-    html += '  <div><strong>' + p.nome + '</strong></div>';
-    html += '  <div>';
-    html += '    <button onclick="alterarQtd(' + p.id + ', -1)" style="padding:4px 10px; font-weight:bold;">-</button>';
-    html += '    <span id="qtd-' + p.id + '" style="margin:0 8px; font-weight:bold;">0</span>';
-    html += '    <button onclick="alterarQtd(' + p.id + ', 1)" style="padding:4px 10px; font-weight:bold;">+</button>';
-    html += '  </div>';
-    html += '</div>';
-  });
-  
-  container.innerHTML = html;
-}
+      { id: 29, nome: "Bolo mesclado com cobertura de brigadeiro", preco: 80.00, unidade: "kg", ingredientes: "Açúcar demerara; óleo de girassol; leite de inhame; milho:
 
-function alterarQtd(id, delta) {
-  var el = document.getElementById("qtd-" + id);
-  if (!el) return;
-  var qtd = parseInt(el.textContent) + delta;
-  if (qtd < 0) qtd = 0;
-  el.textContent = qtd;
-}
 
-window.onload = function() {
-  montarTela();
-};
-</script>
+  // 3. FUNÇÕES DO CARDÁPIO E ENVIO DE PEDIDO
+  function montarTela() {
+    var container = document.getElementById("produtos");
+    if (!container || typeof produtos === "undefined") return;
+    
+    var html = "";
+    produtos.forEach(function(p) {
+      html += '<div class="produto-item">';
+      html += '  <div><strong>' + p.nome + '</strong></div>';
+      html += '  <div>';
+      html += '    <button onclick="alterarQtd(' + p.id + ', -1)">-</button>';
+      html += '    <span id="qtd-' + p.id + '" style="margin:0 10px; font-weight:bold;">0</span>';
+      html += '    <button onclick="alterarQtd(' + p.id + ', 1)">+</button>';
+      html += '  </div>';
+      html += '</div>';
+    });
+    
+    container.innerHTML = html;
+  }
+
+  function alterarQtd(id, delta) {
+    var el = document.getElementById("qtd-" + id);
+    if (!el) return;
+    var qtd = parseInt(el.textContent) + delta;
+    if (qtd < 0) qtd = 0;
+    el.textContent = qtd;
+  }
+
+  function enviarPedido() {
+    var texto = "Pedido Vida Mix:\n\n";
+    var temItem = false;
+    
+    produtos.forEach(function(p) {
+      var el = document.getElementById("qtd-" + p.id);
+      if (el) {
+        var qtd = parseInt(el.textContent);
+        if (qtd > 0) {
+          texto += "• " + p.nome + " - Qtd: " + qtd + "\n";
+          temItem = true;
+        }
+      }
+    });
+
+    if (!temItem) {
+      alert("Por favor, selecione ao menos um item antes de enviar o pedido.");
+      return;
+    }
+
+    var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
+    window.open(url, "_blank");
+  }
+
+  window.onload = function() {
+    montarTela();
+  };
+  </script>
+
 </body>
 </html>
  
