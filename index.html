@@ -210,7 +210,7 @@
     });
   }
 
- function enviarPedido() {
+function enviarPedido() {
     var texto = "Pedido Vida Mix:\n\n";
     var temItem = false;
     var totalProdutos = 0;
@@ -247,19 +247,18 @@
     texto += "🔑 Chave Pix (E-mail):\n";
     texto += minhaChavePix + "\n\n";
     
-    texto += "⚠️ COMO PAGAR NO SEU BANCO:\n";
-    texto += "1. Pressione e segure o dedo em cima desta mensagem;\n";
-    texto += "2. Clique no menu (3 pontinhos) e selecione Copiar;\n";
-    texto += "3. Abra o app do seu banco e cole na área Pix.\n";
-    texto += "(Não clique direto no e-mail acima para não abrir a tela de e-mail)";
+    texto += "💡 DICA DE PAGAMENTO:\n";
+    texto += "Se você já clicou no botão 'Copiar Pix' no site, a chave já está copiada! Basta abrir o app do seu banco e colar.\n\n";
+    texto += "Caso contrário, pressione e segure o dedo nesta mensagem para copiar o e-mail. (Não toque direto no e-mail para não abrir a tela de e-mail)";
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
   }
-  window.onload = function() {
+ window.onload = function() {
     montarTela();
   };
-  </script>
+</script>
+
 </body>
 </html>
 
