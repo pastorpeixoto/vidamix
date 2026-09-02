@@ -244,16 +244,12 @@ function enviarPedido() {
     texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
     texto += "\n*Forma de Pagamento:* Pix (E-mail)\n\n";
     
-    texto += "🔑 CHAVE PIX PARA PAGAMENTO:\n";
-    texto += minhaChavePix + "\n\n";
-    texto += "📌 Como pagar: Se você clicou em 'Copiar Pix' no site, basta abrir o app do seu banco e COLAR.";
+    texto += "💡 PAGAMENTO PIX:\n";
+    texto += "A chave Pix já foi copiada no site! Basta abrir o app do seu banco e COLAR.";
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
   }
- window.onload = function() {
-    montarTela();
-  };
 </script>
 
 </body>
