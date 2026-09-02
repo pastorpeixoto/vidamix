@@ -210,15 +210,7 @@
     });
   }
 
-  function copiarPix() {
-    navigator.clipboard.writeText(minhaChavePix).then(function() {
-      alert("Chave Pix copiada com sucesso:\n" + minhaChavePix);
-    }).catch(function() {
-      alert("Chave Pix: " + minhaChavePix);
-    });
-  }
-
-  function enviarPedido() {
+ function enviarPedido() {
     var texto = "Pedido Vida Mix:\n\n";
     var temItem = false;
     var totalProdutos = 0;
@@ -250,20 +242,24 @@
     }
 
     texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
-    texto += "\n*Forma de Pagamento:* Pix\n\n";
-    texto += "🔑 Chave Pix:\n";
-    texto += minhaChavePix;
+    texto += "\n*Forma de Pagamento:* Pix (E-mail)\n\n";
+    
+    texto += "🔑 Chave Pix (E-mail):\n";
+    texto += minhaChavePix + "\n\n";
+    
+    texto += "⚠️ COMO PAGAR NO SEU BANCO:\n";
+    texto += "1. Pressione e segure o dedo em cima desta mensagem;\n";
+    texto += "2. Clique no menu (3 pontinhos) e selecione Copiar;\n";
+    texto += "3. Abra o app do seu banco e cole na área Pix.\n";
+    texto += "(Não clique direto no e-mail acima para não abrir a tela de e-mail)";
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
   }
-
   window.onload = function() {
     montarTela();
   };
-  };
   </script>
-
 </body>
 </html>
 
