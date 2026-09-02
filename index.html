@@ -61,11 +61,13 @@
       <button class="btn-acao" onclick="zerarQuantidades()">Zerar Produtos</button>
     </div>
     
-    <button class="btn-enviar" onclick="enviarPedido()">Enviar Pedido pelo WhatsApp</button>
-    
-    <div class="caixa-pix">
-      🔑 <strong>Chave Pix:</strong> <code id="chave-pix-exibicao">belabelpeixoto@gmail.com</code><br>
-      <button class="btn-copiar-pix" onclick="copiarPix()">📋 Copiar Chave Pix</button>
+ <button onclick="copiarPixManual()" style="background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 5px; margin-bottom: 10px; font-weight: bold; width: 100%;">
+  1. Copiar Chave Pix
+</button>
+
+<button onclick="enviarPedido()" style="background-color: #075e54; color: white; padding: 12px 15px; border: none; border-radius: 5px; font-weight: bold; width: 100%;">
+  2. Enviar Pedido via WhatsApp
+</button>
     </div>
   </div>
 
