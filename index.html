@@ -244,12 +244,9 @@ function enviarPedido() {
     texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
     texto += "\n*Forma de Pagamento:* Pix (E-mail)\n\n";
     
-    texto += "🔑 Chave Pix (E-mail):\n";
+    texto += "🔑 CHAVE PIX PARA PAGAMENTO:\n";
     texto += minhaChavePix + "\n\n";
-    
-    texto += "💡 DICA DE PAGAMENTO:\n";
-    texto += "Se você já clicou no botão 'Copiar Pix' no site, a chave já está copiada! Basta abrir o app do seu banco e colar.\n\n";
-    texto += "Caso contrário, pressione e segure o dedo nesta mensagem para copiar o e-mail. (Não toque direto no e-mail para não abrir a tela de e-mail)";
+    texto += "📌 Como pagar: Se você clicou em 'Copiar Pix' no site, basta abrir o app do seu banco e COLAR.";
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
