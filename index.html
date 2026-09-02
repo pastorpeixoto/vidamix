@@ -245,7 +245,12 @@ function enviarPedido() {
     texto += "\n*Forma de Pagamento:* Pix (E-mail)\n\n";
     
     texto += "💡 DICA DE PAGAMENTO:\n";
-    texto += "Se você já clicou no botão 'Copiar Pix' no site, a chave já está copiada! Basta abrir o app do seu banco e colar.";
+    texto += "A chave Pix já foi copiada para o seu celular! Basta abrir o app do seu banco e COLAR.";
+
+    // Copia a chave Pix automaticamente para o celular antes de ir pro WhatsApp
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(minhaChavePix);
+    }
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
