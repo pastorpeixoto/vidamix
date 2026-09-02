@@ -210,6 +210,14 @@
     });
   }
 
+  function copiarPix() {
+    navigator.clipboard.writeText(minhaChavePix).then(function() {
+      alert("Chave Pix copiada com sucesso:\n" + minhaChavePix);
+    }).catch(function() {
+      alert("Chave Pix: " + minhaChavePix);
+    });
+  }
+
   function enviarPedido() {
     var texto = "Pedido Vida Mix:\n\n";
     var temItem = false;
@@ -241,11 +249,10 @@
       texto += "• Opção: Retirada no local (Sem taxa)\n";
     }
 
-texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
-    texto += "\n*Forma de Pagamento:* Pix (E-mail)\n\n";
+    texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
+    texto += "\n*Forma de Pagamento:* Pix\n\n";
     texto += "🔑 Chave Pix:\n";
-    texto += minhaChavePix + "\n\n";
-    texto += "(Para pagar: selecione e copie a chave Pix acima para colar no aplicativo do seu banco)";
+    texto += minhaChavePix;
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
@@ -253,6 +260,7 @@ texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
 
   window.onload = function() {
     montarTela();
+  };
   };
   </script>
 
