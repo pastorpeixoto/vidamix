@@ -241,13 +241,11 @@
       texto += "• Opção: Retirada no local (Sem taxa)\n";
     }
 
-    texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
-    texto += "\n*Forma de Pagamento:* Pix\n";
-    
-    // Texto ajustado sem o sinal de @ no formato de link para o WhatsApp não criar o atalho pro Gmail
-    var eMailSemAt = minhaChavePix.replace("@", "(arroba)");
-    
-    texto += "\n🔑 Chave Pix (E-mail):\n" + eMailSemAt + "\n";
+texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
+    texto += "\n*Forma de Pagamento:* Pix (E-mail)\n\n";
+    texto += "🔑 Chave Pix:\n";
+    texto += minhaChavePix + "\n\n";
+    texto += "(Para pagar: selecione e copie a chave Pix acima para colar no aplicativo do seu banco)";
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
