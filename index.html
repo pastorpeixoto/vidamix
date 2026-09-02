@@ -213,17 +213,34 @@
   }
 
 function copiarPixManual() {
+    var chave = minhaChavePix;
+
     if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(minhaChavePix);
+      navigator.clipboard.writeText(chave).then(function() {
+        alert("Chave Pix (" + chave + ") copiada com sucesso!\n\nAgora clique em 'Enviar Pedido via WhatsApp'.");
+      }).catch(function() {
+        copiarComInputTemporario(chave);
+      });
     } else {
-      var tempInput = document.createElement("input");
-      tempInput.value = minhaChavePix;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand("copy");
-      document.body.removeChild(tempInput);
+      copiarComInputTemporario(chave);
     }
-    alert("Chave Pix (" + minhaChavePix + ") copiada com sucesso!\n\nAgora clique no botão 'Enviar Pedido via WhatsApp'.");
+  }
+
+  function copiarComInputTemporario(texto) {
+    var input = document.createElement("input");
+    input.setAttribute("value", texto);
+    document.body.appendChild(input);
+    input.select();
+    input.setSelectionRange(0, 99999);
+    
+    try {
+      document.execCommand("copy");
+      alert("Chave Pix (" + texto + ") copiada com sucesso!\n\nAgora clique em 'Enviar Pedido via WhatsApp'.");
+    } catch (err) {
+      alert("Não foi possível copiar automaticamente. A chave é: " + texto);
+    }
+    
+    document.body.removeChild(input);
   }
 
   function enviarPedido() {
@@ -262,10 +279,6 @@ function copiarPixManual() {
     
     texto += "💡 DICA DE PAGAMENTO:\n";
     texto += "A chave Pix já foi copiada no site! Basta abrir o app do seu banco e colar.";
-
-    var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
-    window.open(url, "_blank");
-  }
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
