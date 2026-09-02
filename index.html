@@ -250,11 +250,13 @@ function enviarPedido() {
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
   }
+window.onload = function() {
+    montarTela();
+  };
 </script>
 
 </body>
 </html>
-
 
 
 
