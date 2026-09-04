@@ -29,7 +29,6 @@
     .valor-total { font-weight: bold; color: #2e7d32; font-size: 18px; }
     
     .btn-acao { background: #ff5252; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 11px; }
-    .btn-enviar { width: 100%; padding: 12px; background: #25d366; color: white; border: none; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 8px; }
   </style>
 </head>
 <body>
@@ -43,7 +42,7 @@
     <div class="resumo-linha">
       <span>Taxa de Entrega (R$):</span>
       <div class="taxa-controle">
-        <input type="number" id="taxa-entrega" class="taxa-input" value="12.00" step="0.50" min="0" readonly oninput="atualizarTotal()">
+        <input type="number" id="taxa-entrega" class="taxa-input" value="12.00" readonly>
         <button class="btn-acao" onclick="apagarTaxa()">Sem Taxa (Retirada)</button>
       </div>
     </div>
@@ -68,206 +67,210 @@
   </div>
 
   <script>
-  var minhaChavePix = "belabelpeixoto@gmail.com"; 
-  var numeroWhatsapp = "5544998546285"; 
+    var minhaChavePix = "belabelpeixoto@gmail.com"; 
+    var numeroWhatsapp = "5544998546285"; 
 
-  var produtos = [
-      { id: 1, nome: "Cesta: Amor que nutre. (Dia das Mães)", preco: 120.00, unidade: "unidade", ingredientes: "Bolo de chocolate; Pão recheado; Esfihas; Biscoito da vovó; Pão tipo bisnaguinha; suco"},
-      { id: 2, nome: "Pão Australiano", preco: 80.00, unidade: "kg", ingredientes: "Cacau; mel; Farinha de arroz"},
-      { id: 3, nome: "Pão Low carb", preco: 80.00, unidade: "kg", ingredientes: "Farinha de caju; Psyllium; Farinha de linhaça"},
-      { id: 4, nome: "Pão de sementes - Integral", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz integral; Fécula de batata; Fécula de mandioca; farinha de grão de bico; farinha de linhaça dourada; farinha de chia; quinoa em flocos; ovos"}, 
-      { id: 5, nome: "Pão Italiano", preco: 75.00, unidade: "kg", ingredientes: "Farinha de grão de bico; Farinha de arroz; Fécula de batata"}, 
+    var produtos = [
+      { id: 1, nome: "Cesta: Amor que nutre. (Dia das Mães)", preco: 120.00, unidade: "unidade", ingredientes: "Bolo de chocolate; Pao recheado; Esfihas; Biscoito da vovó; Pao tipo bisnaguinha; suco"},
+      { id: 2, nome: "Pao Australiano", preco: 80.00, unidade: "kg", ingredientes: "Cacau; mel; Farinha de arroz"},
+      { id: 3, nome: "Pao Low carb", preco: 80.00, unidade: "kg", ingredientes: "Farinha de caju; Psyllium; Farinha de linhaca"},
+      { id: 4, nome: "Pao de sementes - Integral", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz integral; Fecula de batata; Fecula de mandioca; farinha de grao de bico; farinha de linhaca dourada; farinha de chia; quinoa em flocos; ovos"}, 
+      { id: 5, nome: "Pao Italiano", preco: 75.00, unidade: "kg", ingredientes: "Farinha de grao de bico; Farinha de arroz; Fecula de batata"}, 
       { id: 6, nome: "Bolinho frito da vovó", preco: 80.00, unidade: "kg", ingredientes: "Polvilho doce; farinha de arroz"},
-      { id: 7, nome: "Pão de Hambúrguer", preco: 80.00, unidade: "kg", ingredientes: "Fécula de batata; farinha de grão de bico"}, 
-      { id: 8, nome: "Pãozinho recheado", preco: 8.00, unidade: "un (mínimo 6)", ingredientes: "Recheado com: Frango, mussarela e presunto, carne"}, 
-      { id: 9, nome: "Esfirra de carne ou frango", preco: 8.00, unidade: "un (mínimo 6)", ingredientes: "Mix de farinhas para pão; farinha de grão de bico; psyllium"},
+      { id: 7, nome: "Pao de Hamburguer", preco: 80.00, unidade: "kg", ingredientes: "Fecula de batata; farinha de grao de bico"}, 
+      { id: 8, nome: "Paozinho recheado", preco: 8.00, unidade: "un (minimo 6)", ingredientes: "Recheado com: Frango, mussarela e presunto, carne"}, 
+      { id: 9, nome: "Esfirra de carne ou frango", preco: 8.00, unidade: "un (minimo 6)", ingredientes: "Mix de farinhas para pao; farinha de grao de bico; psyllium"},
       { id: 10, nome: "Bolo de Banana", preco: 75.00, unidade: "kg", ingredientes: "Bolo de banana caramelizada"}, 
-      { id: 11, nome: "Bolo de Café", preco: 75.00, unidade: "kg", ingredientes: "Açúcar demerara; farinha de aveia; cacau em pó 100%; ovos; farinha de linhaça dourada"}, 
-      { id: 12, nome: "Bolo mesclado simples", preco: 75.00, unidade: "kg", ingredientes: "Açúcar demerara; óleo de girassol; vinagre de maçã; ovos; leite de inhame; mix de farinhas"}, 
-      { id: 13, nome: "Pão de lanche", preco: 75.00, unidade: "kg", ingredientes: "Mix de farinhas; açúcar demerara; óleo de girassol; ovos"},
-      { id: 14, nome: "Pão Multigrãos", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; Fécula de mandioca; amido de milho; psyllium; ovos; vinagre de maçã"}, 
-      { id: 15, nome: "Pão tipo Bisnaguinha", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; óleo de girassol; Fécula de mandioca; farinha de grão de bico; farinha de feijão branco; ovos"}, 
-      { id: 16, nome: "Pão de batata doce", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; farinha de grão de bico; batata doce; farinha de feijão branco; Fécula de batata; óleo de girassol; ovos"},
+      { id: 11, nome: "Bolo de Cafe", preco: 75.00, unidade: "kg", ingredientes: "Acucar demerara; farinha de aveia; cacau em po 100%; ovos; farinha de linhaca dourada"}, 
+      { id: 12, nome: "Bolo mesclado simples", preco: 75.00, unidade: "kg", ingredientes: "Acucar demerara; oleo de girassol; vinagre de maca; ovos; leite de coco; mix de farinhas"}, 
+      { id: 13, nome: "Pao de lanche", preco: 75.00, unidade: "kg", ingredientes: "Mix de farinhas; acucar demerara; oleo de girassol; ovos"},
+      { id: 14, nome: "Pao Multigraos", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; Fecula de mandioca; amido de milho; psyllium; ovos; vinagre de maca"}, 
+      { id: 15, nome: "Pao tipo Bisnaguinha", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; oleo de girassol; Fecula de mandioca; farinha de grao de bico; farinha de feijao branco; ovos"}, 
+      { id: 16, nome: "Pao de batata doce", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; farinha de grao de bico; batata doce; farinha de feijao branco; Fecula de batata; oleo de girassol; ovos"},
       { id: 17, nome: "Bolo de laranja", preco: 75.00, unidade: "kg", ingredientes: "Bolo de laranja com cobertura"}, 
-      { id: 18, nome: "Pão de sementes", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; Fécula de mandioca; Fécula de batata; farinha de linhaça dourada; ovos; quinoa em flocos"},
-      { id: 19, nome: "Pão de milho", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; amido de milho; fubá; açúcar demerara; vinagre de maçã; ovos; polvilho doce"}, 
-      { id: 20, nome: "Pão de batata doce e pão de hambúrguer", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; polvilho azedo; Fécula de mandioca; amido de milho; vinagre de maçã; ovos; açúcar demerara"},
-      { id: 21, nome: "Pão de Forma branco", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; Fécula de mandioca; Fécula de batata; amido de milho; fubá; açúcar demerara; ovos; óleo de girassol"},
-      { id: 22, nome: "Pão Recheado", preco: 130.00, unidade: "kg", ingredientes: "Mix para pão; óleo de girassol; açúcar demerara"}, 
-      { id: 23, nome: "Bolo de amendoim", preco: 130.00, unidade: "kg", ingredientes: "Açúcar demerara; farinha de arroz; óleo de girassol; amido de milho; cacau; ovos"}, 
-      { id: 24, nome: "Bolo de chocolate", preco: 85.00, unidade: "kg", ingredientes: "Mix de bolo; açúcar demerara; cacau em pó 100%; óleo de girassol; sal do Himalaia"}, 
-      { id: 25, nome: "Empadão de Frango", preco: 110.00, unidade: "kg", ingredientes: "Farinha de arroz; banha ou óleo de girassol"}, 
+      { id: 18, nome: "Pao de sementes", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; Fecula de mandioca; Fecula de batata; farinha de linhaca dourada; ovos; quinoa em flocos"},
+      { id: 19, nome: "Pao de milho", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; amido de milho; fuba; acucar demerara; vinagre de maca; ovos; polvilho doce"}, 
+      { id: 20, nome: "Pao de batata doce e pao de hamburguer", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; polvilho azedo; Fecula de mandioca; amido de milho; vinagre de maca; ovos; acucar demerara"},
+      { id: 21, nome: "Pao de Forma branco", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; Fecula de mandioca; Fecula de batata; amido de milho; fuba; acucar demerara; ovos; oleo de girassol"},
+      { id: 22, nome: "Pao Recheado", preco: 130.00, unidade: "kg", ingredientes: "Mix para pao; oleo de girassol; acucar demerara"}, 
+      { id: 23, nome: "Bolo de amendoim", preco: 130.00, unidade: "kg", ingredientes: "Acucar demerara; farinha de arroz; oleo de girassol; amido de milho; cacau; ovos"}, 
+      { id: 24, nome: "Bolo de chocolate", preco: 85.00, unidade: "kg", ingredientes: "Mix de bolo; acucar demerara; cacau em po 100%; oleo de girassol; sal do Himalaia"}, 
+      { id: 25, nome: "Empadao de Frango", preco: 110.00, unidade: "kg", ingredientes: "Farinha de arroz; banha ou oleo de girassol"}, 
       { id: 26, nome: "Bolo Tipo Charge", preco: 80.00, unidade: "kg", ingredientes: "Bolo com cobertura de chocolate e amendoim"}, 
-      { id: 27, nome: "Bolo de Cenoura", preco: 80.00, unidade: "kg", ingredientes: "Mix de farinhas; açúcar demerara; óleo de girassol"}, 
-      { id: 28, nome: "Bolo de Limão", preco: 80.00, unidade: "kg", ingredientes: "Mix de farinhas; açúcar demerara; óleo de girassol"}, 
-      { id: 29, nome: "Bolo mesclado com cobertura de brigadeiro", preco: 80.00, unidade: "kg", ingredientes: "Açúcar demerara; óleo de girassol; leite de inhame; milho"} 
-  ];
+      { id: 27, nome: "Bolo de Cenoura", preco: 80.00, unidade: "kg", ingredientes: "Mix de farinhas; acucar demerara; oleo de girassol"}, 
+      { id: 28, nome: "Bolo de Limao", preco: 80.00, unidade: "kg", ingredientes: "Mix de farinhas; acucar demerara; oleo de girassol"}, 
+      { id: 29, nome: "Bolo mesclado com cobertura de brigadeiro", preco: 80.00, unidade: "kg", ingredientes: "Acucar demerara; oleo de girassol; leite de inhame; milho"} 
+    ];
 
-  var quantidades = {};
+    var quantidades = {};
 
-  function formatarQtdTexto(qtd, unidade) {
-    if (qtd === 0) return "0";
-    if (unidade === "kg") {
-      if (qtd < 1) {
-        return (qtd * 1000) + "g";
-      } else {
-        return qtd.toFixed(2).replace('.', ',').replace(',00', '') + "kg";
+    function formatarQtdTexto(qtd, unidade) {
+      if (qtd === 0) return "0";
+      if (unidade === "kg") {
+        if (qtd < 1) {
+          return (qtd * 1000) + "g";
+        } else {
+          return qtd.toFixed(2).replace('.', ',').replace(',00', '') + "kg";
+        }
       }
+      return qtd.toString();
     }
-    return qtd.toString();
-  }
 
-  function montarTela() {
-    var container = document.getElementById("produtos");
-    if (!container) return;
-    
-    var html = "";
-    produtos.forEach(function(p) {
-      quantidades[p.id] = 0;
+    function montarTela() {
+      var container = document.getElementById("produtos");
+      if (!container) return;
       
-      html += '<div class="produto-item">';
-      html += '  <div class="produto-topo">';
-      html += '    <div class="produto-info">';
-      html += '      <strong>' + p.nome + '</strong><br>';
-      html += '      <span class="preco">R$ ' + p.preco.toFixed(2).replace('.', ',') + ' / ' + p.unidade + '</span>';
-      html += '    </div>';
-      html += '    <div class="produto-controles">';
-      html += '      <button class="btn-qtd" onclick="alterarQtd(' + p.id + ', -1)">-</button>';
-      html += '      <span id="qtd-' + p.id + '" class="qtd-display">0</span>';
-      html += '      <button class="btn-qtd" onclick="alterarQtd(' + p.id + ', 1)">+</button>';
-      html += '    </div>';
-      html += '  </div>';
-      if (p.ingredientes) {
-        html += '  <div class="produto-detalhes">Ingredientes: ' + p.ingredientes + '</div>';
-      }
-      html += '</div>';
-    });
-    
-    container.innerHTML = html;
-  }
-
-  function alterarQtd(id, direcao) {
-    var prod = produtos.find(function(item) { return item.id === id; });
-    if (!prod) return;
-
-    var passo = (prod.unidade === "kg") ? 0.25 : 1.0;
-    var qtdAtual = quantidades[id] || 0;
-    var novaQtd = qtdAtual + (direcao * passo);
-
-    if (novaQtd < 0) novaQtd = 0;
-    quantidades[id] = Math.round(novaQtd * 100) / 100;
-
-    var el = document.getElementById("qtd-" + id);
-    if (el) {
-      el.textContent = formatarQtdTexto(quantidades[id], prod.unidade);
-    }
-    
-    atualizarTotal();
-  }
-
-  function apagarTaxa() {
-    document.getElementById("taxa-entrega").value = "0.00";
-    atualizarTotal();
-  }
-
-  function atualizarTotal() {
-    var totalProdutos = 0;
-    produtos.forEach(function(p) {
-      var qtd = quantidades[p.id] || 0;
-      totalProdutos += qtd * p.preco;
-    });
-
-    var campoTaxa = parseFloat(document.getElementById("taxa-entrega").value);
-    var taxa = isNaN(campoTaxa) || campoTaxa < 0 ? 0 : campoTaxa;
-
-    var totalGeral = totalProdutos > 0 ? (totalProdutos + taxa) : 0;
-    document.getElementById("valor-total").textContent = "R$ " + totalGeral.toFixed(2).replace('.', ',');
-  }
-
-  function zerarQuantidades() {
-    produtos.forEach(function(p) {
-      quantidades[p.id] = 0;
-      var el = document.getElementById("qtd-" + p.id);
-      if (el) el.textContent = "0";
-    });
-    document.getElementById("taxa-entrega").value = "12.00";
-    atualizarTotal();
-  }
-
-  function copiarPixManual() {
-    var chave = minhaChavePix;
-
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(chave).then(function() {
-        alert("Chave Pix (" + chave + ") copiada com sucesso!\n\nAgora clique em 'Enviar Pedido via WhatsApp'.");
-      }).catch(function() {
-        copiarComInputTemporario(chave);
+      var html = "";
+      produtos.forEach(function(p) {
+        quantidades[p.id] = 0;
+        
+        html += '<div class="produto-item">';
+        html += '  <div class="produto-topo">';
+        html += '    <div class="produto-info">';
+        html += '      <strong>' + p.nome + '</strong><br>';
+        html += '      <span class="preco">R$ ' + p.preco.toFixed(2).replace('.', ',') + ' / ' + p.unidade + '</span>';
+        html += '    </div>';
+        html += '    <div class="produto-controles">';
+        html += '      <button class="btn-qtd" onclick="alterarQtd(' + p.id + ', -1)">-</button>';
+        html += '      <span id="qtd-' + p.id + '" class="qtd-display">0</span>';
+        html += '      <button class="btn-qtd" onclick="alterarQtd(' + p.id + ', 1)">+</button>';
+        html += '    </div>';
+        html += '  </div>';
+        if (p.ingredientes) {
+          html += '  <div class="produto-detalhes">Ingredientes: ' + p.ingredientes + '</div>';
+        }
+        html += '</div>';
       });
-    } else {
-      copiarComInputTemporario(chave);
+      
+      container.innerHTML = html;
     }
-  }
 
-  function copiarComInputTemporario(texto) {
-    var input = document.createElement("input");
-    input.setAttribute("value", texto);
-    document.body.appendChild(input);
-    input.select();
-    input.setSelectionRange(0, 99999);
-    
-    try {
-      document.execCommand("copy");
-      alert("Chave Pix copiada com sucesso!\n\nEste pedido será enviado após a confirmação do pagamento.\n\nAgora clique em enviar pedido via WhatsApp.");
-    } catch (err) {
-      alert("Não foi possível copiar automaticamente. A chave é: " + texto);
-    }
-    
-    document.body.removeChild(input);
-  }
+    function alterarQtd(id, direcao) {
+      var prod = produtos.find(function(item) { return item.id === id; });
+      if (!prod) return;
 
-  function enviarPedido() {
-    var texto = "Pedido Vida Mix:\n\n";
-    var temItem = false;
-    var totalProdutos = 0;
-    
-    produtos.forEach(function(p) {
-      var qtd = quantidades[p.id] || 0;
-      if (qtd > 0) {
-        var subtotal = qtd * p.preco;
-        totalProdutos += subtotal;
-        var qtdFormatada = formatarQtdTexto(qtd, p.unidade);
-        texto += "• " + p.nome + " (" + qtdFormatada + ") - R$ " + subtotal.toFixed(2).replace('.', ',') + "\n";
-        temItem = true;
+      var passo = (prod.unidade === "kg") ? 0.25 : 1.0;
+      var qtdAtual = quantidades[id] || 0;
+      var novaQtd = qtdAtual + (direcao * passo);
+
+      if (novaQtd < 0) novaQtd = 0;
+      quantidades[id] = Math.round(novaQtd * 100) / 100;
+
+      var el = document.getElementById("qtd-" + id);
+      if (el) {
+        el.textContent = formatarQtdTexto(quantidades[id], prod.unidade);
       }
-    });
-
-    if (!temItem) {
-      alert("Por favor, selecione ao menos um item antes de enviar o pedido.");
-      return;
+      
+      atualizarTotal();
     }
 
-    var campoTaxa = parseFloat(document.getElementById("taxa-entrega").value);
-    var taxa = isNaN(campoTaxa) || campoTaxa < 0 ? 0 : campoTaxa;
-    var totalGeral = totalProdutos + taxa;
-
-    if (taxa > 0) {
-      texto += "• Taxa de entrega: R$ " + taxa.toFixed(2).replace('.', ',') + "\n";
-    } else {
-      texto += "• Opção: Retirada no local (Sem taxa)\n";
+    function apagarTaxa() {
+      document.getElementById("taxa-entrega").value = "0.00";
+      atualizarTotal();
     }
 
-    texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
-    texto += "\n*Forma de Pagamento:* Pix (E-mail)\n\n";
-    
-    texto += "💡 DICA DE PAGAMENTO:\n";
-    texto += "A chave Pix já foi copiada no site! Basta abrir o app do seu banco e colar.\n\n";
-    texto += "Este pedido será enviado após a confirmação do pagamento.";
+    function atualizarTotal() {
+      var totalProdutos = 0;
+      produtos.forEach(function(p) {
+        var qtd = quantidades[p.id] || 0;
+        totalProdutos += qtd * p.preco;
+      });
 
-    var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
-    window.open(url, "_blank");
-  }
+      var campoTaxa = parseFloat(document.getElementById("taxa-entrega").value);
+      var taxa = isNaN(campoTaxa) || campoTaxa < 0 ? 0 : campoTaxa;
 
-  montarTela();
+      var totalGeral = totalProdutos > 0 ? (totalProdutos + taxa) : 0;
+      document.getElementById("valor-total").textContent = "R$ " + totalGeral.toFixed(2).replace('.', ',');
+    }
+
+    function zerarQuantidades() {
+      produtos.forEach(function(p) {
+        quantidades[p.id] = 0;
+        var el = document.getElementById("qtd-" + p.id);
+        if (el) el.textContent = "0";
+      });
+      document.getElementById("taxa-entrega").value = "12.00";
+      atualizarTotal();
+    }
+
+    function copiarPixManual() {
+      var chave = minhaChavePix;
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(chave).then(function() {
+          alert("Chave Pix (" + chave + ") copiada com sucesso!\n\nAgora clique em 'Enviar Pedido via WhatsApp'.");
+        }).catch(function() {
+          copiarComInputTemporario(chave);
+        });
+      } else {
+        copiarComInputTemporario(chave);
+      }
+    }
+
+    function copiarComInputTemporario(texto) {
+      var input = document.createElement("input");
+      input.setAttribute("value", texto);
+      document.body.appendChild(input);
+      input.select();
+      input.setSelectionRange(0, 99999);
+      
+      try {
+        document.execCommand("copy");
+        alert("Chave Pix copiada com sucesso!\n\nEste pedido será enviado após a confirmação do pagamento.\n\nAgora clique em enviar pedido via WhatsApp.");
+      } catch (err) {
+        alert("Não foi possível copiar automaticamente. A chave é: " + texto);
+      }
+      
+      document.body.removeChild(input);
+    }
+
+    function enviarPedido() {
+      var texto = "Pedido Vida Mix:\n\n";
+      var temItem = false;
+      var totalProdutos = 0;
+      
+      produtos.forEach(function(p) {
+        var qtd = quantidades[p.id] || 0;
+        if (qtd > 0) {
+          var subtotal = qtd * p.preco;
+          totalProdutos += subtotal;
+          var qtdFormatada = formatarQtdTexto(qtd, p.unidade);
+          texto += "• " + p.nome + " (" + qtdFormatada + ") - R$ " + subtotal.toFixed(2).replace('.', ',') + "\n";
+          temItem = true;
+        }
+      });
+
+      if (!temItem) {
+        alert("Por favor, selecione ao menos um item antes de enviar o pedido.");
+        return;
+      }
+
+      var campoTaxa = parseFloat(document.getElementById("taxa-entrega").value);
+      var taxa = isNaN(campoTaxa) || campoTaxa < 0 ? 0 : campoTaxa;
+      var totalGeral = totalProdutos + taxa;
+
+      if (taxa > 0) {
+        texto += "• Taxa de entrega: R$ " + taxa.toFixed(2).replace('.', ',') + "\n";
+      } else {
+        texto += "• Opção: Retirada no local (Sem taxa)\n";
+      }
+
+      texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
+      texto += "\n*Forma de Pagamento:* Pix (E-mail)\n\n";
+      
+      texto += "💡 DICA DE PAGAMENTO:\n";
+      texto += "A chave Pix já foi copiada no site! Basta abrir o app do seu banco e colar.\n\n";
+      texto += "Este pedido será enviado após a confirmação do pagamento.";
+
+      var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
+      window.open(url, "_blank");
+    }
+
+    // Executa assim que a página carrega
+    window.onload = function() {
+      montarTela();
+      atualizarTotal();
+    };
   </script>
 
 </body>
