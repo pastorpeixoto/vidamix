@@ -283,28 +283,54 @@ function copiarPixManual() {
     // -------------------------------------------------------------
 
     // 1. Função que monta a mensagem e envia para o WhatsApp
-    function enviarParaWhatsapp() {
-        var textoMensagem = "💡 DICA DE PAGAMENTO:\n";
-        textoMensagem += "A chave Pix já foi copiada no site! Basta abrir o app do seu banco e colar.\n\n";
-        textoMensagem += "Este pedido será enviado após a confirmação do pagamento.";
-        
-        var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(textoMensagem);
-        window.open(url, "_blank");
+
+    function enviarPedido() {
+    var texto = "Pedido Vida Mix:\n\n";
+    var temItem = false;
+    var totalProdutos = 0;
+    
+    produtos.forEach(function(p) {
+      var qtd = quantidades[p.id] || 0;
+      if (qtd > 0) {
+        var subtotal = qtd * p.preco;
+        totalProdutos += subtotal;
+        var qtdFormatada = formatarQtdTexto(qtd, p.unidade);
+        texto += "• " + p.nome + " (" + qtdFormatada + ") - R$ " + subtotal.toFixed(2).replace('.', ',') + "\n";
+        temItem = true;
+      }
+    });
+
+    if (!temItem) {
+      alert("Por favor, selecione ao menos um item antes de enviar o pedido.");
+      return;
     }
 
-    // 2. Criação do aviso visual fixo na tela
-    var avisoTela = document.createElement("p");
-    avisoTela.style.fontWeight = "bold";
-    avisoTela.style.color = "#d9534f";
-    avisoTela.style.margin = "10px 0";
-    avisoTela.innerText = "*Este pedido será enviado após a confirmação do pagamento.";
+    var campoTaxa = parseFloat(document.getElementById("taxa-entrega").value);
+    var taxa = isNaN(campoTaxa) || campoTaxa < 0 ? 0 : campoTaxa;
+    var totalGeral = totalProdutos + taxa;
 
-    // Adiciona o aviso visual na página
-    document.body.appendChild(avisoTela);
+    if (taxa > 0) {
+      texto += "• Taxa de entrega: R$ " + taxa.toFixed(2).replace('.', ',') + "\n";
+    } else {
+      texto += "• Opção: Retirada no local (Sem taxa)\n";
+    }
 
-    // 3. Inicialização padrão do site
-    window.onload = function() {
-        montarTela();
+    // Final do resumo do pedido
+    texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
+    texto += "\n*Forma de Pagamento:* Pix (E-mail)\n\n";
+    
+    // Adiciona a dica de pagamento e o aviso no texto do WhatsApp
+    texto += "💡 DICA DE PAGAMENTO:\n";
+    texto += "A chave Pix já foi copiada no site! Basta abrir o app do seu banco e colar.\n\n";
+    texto += "Este pedido será enviado após a confirmação do pagamento.";
+
+    // Abre o WhatsApp com a mensagem pronta
+    var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
+    window.open(url, "_blank");
+  }
+
+  // Inicialização padrão do site que desenha a tela e o cardápio
+  montarTela();
     };
 </script>
 
