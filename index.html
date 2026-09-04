@@ -274,33 +274,38 @@ function copiarPixManual() {
       texto += "• Opção: Retirada no local (Sem taxa)\n";
     }
 
+ // Final do resumo do pedido
     texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
     texto += "\n*Forma de Pagamento:* Pix (E-mail)\n\n";
-    
-   // 1. Função que monta a mensagem e envia para o WhatsApp (acionada ao clicar no botão)
-function enviarParaWhatsapp() {
-    var texto = "💡 DICA DE PAGAMENTO:\n";
-    texto += "A chave Pix já foi copiada no site! Basta abrir o app do seu banco e colar.\n\n";
-    texto += "Este pedido será enviado após a confirmação do pagamento.";
-    
-    var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
-    window.open(url, "_blank");
-}
 
-// 2. Criação do aviso visual fixo na tela
-var avisoTela = document.createElement("p");
-avisoTela.style.fontWeight = "bold";
-avisoTela.style.color = "#d9534f";
-avisoTela.style.margin = "10px 0";
-avisoTela.innerText = "*Este pedido será enviado após a confirmação do pagamento.";
+    // -------------------------------------------------------------
+    // BLOCO ORGANIZADO: Aviso Visual e Função do WhatsApp
+    // -------------------------------------------------------------
 
-// Aqui garantimos que o aviso vai aparecer na página logo que ela carregar
-document.body.appendChild(avisoTela);
+    // 1. Função que monta a mensagem e envia para o WhatsApp (acionada ao clicar no botão)
+    function enviarParaWhatsapp() {
+        var textoMensagem = "💡 DICA DE PAGAMENTO:\n";
+        textoMensagem += "A chave Pix já foi copiada no site! Basta abrir o app do seu banco e colar.\n\n";
+        textoMensagem += "Este pedido será enviado após a confirmação do pagamento.";
+        
+        var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(textoMensagem);
+        window.open(url, "_blank");
+    }
 
-// 3. Inicialização padrão do site
-window.onload = function() {
-    montarTela();
-};
+    // 2. Criação do aviso visual fixo na tela
+    var avisoTela = document.createElement("p");
+    avisoTela.style.fontWeight = "bold";
+    avisoTela.style.color = "#d9534f";
+    avisoTela.style.margin = "10px 0";
+    avisoTela.innerText = "*Este pedido será enviado após a confirmação do pagamento.";
+
+    // Adiciona o aviso visual na página
+    document.body.appendChild(avisoTela);
+
+    // 3. Inicialização padrão do site
+    window.onload = function() {
+        montarTela();
+    };
 </script>
 
 </body>
