@@ -283,6 +283,13 @@ function copiarPixManual() {
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
   }
+    // Adiciona o aviso visual fixo na tela
+var avisoTela = document.createElement("p");
+avisoTela.style.fontWeight = "bold";
+avisoTela.style.color = "#d9534f";
+avisoTela.style.margin = "10px 0";
+avisoTela.innerText = "*Este pedido será enviado após a confirmação do pagamento.";
+document.body.appendChild(avisoTela);
 window.onload = function() {
     montarTela();
   };
