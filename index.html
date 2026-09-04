@@ -274,15 +274,15 @@ function copiarPixManual() {
       texto += "• Opção: Retirada no local (Sem taxa)\n";
     }
 
- // Final do resumo do pedido
+// Final do resumo do pedido
     texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
     texto += "\n*Forma de Pagamento:* Pix (E-mail)\n\n";
 
     // -------------------------------------------------------------
-    // BLOCO ORGANIZADO: Aviso Visual e Função do WhatsApp
+    // BLOCO CORRETO: Aviso Visual e Função do WhatsApp
     // -------------------------------------------------------------
 
-    // 1. Função que monta a mensagem e envia para o WhatsApp (acionada ao clicar no botão)
+    // 1. Função que monta a mensagem e envia para o WhatsApp
     function enviarParaWhatsapp() {
         var textoMensagem = "💡 DICA DE PAGAMENTO:\n";
         textoMensagem += "A chave Pix já foi copiada no site! Basta abrir o app do seu banco e colar.\n\n";
