@@ -235,7 +235,7 @@ function copiarPixManual() {
     
     try {
       document.execCommand("copy");
-      alert("Chave Pix (" + texto + ") copiada com sucesso!\n\nAgora clique em 'Enviar Pedido via WhatsApp'.");
+      alert("Chave Pix copiada com sucesso!\n\nEste pedido será enviado após a confirmação do pagamento.\n\nAgora clique em enviar pedido via WhatsApp.");
     } catch (err) {
       alert("Não foi possível copiar automaticamente. A chave é: " + texto);
     }
