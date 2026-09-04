@@ -24,15 +24,12 @@
     
     .resumo-linha { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; }
     .taxa-controle { display: flex; align-items: center; gap: 8px; }
-    .taxa-input { width: 60px; padding: 4px; border: 1px solid #ccc; border-radius: 4px; text-align: right; }
+    .taxa-input { width: 60px; padding: 4px; border: 1px solid #ccc; border-radius: 4px; text-align: right; background-color: #f9f9f9; }
     
     .valor-total { font-weight: bold; color: #2e7d32; font-size: 18px; }
     
     .btn-acao { background: #ff5252; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 11px; }
     .btn-enviar { width: 100%; padding: 12px; background: #25d366; color: white; border: none; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 8px; }
-    
-    .caixa-pix { background: #e8f5e9; border: 1px dashed #2e7d32; padding: 8px; border-radius: 8px; text-align: center; margin-top: 8px; font-size: 12px; color: #1b5e20; }
-    .btn-copiar-pix { margin-top: 4px; background: #2e7d32; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -46,7 +43,7 @@
     <div class="resumo-linha">
       <span>Taxa de Entrega (R$):</span>
       <div class="taxa-controle">
-        <input type="number" id="taxa-entrega" class="taxa-input" value="12.00" step="0.50" min="0" oninput="atualizarTotal()">
+        <input type="number" id="taxa-entrega" class="taxa-input" value="12.00" step="0.50" min="0" readonly oninput="atualizarTotal()">
         <button class="btn-acao" onclick="apagarTaxa()">Sem Taxa (Retirada)</button>
       </div>
     </div>
@@ -61,21 +58,17 @@
       <button class="btn-acao" onclick="zerarQuantidades()">Zerar Produtos</button>
     </div>
     
- <button onclick="copiarPixManual()" style="background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 5px; margin-bottom: 10px; font-weight: bold; width: 100%;">
-  1. Copiar Chave Pix
-</button>
+    <button onclick="copiarPixManual()" style="background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 5px; margin-bottom: 10px; font-weight: bold; width: 100%;">
+      1. Copiar Chave Pix
+    </button>
 
-<button onclick="enviarPedido()" style="background-color: #075e54; color: white; padding: 12px 15px; border: none; border-radius: 5px; font-weight: bold; width: 100%;">
-  2. Enviar Pedido via WhatsApp
-</button>
-    </div>
+    <button onclick="enviarPedido()" style="background-color: #075e54; color: white; padding: 12px 15px; border: none; border-radius: 5px; font-weight: bold; width: 100%;">
+      2. Enviar Pedido via WhatsApp
+    </button>
   </div>
 
   <script>
-  // Sua Chave Pix real
   var minhaChavePix = "belabelpeixoto@gmail.com"; 
-
-  // Seu WhatsApp (coloque seu número completo com DDD)
   var numeroWhatsapp = "5544998546285"; 
 
   var produtos = [
@@ -90,7 +83,7 @@
       { id: 9, nome: "Esfirra de carne ou frango", preco: 8.00, unidade: "un (mínimo 6)", ingredientes: "Mix de farinhas para pão; farinha de grão de bico; psyllium"},
       { id: 10, nome: "Bolo de Banana", preco: 75.00, unidade: "kg", ingredientes: "Bolo de banana caramelizada"}, 
       { id: 11, nome: "Bolo de Café", preco: 75.00, unidade: "kg", ingredientes: "Açúcar demerara; farinha de aveia; cacau em pó 100%; ovos; farinha de linhaça dourada"}, 
-      { id: 12, nome: "Bolo mesclado simples", preco: 75.00, unidade: "kg", ingredientes: "Açúcar demerara; óleo de girassol; vinagre de maçã; ovos; leite de coco; mix de farinhas"}, 
+      { id: 12, nome: "Bolo mesclado simples", preco: 75.00, unidade: "kg", ingredientes: "Açúcar demerara; óleo de girassol; vinagre de maçã; ovos; leite de inhame; mix de farinhas"}, 
       { id: 13, nome: "Pão de lanche", preco: 75.00, unidade: "kg", ingredientes: "Mix de farinhas; açúcar demerara; óleo de girassol; ovos"},
       { id: 14, nome: "Pão Multigrãos", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; Fécula de mandioca; amido de milho; psyllium; ovos; vinagre de maçã"}, 
       { id: 15, nome: "Pão tipo Bisnaguinha", preco: 75.00, unidade: "kg", ingredientes: "Farinha de arroz; óleo de girassol; Fécula de mandioca; farinha de grão de bico; farinha de feijão branco; ovos"}, 
@@ -151,9 +144,6 @@
     });
     
     container.innerHTML = html;
-    
-    var elemPix = document.getElementById("chave-pix-exibicao");
-    if (elemPix) elemPix.textContent = minhaChavePix;
   }
 
   function alterarQtd(id, direcao) {
@@ -204,15 +194,7 @@
     atualizarTotal();
   }
 
-  function copiarPix() {
-    navigator.clipboard.writeText(minhaChavePix).then(function() {
-      alert("Chave Pix copiada com sucesso:\n" + minhaChavePix);
-    }).catch(function() {
-      alert("Chave Pix: " + minhaChavePix);
-    });
-  }
-
-function copiarPixManual() {
+  function copiarPixManual() {
     var chave = minhaChavePix;
 
     if (navigator.clipboard && window.isSecureContext) {
@@ -274,68 +256,23 @@ function copiarPixManual() {
       texto += "• Opção: Retirada no local (Sem taxa)\n";
     }
 
-// Final do resumo do pedido
-    texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
-    texto += "\n*Forma de Pagamento:* Pix (E-mail)\n\n";
-
-    // -------------------------------------------------------------
-    // BLOCO CORRETO: Aviso Visual e Função do WhatsApp
-    // -------------------------------------------------------------
-
-    // 1. Função que monta a mensagem e envia para o WhatsApp
-
-    function enviarPedido() {
-    var texto = "Pedido Vida Mix:\n\n";
-    var temItem = false;
-    var totalProdutos = 0;
-    
-    produtos.forEach(function(p) {
-      var qtd = quantidades[p.id] || 0;
-      if (qtd > 0) {
-        var subtotal = qtd * p.preco;
-        totalProdutos += subtotal;
-        var qtdFormatada = formatarQtdTexto(qtd, p.unidade);
-        texto += "• " + p.nome + " (" + qtdFormatada + ") - R$ " + subtotal.toFixed(2).replace('.', ',') + "\n";
-        temItem = true;
-      }
-    });
-
-    if (!temItem) {
-      alert("Por favor, selecione ao menos um item antes de enviar o pedido.");
-      return;
-    }
-
-    var campoTaxa = parseFloat(document.getElementById("taxa-entrega").value);
-    var taxa = isNaN(campoTaxa) || campoTaxa < 0 ? 0 : campoTaxa;
-    var totalGeral = totalProdutos + taxa;
-
-    if (taxa > 0) {
-      texto += "• Taxa de entrega: R$ " + taxa.toFixed(2).replace('.', ',') + "\n";
-    } else {
-      texto += "• Opção: Retirada no local (Sem taxa)\n";
-    }
-
-    // Final do resumo do pedido
     texto += "\n*Total do Pedido:* R$ " + totalGeral.toFixed(2).replace('.', ',');
     texto += "\n*Forma de Pagamento:* Pix (E-mail)\n\n";
     
-    // Adiciona a dica de pagamento e o aviso no texto do WhatsApp
     texto += "💡 DICA DE PAGAMENTO:\n";
     texto += "A chave Pix já foi copiada no site! Basta abrir o app do seu banco e colar.\n\n";
     texto += "Este pedido será enviado após a confirmação do pagamento.";
 
-    // Abre o WhatsApp com a mensagem pronta
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(texto);
     window.open(url, "_blank");
   }
 
-  // Inicialização padrão do site que desenha a tela e o cardápio
   montarTela();
-    };
-</script>
+  </script>
 
 </body>
 </html>
+
 
 
 
