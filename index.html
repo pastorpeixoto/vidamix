@@ -25,7 +25,7 @@
         body {
             background: var(--bg-gradient);
             color: var(--text-color);
-            padding-bottom: 140px; /* Espaço para a barra fixa */
+            padding-bottom: 90px;
             min-height: 100vh;
         }
         header {
@@ -132,51 +132,17 @@
         .btn-order:hover {
             background-color: var(--accent-hover);
         }
-
-        /* Barra Flutuante de Conclusão / Carrinho */
-        .checkout-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #1a252f;
-            color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            flex-wrap: wrap;
-            gap: 1rem;
-            border-top: 4px solid var(--secondary-color);
-        }
-        .checkout-info {
-            font-size: 1rem;
-        }
-        .checkout-info span {
-            font-weight: bold;
-            color: #2ecc71;
-        }
-        .checkout-btn {
-            background-color: #25d366;
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
+        .info-entrega-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 1rem;
             border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);
-            text-decoration: none;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            text-align: center;
+            font-weight: 600;
         }
-        .checkout-btn:hover {
-            background-color: #20ba5a;
-        }
-
         footer {
             text-align: center;
             padding: 2.5rem 1rem;
@@ -195,21 +161,490 @@
 
     <header>
         <h1>Vidamix - Delícias Artesanais</h1>
-        <p>Cardápio Exclusivo Sem Glúten e Sem Lactose. Escolha o peso desejado e envie seu pedido completo!</p>
+        <p>Cardápio Exclusivo Sem Glúten e Sem Lactose. Escolha o peso e encomende direto pelo WhatsApp!</p>
     </header>
 
-    <div class="container" id="menu-container">
-        <!-- O conteúdo dos produtos é gerado dinamicamente para aplicar a lógica de peso -->
-    </div>
+    <div class="container">
 
-    <!-- Barra Fixa de Conclusão do Pedido -->
-    <div class="checkout-bar">
-        <div class="checkout-info">
-            Taxa de Entrega: <span>R$ 12,00</span> | Total com Entrega: <span id="total-geral">R$ 12,00</span>
+        <div class="info-entrega-box">
+            🚚 Taxa de Entrega Fixa: <strong>R$ 12,00</strong> (será somada ao valor do seu pedido no WhatsApp)
         </div>
-        <a id="whatsapp-final-btn" href="#" target="_blank" class="checkout-btn">
-            📱 Enviar Pedido Completo para o WhatsApp
-        </a>
+
+        <!-- ==================== CESTAS ESPECIAIS ==================== -->
+        <h2 class="category-title">Cestas Especiais</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="1.jpeg" alt="Cesta do Amor">
+                <div class="card-content">
+                    <div class="card-title">Cesta do Amor</div>
+                    <div class="card-desc">Seleção especial de produtos sem glúten e sem lactose, feita com muito carinho.</div>
+                    <div class="card-price" id="preco-1">R$ 120,00</div>
+                    <div style="font-size: 0.85rem; color: #666; margin-bottom: 0.8rem;">Item por unidade</div>
+                    <a href="javascript:void(0);" onclick="enviarPedido('Cesta do Amor', 120.00, 'Unidade')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PÃES ARTESANAIS ==================== -->
+        <h2 class="category-title">Pães Artesanais</h2>
+        <div class="grid">
+            <!-- Pão 1 -->
+            <div class="card">
+                <img src="2.jpeg" alt="Pão de Sementes Integral">
+                <div class="card-content">
+                    <div class="card-title">Pão de Sementes Integral</div>
+                    <div class="card-desc">Massa macia e nutritiva, rica em fibras, com mix de farinhas selecionadas.</div>
+                    <div class="card-price" id="preco-2">R$ 37,50</div>
+                    <select class="weight-select" id="select-2" onchange="mudarPreco(2, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Pão de Sementes Integral', 75.00, 'select-2')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Pão 2 -->
+            <div class="card">
+                <img src="3.jpeg" alt="Pão Multigrãos">
+                <div class="card-content">
+                    <div class="card-title">Pão Multigrãos</div>
+                    <div class="card-desc">Saboroso e crocante, perfeito para acompanhar o seu café.</div>
+                    <div class="card-price" id="preco-3">R$ 37,50</div>
+                    <select class="weight-select" id="select-3" onchange="mudarPreco(3, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Pão Multigrãos', 75.00, 'select-3')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Pão 3 -->
+            <div class="card">
+                <img src="4.jpeg" alt="Pão de Forma Branco">
+                <div class="card-content">
+                    <div class="card-title">Pão de Forma Branco</div>
+                    <div class="card-desc">Leve, macio e versátil, ideal para todas as horas do dia.</div>
+                    <div class="card-price" id="preco-4">R$ 37,50</div>
+                    <select class="weight-select" id="select-4" onchange="mudarPreco(4, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Pão de Forma Branco', 75.00, 'select-4')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Pão 4 -->
+            <div class="card">
+                <img src="5.jpeg" alt="Pão Low Carb">
+                <div class="card-content">
+                    <div class="card-title">Pão Low Carb</div>
+                    <div class="card-desc">Opção leve, saborosa e com baixo carboidrato para o seu dia a dia.</div>
+                    <div class="card-price" id="preco-5">R$ 37,50</div>
+                    <select class="weight-select" id="select-5" onchange="mudarPreco(5, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Pão Low Carb', 75.00, 'select-5')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Pão 5 -->
+            <div class="card">
+                <img src="6.jpeg" alt="Pão de Hambúrguer">
+                <div class="card-content">
+                    <div class="card-title">Pão de Hambúrguer</div>
+                    <div class="card-desc">Perfeito para seus lanches artesanais, macio e sem glúten.</div>
+                    <div class="card-price" id="preco-6">R$ 37,50</div>
+                    <select class="weight-select" id="select-6" onchange="mudarPreco(6, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Pão de Hambúrguer', 75.00, 'select-6')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Pão 6 -->
+            <div class="card">
+                <img src="7.jpeg" alt="Pão Tipo Bisnaguinha">
+                <div class="card-content">
+                    <div class="card-title">Pão Tipo Bisnaguinha</div>
+                    <div class="card-desc">Fofinho e irresistível, ótimo para lanches rápidos e para as crianças.</div>
+                    <div class="card-price" id="preco-7">R$ 37,50</div>
+                    <select class="weight-select" id="select-7" onchange="mudarPreco(7, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Pão Tipo Bisnaguinha', 75.00, 'select-7')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Pão 7 -->
+            <div class="card">
+                <img src="8.jpeg" alt="Pãozinho Recheado">
+                <div class="card-content">
+                    <div class="card-title">Pãozinho Recheado</div>
+                    <div class="card-desc">Recheio caprichado e massa artesanal de excelente textura.</div>
+                    <div class="card-price" id="preco-8">R$ 37,50</div>
+                    <select class="weight-select" id="select-8" onchange="mudarPreco(8, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Pãozinho Recheado', 75.00, 'select-8')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Pão 8 -->
+            <div class="card">
+                <img src="13.jpeg" alt="Pão Italiano">
+                <div class="card-content">
+                    <div class="card-title">Pão Italiano</div>
+                    <div class="card-desc">Crosta marcante e miolo super macio, estilo rústico artesanal.</div>
+                    <div class="card-price" id="preco-13">R$ 37,50</div>
+                    <select class="weight-select" id="select-13" onchange="mudarPreco(13, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Pão Italiano', 75.00, 'select-13')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Pão 9 -->
+            <div class="card">
+                <img src="14.jpeg" alt="Pão de Batata Doce">
+                <div class="card-content">
+                    <div class="card-title">Pão de Batata Doce</div>
+                    <div class="card-desc">Massa nutritiva, fofinha e com um toque especial de batata doce.</div>
+                    <div class="card-price" id="preco-14">R$ 37,50</div>
+                    <select class="weight-select" id="select-14" onchange="mudarPreco(14, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Pão de Batata Doce', 75.00, 'select-14')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Pão 10 -->
+            <div class="card">
+                <img src="16.jpeg" alt="Pão de Sementes">
+                <div class="card-content">
+                    <div class="card-title">Pão de Sementes</div>
+                    <div class="card-desc">Salpicado com mix de sementes selecionadas para dar mais crocância.</div>
+                    <div class="card-price" id="preco-16">R$ 37,50</div>
+                    <select class="weight-select" id="select-16" onchange="mudarPreco(16, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Pão de Sementes', 75.00, 'select-16')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Pão 11 -->
+            <div class="card">
+                <img src="17.jpeg" alt="Pão de Milho">
+                <div class="card-content">
+                    <div class="card-title">Pão de Milho</div>
+                    <div class="card-desc">Sabor caseiro inconfundível, leve e com aroma delicioso de milho fresco.</div>
+                    <div class="card-price" id="preco-17">R$ 37,50</div>
+                    <select class="weight-select" id="select-17" onchange="mudarPreco(17, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Pão de Milho', 75.00, 'select-17')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Pão 12 -->
+            <div class="card">
+                <img src="18.jpeg" alt="Pão Recheado">
+                <div class="card-content">
+                    <div class="card-title">Pão Recheado</div>
+                    <div class="card-desc">Deliciosa combinação de massa artesanal com recheio especial da casa.</div>
+                    <div class="card-price" id="preco-18">R$ 37,50</div>
+                    <select class="weight-select" id="select-18" onchange="mudarPreco(18, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Pão Recheado', 75.00, 'select-18')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Pão 13 -->
+            <div class="card">
+                <img src="19.jpeg" alt="Pão Australiano">
+                <div class="card-content">
+                    <div class="card-title">Pão Australiano</div>
+                    <div class="card-desc">Pão artesanal escuro com sabor adocicado sutil e textura extremamente macia.</div>
+                    <div class="card-price" id="preco-19">R$ 37,50</div>
+                    <select class="weight-select" id="select-19" onchange="mudarPreco(19, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Pão Australiano', 75.00, 'select-19')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Pão 14 -->
+            <div class="card">
+                <img src="20.jpeg" alt="Pão de Batata Doce">
+                <div class="card-content">
+                    <div class="card-title">Pão de Batata Doce</div>
+                    <div class="card-desc">Outra variação incrível e saudável para o seu café da manhã ou lanche.</div>
+                    <div class="card-price" id="preco-20">R$ 37,50</div>
+                    <select class="weight-select" id="select-20" onchange="mudarPreco(20, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Pão de Batata Doce', 75.00, 'select-20')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Pão 15 -->
+            <div class="card">
+                <img src="21.jpeg" alt="Pão Recheado">
+                <div class="card-content">
+                    <div class="card-title">Pão Recheado</div>
+                    <div class="card-desc">Opção de pão recheado artesanal com excelente apresentação e sabor.</div>
+                    <div class="card-price" id="preco-21">R$ 37,50</div>
+                    <select class="weight-select" id="select-21" onchange="mudarPreco(21, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Pão Recheado', 75.00, 'select-21')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SALGADOS E QUITUTES ==================== -->
+        <h2 class="category-title">Salgados e Quitutes</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="9.jpeg" alt="Esfiha Carne ou Frango">
+                <div class="card-content">
+                    <div class="card-title">Esfiha Carne ou Frango</div>
+                    <div class="card-desc">Salgados assados artesanais sem glúten e sem lactose, recheados com capricho.</div>
+                    <div class="card-price" id="preco-9">R$ 37,50</div>
+                    <select class="weight-select" id="select-9" onchange="mudarPreco(9, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Esfiha Carne ou Frango', 75.00, 'select-9')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="24.jpeg" alt="Empada de Frango">
+                <div class="card-content">
+                    <div class="card-title">Empada de Frango</div>
+                    <div class="card-desc">Massa podre que derrete na boca com recheio cremoso de frango.</div>
+                    <div class="card-price" id="preco-24">R$ 37,50</div>
+                    <select class="weight-select" id="select-24" onchange="mudarPreco(24, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Empada de Frango', 75.00, 'select-24')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="28.jpeg" alt="Bolinho Frito">
+                <div class="card-content">
+                    <div class="card-title">Bolinho Frito</div>
+                    <div class="card-desc">Quitute crocante por fora e macio por dentro, feito com ingredientes selecionados.</div>
+                    <div class="card-price" id="preco-28">R$ 37,50</div>
+                    <select class="weight-select" id="select-28" onchange="mudarPreco(28, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Bolinho Frito', 75.00, 'select-28')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== BOLOS E TORTAS ==================== -->
+        <h2 class="category-title">Bolos e Tortas</h2>
+        <div class="grid">
+            <!-- Bolo 1 -->
+            <div class="card">
+                <img src="10.jpeg" alt="Bolo de Banana">
+                <div class="card-content">
+                    <div class="card-title">Bolo de Banana</div>
+                    <div class="card-desc">Doce na medida certa, com toque caramelizado e textura super fofinha.</div>
+                    <div class="card-price" id="preco-10">R$ 40,00</div>
+                    <select class="weight-select" id="select-10" onchange="mudarPreco(10, 80.00)">
+                        <option value="0.25">250g - R$ 20,00</option>
+                        <option value="0.5" selected>500g - R$ 40,00</option>
+                        <option value="0.75">750g - R$ 60,00</option>
+                        <option value="1">1 Kg - R$ 80,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Bolo de Banana', 80.00, 'select-10')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Bolo 2 -->
+            <div class="card">
+                <img src="11.jpeg" alt="Bolo de Café">
+                <div class="card-content">
+                    <div class="card-title">Bolo de Café</div>
+                    <div class="card-desc">Sabor intenso e aconchegante, perfeito para acompanhar o seu café da tarde.</div>
+                    <div class="card-price" id="preco-11">R$ 40,00</div>
+                    <select class="weight-select" id="select-11" onchange="mudarPreco(11, 80.00)">
+                        <option value="0.25">250g - R$ 20,00</option>
+                        <option value="0.5" selected>500g - R$ 40,00</option>
+                        <option value="0.75">750g - R$ 60,00</option>
+                        <option value="1">1 Kg - R$ 80,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Bolo de Café', 80.00, 'select-11')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Bolo 3 -->
+            <div class="card">
+                <img src="12.jpeg" alt="Bolo Mesclado Simples">
+                <div class="card-content">
+                    <div class="card-title">Bolo Mesclado Simples</div>
+                    <div class="card-desc">Combinação clássica de massa branca e chocolate, leve e deliciosa.</div>
+                    <div class="card-price" id="preco-12">R$ 40,00</div>
+                    <select class="weight-select" id="select-12" onchange="mudarPreco(12, 80.00)">
+                        <option value="0.25">250g - R$ 20,00</option>
+                        <option value="0.5" selected>500g - R$ 40,00</option>
+                        <option value="0.75">750g - R$ 60,00</option>
+                        <option value="1">1 Kg - R$ 80,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Bolo Mesclado Simples', 80.00, 'select-12')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Bolo 4 -->
+            <div class="card">
+                <img src="15.jpeg" alt="Bolo de Lanche">
+                <div class="card-content">
+                    <div class="card-title">Bolo de Lanche</div>
+                    <div class="card-desc">Bolo caseiro tradicional ideal para qualquer hora do dia.</div>
+                    <div class="card-price" id="preco-15">R$ 40,00</div>
+                    <select class="weight-select" id="select-15" onchange="mudarPreco(15, 80.00)">
+                        <option value="0.25">250g - R$ 20,00</option>
+                        <option value="0.5" selected>500g - R$ 40,00</option>
+                        <option value="0.75">750g - R$ 60,00</option>
+                        <option value="1">1 Kg - R$ 80,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Bolo de Lanche', 80.00, 'select-15')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Bolo 5 -->
+            <div class="card">
+                <img src="22.jpeg" alt="Bolo de Amendoim">
+                <div class="card-content">
+                    <div class="card-title">Bolo de Amendoim</div>
+                    <div class="card-desc">Massa fofinha com sabor marcante e cobertura especial de amendoim.</div>
+                    <div class="card-price" id="preco-22">R$ 40,00</div>
+                    <select class="weight-select" id="select-22" onchange="mudarPreco(22, 80.00)">
+                        <option value="0.25">250g - R$ 20,00</option>
+                        <option value="0.5" selected>500g - R$ 40,00</option>
+                        <option value="0.75">750g - R$ 60,00</option>
+                        <option value="1">1 Kg - R$ 80,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Bolo de Amendoim', 80.00, 'select-22')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Bolo 6 -->
+            <div class="card">
+                <img src="23.jpeg" alt="Bolo de Chocolate">
+                <div class="card-content">
+                    <div class="card-title">Bolo de Chocolate</div>
+                    <div class="card-desc">Bolo rico em sabor com cacau de excelente qualidade e calda cremosa.</div>
+                    <div class="card-price" id="preco-23">R$ 40,00</div>
+                    <select class="weight-select" id="select-23" onchange="mudarPreco(23, 80.00)">
+                        <option value="0.25">250g - R$ 20,00</option>
+                        <option value="0.5" selected>500g - R$ 40,00</option>
+                        <option value="0.75">750g - R$ 60,00</option>
+                        <option value="1">1 Kg - R$ 80,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Bolo de Chocolate', 80.00, 'select-23')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Bolo 7 -->
+            <div class="card">
+                <img src="25.jpeg" alt="Bolo Tipo Charge">
+                <div class="card-content">
+                    <div class="card-title">Bolo Tipo Charge</div>
+                    <div class="card-desc">Inspirado no clássico doce, com camadas de chocolate e amendoim irresistíveis.</div>
+                    <div class="card-price" id="preco-25">R$ 40,00</div>
+                    <select class="weight-select" id="select-25" onchange="mudarPreco(25, 80.00)">
+                        <option value="0.25">250g - R$ 20,00</option>
+                        <option value="0.5" selected>500g - R$ 40,00</option>
+                        <option value="0.75">750g - R$ 60,00</option>
+                        <option value="1">1 Kg - R$ 80,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Bolo Tipo Charge', 80.00, 'select-25')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Bolo 8 -->
+            <div class="card">
+                <img src="26.jpeg" alt="Bolo de Cenoura">
+                <div class="card-content">
+                    <div class="card-title">Bolo de Cenoura</div>
+                    <div class="card-desc">Massa fofinha de cenoura com generosa cobertura de chocolate.</div>
+                    <div class="card-price" id="preco-26">R$ 40,00</div>
+                    <select class="weight-select" id="select-26" onchange="mudarPreco(26, 80.00)">
+                        <option value="0.25">250g - R$ 20,00</option>
+                        <option value="0.5" selected>500g - R$ 40,00</option>
+                        <option value="0.75">750g - R$ 60,00</option>
+                        <option value="1">1 Kg - R$ 80,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Bolo de Cenoura', 80.00, 'select-26')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Bolo 9 -->
+            <div class="card">
+                <img src="27.jpeg" alt="Bolo de Limão">
+                <div class="card-content">
+                    <div class="card-title">Bolo de Limão</div>
+                    <div class="card-desc">Toque cítrico refrescante com cobertura cremosa e raspas de limão.</div>
+                    <div class="card-price" id="preco-27">R$ 40,00</div>
+                    <select class="weight-select" id="select-27" onchange="mudarPreco(27, 80.00)">
+                        <option value="0.25">250g - R$ 20,00</option>
+                        <option value="0.5" selected>500g - R$ 40,00</option>
+                        <option value="0.75">750g - R$ 60,00</option>
+                        <option value="1">1 Kg - R$ 80,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Bolo de Limão', 80.00, 'select-27')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+            <!-- Bolo 10 -->
+            <div class="card">
+                <img src="29.jpeg" alt="Bolo Mesclado com Cobertura">
+                <div class="card-content">
+                    <div class="card-title">Bolo Mesclado com Cobertura</div>
+                    <div class="card-desc">Massa mesclada especial finalizada com uma cobertura cremosa maravilhosa.</div>
+                    <div class="card-price" id="preco-29">R$ 40,00</div>
+                    <select class="weight-select" id="select-29" onchange="mudarPreco(29, 80.00)">
+                        <option value="0.25">250g - R$ 20,00</option>
+                        <option value="0.5" selected>500g - R$ 40,00</option>
+                        <option value="0.75">750g - R$ 60,00</option>
+                        <option value="1">1 Kg - R$ 80,00</option>
+                    </select>
+                    <a href="javascript:void(0);" onclick="enviarPedidoComPeso('Bolo Mesclado com Cobertura', 80.00, 'select-29')" class="btn-order">Pedir no WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <footer>
@@ -217,167 +652,37 @@
     </footer>
 
     <script>
-        // Lista completa de produtos com seus preços base por quilo
-        const produtos = [
-            { id: 1, cat: "Cestas Especiais", nome: "Cesta do Amor", precoBase: 120, img: "1.jpeg", desc: "Seleção especial de produtos sem glúten e sem lactose, feita com muito carinho.", tipo: "unidade" },
-            
-            { id: 2, cat: "Pães Artesanais", nome: "Pão de Sementes Integral", precoBase: 75, img: "2.jpeg", desc: "Massa macia e nutritiva, rica em fibras, com mix de farinhas selecionadas.", tipo: "peso" },
-            { id: 3, cat: "Pães Artesanais", nome: "Pão Multigrãos", precoBase: 75, img: "3.jpeg", desc: "Saboroso e crocante, perfeito para acompanhar o seu café.", tipo: "peso" },
-            { id: 4, cat: "Pães Artesanais", nome: "Pão de Forma Branco", precoBase: 75, img: "4.jpeg", desc: "Leve, macio e versátil, ideal para todas as horas do dia.", tipo: "peso" },
-            { id: 5, cat: "Pães Artesanais", nome: "Pão Low Carb", precoBase: 75, img: "5.jpeg", desc: "Opção leve, saborosa e com baixo carboidrato para o seu dia a dia.", tipo: "peso" },
-            { id: 6, cat: "Pães Artesanais", nome: "Pão de Hambúrguer", precoBase: 75, img: "6.jpeg", desc: "Perfeito para seus lanches artesanais, macio e sem glúten.", tipo: "peso" },
-            { id: 7, cat: "Pães Artesanais", nome: "Pão Tipo Bisnaguinha", precoBase: 75, img: "7.jpeg", desc: "Fofinho e irresistível, ótimo para lanches rápidos e para as crianças.", tipo: "peso" },
-            { id: 8, cat: "Pães Artesanais", nome: "Pãozinho Recheado", precoBase: 75, img: "8.jpeg", desc: "Recheio caprichado e massa artesanal de excelente textura.", tipo: "peso" },
-            { id: 13, cat: "Pães Artesanais", nome: "Pão Italiano", precoBase: 75, img: "13.jpeg", desc: "Crosta marcante e miolo super macio, estilo rústico artesanal.", tipo: "peso" },
-            { id: 14, cat: "Pães Artesanais", nome: "Pão de Batata Doce", precoBase: 75, img: "14.jpeg", desc: "Massa nutritiva, fofinha e com um toque especial de batata doce.", tipo: "peso" },
-            { id: 16, cat: "Pães Artesanais", nome: "Pão de Sementes", precoBase: 75, img: "16.jpeg", desc: "Salpicado com mix de sementes selecionadas para dar mais crocância.", tipo: "peso" },
-            { id: 17, cat: "Pães Artesanais", nome: "Pão de Milho", precoBase: 75, img: "17.jpeg", desc: "Sabor caseiro inconfundível, leve e com aroma delicioso de milho fresco.", tipo: "peso" },
-            { id: 18, cat: "Pães Artesanais", nome: "Pão Recheado", precoBase: 75, img: "18.jpeg", desc: "Deliciosa combinação de massa artesanal com recheio especial da casa.", tipo: "peso" },
-            { id: 19, cat: "Pães Artesanais", nome: "Pão Australiano", precoBase: 75, img: "19.jpeg", desc: "Pão artesanal escuro com sabor adocicado sutil e textura extremamente macia.", tipo: "peso" },
-            { id: 20, cat: "Pães Artesanais", nome: "Pão de Batata Doce", precoBase: 75, img: "20.jpeg", desc: "Outra variação incrível e saudável para o seu café da manhã ou lanche.", tipo: "peso" },
-            { id: 21, cat: "Pães Artesanais", nome: "Pão Recheado", precoBase: 75, img: "21.jpeg", desc: "Opção de pão recheado artesanal com excelente apresentação e sabor.", tipo: "peso" },
-
-            { id: 9, cat: "Salgados e Quitutes", nome: "Esfiha Carne ou Frango", precoBase: 75, img: "9.jpeg", desc: "Salgados assados artesanais sem glúten e sem lactose, recheados com capricho.", tipo: "peso" },
-            { id: 24, cat: "Salgados e Quitutes", nome: "Empada de Frango", precoBase: 75, img: "24.jpeg", desc: "Massa podre que derrete na boca com recheio cremoso de frango.", tipo: "peso" },
-            { id: 28, cat: "Salgados e Quitutes", nome: "Bolinho Frito", precoBase: 75, img: "28.jpeg", desc: "Quitute crocante por fora e macio por dentro, feito com ingredientes selecionados.", tipo: "peso" },
-
-            { id: 10, cat: "Bolos e Tortas", nome: "Bolo de Banana", precoBase: 80, img: "10.jpeg", desc: "Doce na medida certa, com toque caramelizado e textura super fofinha.", tipo: "peso" },
-            { id: 11, cat: "Bolos e Tortas", nome: "Bolo de Café", precoBase: 80, img: "11.jpeg", desc: "Sabor intenso e aconchegante, perfeito para acompanhar o seu café da tarde.", tipo: "peso" },
-            { id: 12, cat: "Bolos e Tortas", nome: "Bolo Mesclado Simples", precoBase: 80, img: "12.jpeg", desc: "Combinação clássica de massa branca e chocolate, leve e deliciosa.", tipo: "peso" },
-            { id: 15, cat: "Bolos e Tortas", nome: "Bolo de Lanche", precoBase: 80, img: "15.jpeg", desc: "Bolo caseiro tradicional ideal para qualquer hora do dia.", tipo: "peso" },
-            { id: 22, cat: "Bolos e Tortas", nome: "Bolo de Amendoim", precoBase: 80, img: "22.jpeg", desc: "Massa fofinha com sabor marcante e cobertura especial de amendoim.", tipo: "peso" },
-            { id: 23, cat: "Bolos e Tortas", nome: "Bolo de Chocolate", precoBase: 80, img: "23.jpeg", desc: "Bolo rico em sabor com cacau de excelente qualidade e calda cremosa.", tipo: "peso" },
-            { id: 25, cat: "Bolos e Tortas", nome: "Bolo Tipo Charge", precoBase: 80, img: "25.jpeg", desc: "Inspirado no clássico doce, com camadas de chocolate e amendoim irresistíveis.", tipo: "peso" },
-            { id: 26, cat: "Bolos e Tortas", nome: "Bolo de Cenoura", precoBase: 80, img: "26.jpeg", desc: "Massa fofinha de cenoura com generosa cobertura de chocolate.", tipo: "peso" },
-            { id: 27, cat: "Bolos e Tortas", nome: "Bolo de Limão", precoBase: 80, img: "27.jpeg", desc: "Toque cítrico refrescante com cobertura cremosa e raspas de limão.", tipo: "peso" },
-            { id: 29, cat: "Bolos e Tortas", nome: "Bolo Mesclado com Cobertura", precoBase: 80, img: "29.jpeg", desc: "Massa mesclada especial finalizada com uma cobertura cremosa maravilhosa.", tipo: "peso" }
-        ];
-
-        const taxaEntrega = 12.00;
-        let carrinho = {}; // Guarda o peso selecionado por ID de produto
-
-        function renderizarCardapio() {
-            const container = document.getElementById('menu-container');
-            const categorias = ["Cestas Especiais", "Pães Artesanais", "Salgados e Quitutes", "Bolos e Tortas"];
-
-            let html = "";
-
-            categorias.forEach(cat => {
-                const prodsCat = produtos.filter(p => p.cat === cat);
-                if(prodsCat.length === 0) return;
-
-                html += <h2 class="category-title">${cat}</h2><div class="grid">;
-
-                prodsCat.forEach(p => {
-                    let optionsHtml = '';
-                    if (p.tipo === 'peso') {
-                        optionsHtml = `
-                            <select class="weight-select" id="weight-${p.id}" onchange="atualizarPreco(${p.id})">
-                                <option value="0.25">250g - R$ ${(p.precoBase * 0.25).toFixed(2).replace('.', ',')}</option>
-                                <option value="0.5" selected>500g - R$ ${(p.precoBase * 0.5).toFixed(2).replace('.', ',')}</option>
-                                <option value="0.75">750g - R$ ${(p.precoBase * 0.75).toFixed(2).replace('.', ',')}</option>
-                                <option value="1">1 Kg - R$ ${p.precoBase.toFixed(2).replace('.', ',')}</option>
-                            </select>
-                        `;
-                    } else {
-                        optionsHtml = <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.8rem;">Preço por unidade</div>;
-                    }
-
-                    const precoInicial = p.tipo === 'peso' ? p.precoBase * 0.5 : p.precoBase;
-
-                    html += `
-                        <div class="card">
-                            <img src="${p.img}" alt="${p.nome}">
-                            <div class="card-content">
-                                <div class="card-title">${p.nome}</div>
-                                <div class="card-desc">${p.desc}</div>
-                                <div class="card-price" id="price-${p.id}">R$ ${precoInicial.toFixed(2).replace('.', ',')}</div>
-                                ${optionsHtml}
-                                <a href="javascript:void(0);" onclick="pedirItem(${p.id}, '${p.nome}', ${p.tipo})" class="btn-order">Pedir no WhatsApp</a>
-                            </div>
-                        </div>
-                    `;
-                });
-
-                html += </div>;
-            });
-
-            container.innerHTML = html;
-            atualizarBarraTotal();
-        }
-
-        function atualizarPreco(id) {
-            const p = produtos.find(item => item.id === id);
-            const select = document.getElementById(weight-${id});
+        function mudarPreco(id, precoBase) {
+            const select = document.getElementById('select-' + id);
             const mult = parseFloat(select.value);
-            const novoValor = p.precoBase * mult;
-            document.getElementById(price-${id}).innerText = R$ ${novoValor.toFixed(2).replace('.', ',')};
+            const valorCalculado = precoBase * mult;
+            document.getElementById('preco-' + id).innerText = 'R$ ' + valorCalculado.toFixed(2).replace('.', ',');
         }
 
-        function pedirItem(id, nome, tipo) {
-            let descPeso = "Unidade";
-            let valorItem = 0;
-            const p = produtos.find(item => item.id === id);
-
-            if (tipo === 'peso') {
-                const select = document.getElementById(weight-${id});
-                const mult = parseFloat(select.value);
-                valorItem = p.precoBase * mult;
-                
-                if (mult === 0.25) descPeso = "250g";
-                else if (mult === 0.5) descPeso = "500g";
-                else if (mult === 0.75) descPeso = "750g";
-                else if (mult === 1) descPeso = "1 Kg";
-            } else {
-                valorItem = p.precoBase;
-            }
-
-            carrinho[id] = { nome: nome, peso: descPeso, valor: valorItem };
-            atualizarBarraTotal();
-
-            // Salva no carrinho temporário e já gera o link do WhatsApp com o item direto
-            gerarLinkWhatsApp(nome, descPeso, valorItem);
-        }
-
-        function atualizarBarraTotal() {
-            let totalProdutos = 0;
-            for (let id in carrinho) {
-                totalProdutos += carrinho[id].valor;
-            }
-            const totalGeral = totalProdutos > 0 ? totalProdutos + taxaEntrega : taxaEntrega;
-            document.getElementById('total-geral').innerText = R$ ${totalGeral.toFixed(2).replace('.', ',')};
-
-            // Mensagem geral combinada para o botão inferior
-            let mensagem = "Olá! Gostaria de fazer o seguinte pedido:\n\n";
-            let temItens = false;
-            for (let id in carrinho) {
-                temItens = true;
-                mensagem += - ${carrinho[id].nome} (${carrinho[id].peso}): R$ ${carrinho[id].valor.toFixed(2).replace('.', ',')}\n;
-            }
-
-            if (!temItens) {
-                mensagem += "Nenhum item selecionado ainda no carrinho rápido.";
-            } else {
-                mensagem += \nTaxa de Entrega: R$ ${taxaEntrega.toFixed(2).replace('.', ',')};
-                mensagem += \n*Total Geral: R$ ${totalGeral.toFixed(2).replace('.', ',')}*;
-            }
-
-            const url = https://wa.me/5544998546285?text=${encodeURIComponent(mensagem)};
-            document.getElementById('whatsapp-final-btn').href = url;
-        }
-
-        function gerarLinkWhatsApp(nome, peso, valor) {
-            let mensagem = Olá! Gostaria de encomendar:\n- *${nome}* (${peso}) - R$ ${valor.toFixed(2).replace('.', ',')}\n\nTaxa de Entrega: R$ ${taxaEntrega.toFixed(2).replace('.', ',')}\nTotal com entrega: R$ ${(valor + taxaEntrega).toFixed(2).replace('.', ',')};
+        function enviarPedido(nome, valor, tipo) {
+            const taxa = 12.00;
+            const totalComEntrega = valor + taxa;
+            const mensagem = Olá! Gostaria de encomendar:\n- *${nome}* (${tipo}) - R$ ${valor.toFixed(2).replace('.', ',')}\n\nTaxa de Entrega: R$ ${taxa.toFixed(2).replace('.', ',')}\n*Total com Entrega: R$ ${totalComEntrega.toFixed(2).replace('.', ',')}*;
             const url = https://wa.me/5544998546285?text=${encodeURIComponent(mensagem)};
             window.open(url, '_blank');
         }
 
-        // Inicializa o cardápio ao carregar a página
-        window.onload = renderizarCardapio;
+        function enviarPedidoComPeso(nome, precoBase, selectId) {
+            const select = document.getElementById(selectId);
+            const mult = parseFloat(select.value);
+            const valor = precoBase * mult;
+            
+            let pesoStr = "500g";
+            if (mult === 0.25) pesoStr = "250g";
+            else if (mult === 0.5) pesoStr = "500g";
+            else if (mult === 0.75) pesoStr = "750g";
+            else if (mult === 1) pesoStr = "1 Kg";
+
+            enviarPedido(nome, valor, pesoStr);
+        }
     </script>
 </body>
 </html>
-
 
 
 
