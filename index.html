@@ -7,11 +7,14 @@
     <style>
         :root {
             --primary-color: #2c5e3b;
-            --secondary-color: #e67e22;
-            --bg-color: #fcf9f2;
+            --primary-dark: #1e3f27;
+            --secondary-color: #d35400;
+            --bg-gradient: linear-gradient(135deg, #f4efe6 0%, #e8dfd1 100%);
             --card-bg: #ffffff;
-            --text-color: #333333;
+            --text-color: #2c3e50;
+            --text-muted: #666666;
             --accent-color: #27ae60;
+            --accent-hover: #219653;
         }
         * {
             box-sizing: border-box;
@@ -20,110 +23,168 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: var(--bg-color);
+            background: var(--bg-gradient);
             color: var(--text-color);
             padding-bottom: 80px;
+            min-height: 100vh;
         }
         header {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
             color: white;
             text-align: center;
-            padding: 2rem 1rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 3rem 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border-bottom: 4px solid var(--secondary-color);
         }
         header h1 {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
         }
         header p {
-            font-size: 1rem;
-            opacity: 0.9;
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
         }
         .container {
             max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
         }
         .category-title {
-            font-size: 1.4rem;
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.5rem;
-            margin: 2.5rem 0 1rem 0;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 0.4rem;
+            margin: 3rem 0 1.5rem 0;
+            display: inline-block;
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
         }
         .card {
             background: var(--card-bg);
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
             display: flex;
             flex-direction: column;
-            transition: transform 0.2s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.04);
         }
         .card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
         }
         .card img {
             width: 100%;
-            height: 200px;
+            height: 210px;
             object-fit: cover;
+            background-color: #f0f0f0;
         }
         .card-content {
-            padding: 1rem;
+            padding: 1.2rem;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
         .card-title {
-            font-size: 1.1rem;
-            font-weight: bold;
+            font-size: 1.15rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
-            color: var(--text-color);
+            color: var(--primary-dark);
         }
         .card-desc {
-            font-size: 0.85rem;
-            color: #666;
+            font-size: 0.88rem;
+            color: var(--text-muted);
             margin-bottom: 1rem;
             flex-grow: 1;
+            line-height: 1.4;
         }
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-        .price {
-            font-size: 1.1rem;
-            font-weight: bold;
+        .card-price {
+            font-size: 1.25rem;
+            font-weight: 700;
             color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f9f6f0;
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid #eadecd;
+        }
+        .quantity-control label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+        }
+        .counter-btns {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .counter-btns button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .counter-btns button:hover {
+            background: var(--primary-dark);
+        }
+        .counter-value {
+            font-weight: bold;
+            font-size: 1rem;
+            min-width: 22px;
+            text-align: center;
+            color: var(--primary-dark);
         }
         .btn-order {
             background-color: var(--accent-color);
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85rem;
-            transition: background 0.2s;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s, transform 0.1s;
             text-decoration: none;
+            text-align: center;
+            display: block;
+            width: 100%;
+            box-shadow: 0 3px 8px rgba(39, 174, 96, 0.3);
         }
         .btn-order:hover {
-            background-color: #219653;
+            background-color: var(--accent-hover);
+        }
+        .btn-order:active {
+            transform: scale(0.98);
         }
         footer {
             text-align: center;
-            padding: 2rem;
-            background-color: #222;
+            padding: 2.5rem 1rem;
+            background-color: #1a252f;
             color: white;
-            margin-top: 3rem;
+            margin-top: 4rem;
             font-size: 0.9rem;
+            border-top: 4px solid var(--primary-color);
+        }
+        footer p {
+            opacity: 0.85;
         }
     </style>
 </head>
@@ -131,356 +192,111 @@
 
     <header>
         <h1>Vidamix - Delícias Artesanais</h1>
-        <p>Cardápio Sem Glúten e Sem Lactose - Encomende Agora!</p>
+        <p>Cardápio Exclusivo Sem Glúten e Sem Lactose. Monte seu pedido com facilidade e encomende diretamente pelo WhatsApp!</p>
     </header>
 
-    <div class="container">
-        
-        <!-- Cestas Especiais -->
-        <h2 class="category-title">Cestas Especiais</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="1.jpeg" alt="Cesta Amor que Nutre">
-                <div class="card-content">
-                    <div class="card-title">Cesta: Amor que nutre (Dia das Mães)</div>
-                    <div class="card-desc">Uma seleção especial de produtos sem glúten e sem lactose, feita com carinho para quem você ama.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 129,90</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20a%20Cesta%20Amor%20que%20nutre." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pães e Baguetes -->
-        <h2 class="category-title">Pães e Baguetes</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="2.jpeg" alt="Pão Integral com Sementes">
-                <div class="card-content">
-                    <div class="card-title">Pão Integral com Sementes</div>
-                    <div class="card-desc">Massa macia e nutritiva, rica em fibras, com mix de farinhas selecionadas.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 24,90</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20Integral%20com%20Sementes." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="3.jpeg" alt="Pão Multigrãos">
-                <div class="card-content">
-                    <div class="card-title">Pão Multigrãos</div>
-                    <div class="card-desc">Saboroso e crocante, perfeito para acompanhar o seu café.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 26,90</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20Multigrãos." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="4.jpeg" alt="Pão de Forma Tradicional">
-                <div class="card-content">
-                    <div class="card-title">Pão de Forma Tradicional</div>
-                    <div class="card-desc">Leve e versátil, ideal para todas as horas do dia.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 22,90</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20Forma%20Tradicional." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="13.jpeg" alt="Pão Rústico Artesanal">
-                <div class="card-content">
-                    <div class="card-title">Pão Rústico Artesanal</div>
-                    <div class="card-desc">Pão artesanal rústico com miolo macio e crosta marcante.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 25,90</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20Rústico%20Artesanal." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="14.jpeg" alt="Pão de Abóbora com Sementes">
-                <div class="card-content">
-                    <div class="card-title">Pão de Abóbora com Sementes</div>
-                    <div class="card-desc">Massa fofinha e nutritiva com toque de abóbora, coberta com mix de sementes.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 27,90</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20Abóbora%20com%20Sementes." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="16.jpeg" alt="Pão Embalado Vidamix">
-                <div class="card-content">
-                    <div class="card-title">Pão de Forma Embalado</div>
-                    <div class="card-desc">Produto fresco embalado com carinho e identificação artesanal.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 24,90</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20de%20Forma%20Embalado." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="17.jpeg" alt="Dupla de Pães Artesanais">
-                <div class="card-content">
-                    <div class="card-title">Kit Dupla de Pães Artesanais</div>
-                    <div class="card-desc">Seleção com dois tipos de pães especiais da casa.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 48,00</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Kit%20Dupla%20de%20Pães%20Artesanais." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="18.jpeg" alt="Pão Rústico Enfarinhado">
-                <div class="card-content">
-                    <div class="card-title">Pão Rústico Enfarinhado</div>
-                    <div class="card-desc">Pão com casca levemente enfarinhada e sabor tradicional artesanal.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 25,90</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20Rústico%20Enfarinhado." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="20.jpeg" alt="Pães Embalados com Etiqueta">
-                <div class="card-content">
-                    <div class="card-title">Pão Branco de Forma Embalado</div>
-                    <div class="card-desc">Composição detalhada: fécula de mandioca, farinha de arroz e fécula de batata.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 23,90</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pão%20Branco%20de%20Forma%20Embalado." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="21.jpeg" alt="Baguetes Rústicas">
-                <div class="card-content">
-                    <div class="card-title">Baguetes Rústicas (Unid.)</div>
-                    <div class="card-desc">Baguetes sem glúten e sem lactose com gergelim, excelente textura.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 12,90</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20as%20Baguetes%20Rústicas." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pãezinhos e Quitutes -->
-        <h2 class="category-title">Pãezinhos e Quitutes</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="5.jpeg" alt="Pãozinho Rústico">
-                <div class="card-content">
-                    <div class="card-title">Pãozinho Rústico (Unid.)</div>
-                    <div class="card-desc">Casquinha crocante e miolo macio.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 3,50</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pãozinho%20Rústico." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="6.jpeg" alt="Mini Pão Redondo">
-                <div class="card-content">
-                    <div class="card-title">Mini Pão Redondo (Kit 5 unid.)</div>
-                    <div class="card-desc">Ideais para sanduíches e lanches rápidos.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 15,00</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Mini%20Pão%20Redondo." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="7.jpeg" alt="Palitos de Queijo">
-                <div class="card-content">
-                    <div class="card-title">Palitos de Queijo (100g)</div>
-                    <div class="card-desc">Crocantes e irresistíveis, perfeitos para o petisco.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 18,90</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20os%20Palitos%20de%20Queijo." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="8.jpeg" alt="Pãozinho Recheado">
-                <div class="card-content">
-                    <div class="card-title">Pãozinho Recheado (Unid.)</div>
-                    <div class="card-desc">Saboroso recheio de frango cremoso.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 8,90</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Pãozinho%20Recheado." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="15.jpeg" alt="Pãezinhos com Gergelim na Travessa">
-                <div class="card-content">
-                    <div class="card-title">Kit Pãezinhos com Gergelim (10 unid.)</div>
-                    <div class="card-desc">Massa macia e levemente salpicada com gergelim.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 28,00</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Kit%20Pãezinhos%20com%20Gergelim." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="19.jpeg" alt="Cesta de Pãezinhos Variados">
-                <div class="card-content">
-                    <div class="card-title">Cesta de Pãezinhos e Pão Central</div>
-                    <div class="card-desc">Mix de pãezinhos redondos e pão maior com gergelim em cesta rústica.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 45,00</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20a%20Cesta%20de%20Pãezinhos%20Variados." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bolos e Tortas -->
-        <h2 class="category-title">Bolos e Tortas</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="9.jpeg" alt="Esfihas ou Salgados">
-                <div class="card-content">
-                    <div class="card-title">Esfihas ou Salgados (Kit 6 unid.)</div>
-                    <div class="card-desc">Opções deliciosas de carne ou frango artesanais.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 32,00</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Kit%20de%20Esfihas%20ou%20Salgados." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="10.jpeg" alt="Torta de Banana Caramelizada">
-                <div class="card-content">
-                    <div class="card-title">Torta de Banana Caramelizada</div>
-                    <div class="card-desc">Doce na medida certa, com cobertura brilhante e massa especial.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 55,00</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20a%20Torta%20de%20Banana%20Caramelizada." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="11.jpeg" alt="Bolo de Café">
-                <div class="card-content">
-                    <div class="card-title">Bolo de Café</div>
-                    <div class="card-desc">Sabor intenso e textura fofinha, perfeito para o lanche.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 45,00</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20de%20Café." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="12.jpeg" alt="Bolo Mesclado">
-                <div class="card-content">
-                    <div class="card-title">Bolo Mesclado</div>
-                    <div class="card-desc">Uma combinação deliciosa de massa branca e chocolate, super fofinha.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 48,00</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20Mesclado." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="22.jpeg" alt="Bolo de Chocolate com Amendoim">
-                <div class="card-content">
-                    <div class="card-title">Bolo de Chocolate com Amendoim</div>
-                    <div class="card-desc">Massa fofinha com cobertura cremosa de chocolate e amendoim crocante.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 52,00</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20de%20Chocolate%20com%20Amendoim." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="23.jpeg" alt="Bolo Vulcão de Chocolate">
-                <div class="card-content">
-                    <div class="card-title">Bolo Vulcão de Chocolate</div>
-                    <div class="card-desc">Bolo com furo central transbordando calda cremosa e lascas de chocolate.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 49,90</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20Vulcão%20de%20Chocolate." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="24.jpeg" alt="Tortas Salgadas em Marmita">
-                <div class="card-content">
-                    <div class="card-title">Tortas Salgadas Artesanais</div>
-                    <div class="card-desc">Tortas recheadas em tamanho família/marmita com linda decoração artesanal.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 58,00</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20as%20Tortas%20Salgadas%20Artesanais." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="25.jpeg" alt="Bolo Recheado de Chocolate com Amendoim">
-                <div class="card-content">
-                    <div class="card-title">Bolo Festivo de Chocolate e Amendoim</div>
-                    <div class="card-desc">Cobertura e recheio generosos com amendoim picado selecionado.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 65,00</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20Festivo%20de%20Chocolate%20e%20Amendoim." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="26.jpeg" alt="Bolo Vulcão Clássico">
-                <div class="card-content">
-                    <div class="card-title">Bolo Vulcão Clássico</div>
-                    <div class="card-desc">Massa leve e fofinha com cavidade recheada de calda de chocolate.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 46,00</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20Vulcão%20Clássico." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="27.jpeg" alt="Bolo Sabor Limão com Cobertura Branca">
-                <div class="card-content">
-                    <div class="card-title">Bolo Especial de Limão</div>
-                    <div class="card-desc">Massa leve com toque cítrico, cobertura cremosa branca e raspas de limão.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 46,00</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20Especial%20de%20Limão." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="28.jpeg" alt="Foto de Produção e Bastidores">
-                <div class="card-content">
-                    <div class="card-title">Kit Degustação / Bastidores</div>
-                    <div class="card-desc">Variedade de pães e bolos recém-saídos do forno artesanal.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 50,00</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Kit%20Degustação." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="29.jpeg" alt="Bolo Mesclado com Cobertura de Brigadeiro">
-                <div class="card-content">
-                    <div class="card-title">Bolo Mesclado com Brigadeiro</div>
-                    <div class="card-desc">Feito com mix de farinhas, cacau em pó 100%, manteiga GHE e ovos. Cobertura especial.</div>
-                    <div class="card-footer">
-                        <span class="price">R$ 54,00</span>
-                        <a href="https://wa.me/5544998546285?text=Olá!%20Gostaria%20de%20encomendar%20o%20Bolo%20Mesclado%20com%20Brigadeiro." class="btn-order" target="_blank">Pedir Agora</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    <div class="container" id="catalog-container">
+        <!-- O catálogo será gerado automaticamente aqui -->
     </div>
 
     <footer>
-        <p>Vidamix Delícias Artesanais | WhatsApp: (44) 99854-6285 | Todos os produtos são isentos de glúten e lactose.</p>
+        <p><strong>Vidamix Delícias Artesanais</strong> | WhatsApp: (44) 99854-6285<br>Todos os produtos são isentos de glúten e lactose, feitos com ingredientes selecionados.</p>
     </footer>
 
+    <script>
+        const products = [
+            // Cestas Especiais
+            { id: 1, category: "Cestas Especiais", name: "Cesta: Amor que nutre (Dia das Mães)", desc: "Seleção especial de produtos sem glúten e sem lactose, feita com muito carinho.", price: 129.90, unit: "unidade" },
+            
+            // Pães e Baguetes
+            { id: 2, category: "Pães e Baguetes", name: "Pão Integral com Sementes", desc: "Massa macia e nutritiva, rica em fibras, com mix de farinhas.", price: 24.90, unit: "unidade" },
+            { id: 3, category: "Pães e Baguetes", name: "Pão Multigrãos", desc: "Saboroso e crocante, perfeito para acompanhar o seu café.", price: 26.90, unit: "unidade" },
+            { id: 4, category: "Pães e Baguetes", name: "Pão de Forma Tradicional", desc: "Leve e versátil, ideal para todas as horas do dia.", price: 22.90, unit: "unidade" },
+            { id: 13, category: "Pães e Baguetes", name: "Pão Rústico Artesanal", desc: "Pão artesanal rústico com miolo macio e crosta marcante.", price: 25.90, unit: "unidade" },
+            { id: 14, category: "Pães e Baguetes", name: "Pão de Abóbora com Sementes", desc: "Massa fofinha e nutritiva com toque de abóbora, coberta com mix de sementes.", price: 27.90, unit: "unidade" },
+            { id: 16, category: "Pães e Baguetes", name: "Pão de Forma Embalado", desc: "Produto fresco embalado com carinho e identificação artesanal.", price: 24.90, unit: "unidade" },
+            { id: 17, category: "Pães e Baguetes", name: "Kit Dupla de Pães Artesanais", desc: "Seleção com dois tipos de pães especiais da casa.", price: 48.00, unit: "kit" },
+            { id: 18, category: "Pães e Baguetes", name: "Pão Rústico Enfarinhado", desc: "Pão com casca levemente enfarinhada e sabor tradicional artesanal.", price: 25.90, unit: "unidade" },
+            { id: 20, category: "Pães e Baguetes", name: "Pão Branco de Forma Embalado", desc: "Composição detalhada: fécula de mandioca, farinha de arroz e fécula de batata.", price: 23.90, unit: "unidade" },
+            { id: 21, category: "Pães e Baguetes", name: "Baguetes Rústicas", desc: "Baguetes sem glúten e sem lactose com gergelim, excelente textura.", price: 12.90, unit: "unidade" },
+
+            // Pãezinhos e Quitutes
+            { id: 5, category: "Pãezinhos e Quitutes", name: "Pãozinho Rústico", desc: "Casquinha crocante e miolo macio.", price: 3.50, unit: "unidade" },
+            { id: 6, category: "Pãezinhos e Quitutes", name: "Mini Pão Redondo", desc: "Ideais para sanduíches e lanches rápidos.", price: 15.00, unit: "pct" },
+            { id: 7, category: "Pãezinhos e Quitutes", name: "Palitos de Queijo", desc: "Crocantes e irresistíveis, perfeitos para o petisco.", price: 18.90, unit: "pacote" },
+            { id: 8, category: "Pãezinhos e Quitutes", name: "Pãozinho Recheado", desc: "Saboroso recheio de frango cremoso.", price: 8.90, unit: "unidade" },
+            { id: 15, category: "Pãezinhos e Quitutes", name: "Kit Pãezinhos com Gergelim", desc: "Massa macia e levemente salpicada com gergelim.", price: 28.00, unit: "kit" },
+            { id: 19, category: "Pãezinhos e Quitutes", name: "Cesta de Pãezinhos e Pão Central", desc: "Mix de pãezinhos redondos e pão maior com gergelim em cesta rústica.", price: 45.00, unit: "cesta" },
+
+            // Bolos e Tortas
+            { id: 9, category: "Bolos e Tortas", name: "Esfihas ou Salgados", desc: "Opções deliciosas de carne ou frango artesanais.", price: 32.00, unit: "kit" },
+            { id: 10, category: "Bolos e Tortas", name: "Torta de Banana Caramelizada", desc: "Doce na medida certa, com cobertura brilhante e massa especial.", price: 55.00, unit: "unidade" },
+            { id: 11, category: "Bolos e Tortas", name: "Bolo de Café", desc: "Sabor intenso e textura fofinha, perfeito para o lanche.", price: 45.00, unit: "unidade" },
+            { id: 12, category: "Bolos e Tortas", name: "Bolo Mesclado", desc: "Uma combinação deliciosa de massa branca e chocolate, super fofinha.", price: 48.00, unit: "unidade" },
+            { id: 22, category: "Bolos e Tortas", name: "Bolo de Chocolate com Amendoim", desc: "Massa fofinha com cobertura cremosa de chocolate e amendoim crocante.", price: 52.00, unit: "unidade" },
+            { id: 23, category: "Bolos e Tortas", name: "Bolo Vulcão de Chocolate", desc: "Bolo com furo central transbordando calda cremosa e lascas de chocolate.", price: 49.90, unit: "unidade" },
+            { id: 24, category: "Bolos e Tortas", name: "Tortas Salgadas Artesanais", desc: "Tortas recheadas em tamanho família/marmita com linda decoração artesanal.", price: 58.00, unit: "unidade" },
+            { id: 25, category: "Bolos e Tortas", name: "Bolo Festivo de Chocolate e Amendoim", desc: "Cobertura e recheio generosos com amendoim picado selecionado.", price: 65.00, unit: "unidade" },
+            { id: 26, category: "Bolos e Tortas", name: "Bolo Vulcão Clássico", desc: "Massa leve e fofinha com cavidade recheada de calda de chocolate.", price: 46.00, unit: "unidade" },
+            { id: 27, category: "Bolos e Tortas", name: "Bolo Especial de Limão", desc: "Massa leve com toque cítrico, cobertura cremosa branca e raspas de limão.", price: 46.00, unit: "unidade" },
+            { id: 28, category: "Bolos e Tortas", name: "Kit Degustação / Bastidores", desc: "Variedade de pães e bolos recém-saídos do forno artesanal.", price: 50.00, unit: "kit" },
+            { id: 29, category: "Bolos e Tortas", name: "Bolo Mesclado com Brigadeiro", desc: "Feito com mix de farinhas, cacau em pó 100%, manteiga GHE e ovos. Cobertura especial.", price: 54.00, unit: "unidade" }
+        ];
+
+        const categories = [...new Set(products.map(p => p.category))];
+        const container = document.getElementById('catalog-container');
+
+        categories.forEach(cat => {
+            const catTitle = document.createElement('h2');
+            catTitle.className = 'category-title';
+            catTitle.textContent = cat;
+            container.appendChild(catTitle);
+
+            const grid = document.createElement('div');
+            grid.className = 'grid';
+
+            products.filter(p => p.category === cat).forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <img src="${product.id}.jpeg" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x200?text=Vidamix+Foto+${product.id}'">
+                    <div class="card-content">
+                        <div class="card-title">${product.name}</div>
+                        <div class="card-desc">${product.desc}</div>
+                        <div class="card-price">R$ ${product.price.toFixed(2).replace('.', ',')}</div>
+                        <div class="quantity-control">
+                            <label>Qtd (${product.unit}):</label>
+                            <div class="counter-btns">
+                                <button onclick="changeQty(${product.id}, -1)">-</button>
+                                <span class="counter-value" id="qty-${product.id}">1</span>
+                                <button onclick="changeQty(${product.id}, 1)">+</button>
+                            </div>
+                        </div>
+                        <a href="#" class="btn-order" onclick="sendOrder(event, '${product.name}', ${product.id}, ${product.price})">Pedir no WhatsApp</a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            container.appendChild(grid);
+        });
+
+        function changeQty(id, delta) {
+            const qtySpan = document.getElementById(qty-${id});
+            let current = parseInt(qtySpan.textContent) + delta;
+            if (current < 1) current = 1;
+            qtySpan.textContent = current;
+        }
+
+        function sendOrder(event, productName, id, unitPrice) {
+            event.preventDefault();
+            const qty = parseInt(document.getElementById(qty-${id}).textContent);
+            const total = (qty * unitPrice).toFixed(2).replace('.', ',');
+            const message = Olá! Gostaria de encomendar:\n*${qty}x ${productName}*\nTotal estimado: R$ ${total}\n(Vidamix Artesanais);
+            const encoded = encodeURIComponent(message);
+            window.open(https://wa.me/5544998546285?text=${encoded}, '_blank');
+        }
+    </script>
 </body>
 </html>
 
