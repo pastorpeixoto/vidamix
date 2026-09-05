@@ -25,7 +25,7 @@
         body {
             background: var(--bg-gradient);
             color: var(--text-color);
-            padding-bottom: 220px;
+            padding-bottom: 240px;
             min-height: 100vh;
         }
         header {
@@ -132,6 +132,7 @@
             background-color: var(--accent-hover);
         }
 
+        /* Painel Fixo Inferior */
         .checkout-panel {
             position: fixed;
             bottom: 0;
@@ -146,8 +147,6 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            max-height: 210px;
-            overflow-y: auto;
         }
         .checkout-header {
             display: flex;
@@ -156,6 +155,8 @@
             font-size: 0.95rem;
             border-bottom: 1px solid rgba(255,255,255,0.15);
             padding-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         .pix-box {
             background: rgba(255, 255, 255, 0.1);
@@ -163,14 +164,23 @@
             border-radius: 6px;
             font-size: 0.85rem;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 10px;
+        }
+        .pix-box input {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            width: 230px;
         }
         .pix-box button {
             background: #27ae60;
             color: white;
             border: none;
-            padding: 4px 10px;
+            padding: 5px 10px;
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
@@ -193,9 +203,9 @@
             background-color: #25d366;
             color: white;
             border: none;
-            padding: 0.7rem 1.4rem;
+            padding: 0.8rem 1.5rem;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
             display: flex;
@@ -232,7 +242,7 @@
         <h2 class="category-title">Cestas Especiais</h2>
         <div class="grid">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&auto=format&fit=crop&q=60" alt="Cesta do Amor">
+                <img src="1.jpeg" alt="Cesta do Amor" onerror="this.src='https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&auto=format&fit=crop&q=60'">
                 <div class="card-content">
                     <div class="card-title">Cesta do Amor</div>
                     <div class="card-desc">Seleção especial de produtos sem glúten e sem lactose, feita com muito carinho.</div>
@@ -244,15 +254,127 @@
 
         <!-- ==================== PÃES ARTESANAIS ==================== -->
         <h2 class="category-title">Pães Artesanais (Preço por 1 Kg)</h2>
-        <div class="grid" id="grid-paes"></div>
+        <div class="grid">
+            <div class="card">
+                <img src="2.jpeg" alt="Pão de Sementes Integral" onerror="this.src='https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&auto=format&fit=crop&q=60'">
+                <div class="card-content">
+                    <div class="card-title">Pão de Sementes Integral</div>
+                    <div class="card-desc">Massa macia e nutritiva, rica em fibras, com mix de farinhas selecionadas.</div>
+                    <div class="card-price" id="preco-view-2">R$ 37,50 <span style="font-size:0.75rem; color:#666; font-weight:normal;">(500g)</span></div>
+                    <select class="weight-select" id="sel-2" onchange="atualizarVisualPreco(2, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <button class="btn-add" onclick="adicionarComPeso('Pão de Sementes Integral', 75.00, 'sel-2')">Adicionar ao Pedido</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="3.jpeg" alt="Pão Multigrãos" onerror="this.src='https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=500&auto=format&fit=crop&q=60'">
+                <div class="card-content">
+                    <div class="card-title">Pão Multigrãos</div>
+                    <div class="card-desc">Saboroso e crocante, perfeito para acompanhar o seu café.</div>
+                    <div class="card-price" id="preco-view-3">R$ 37,50 <span style="font-size:0.75rem; color:#666; font-weight:normal;">(500g)</span></div>
+                    <select class="weight-select" id="sel-3" onchange="atualizarVisualPreco(3, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <button class="btn-add" onclick="adicionarComPeso('Pão Multigrãos', 75.00, 'sel-3')">Adicionar ao Pedido</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="4.jpeg" alt="Pão de Forma Branco" onerror="this.src='https://images.unsplash.com/photo-1598373182133-52452f7691ef?w=500&auto=format&fit=crop&q=60'">
+                <div class="card-content">
+                    <div class="card-title">Pão de Forma Branco</div>
+                    <div class="card-desc">Leve, macio e versátil, ideal para todas as horas do dia.</div>
+                    <div class="card-price" id="preco-view-4">R$ 37,50 <span style="font-size:0.75rem; color:#666; font-weight:normal;">(500g)</span></div>
+                    <select class="weight-select" id="sel-4" onchange="atualizarVisualPreco(4, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <button class="btn-add" onclick="adicionarComPeso('Pão de Forma Branco', 75.00, 'sel-4')">Adicionar ao Pedido</button>
+                </div>
+            </div>
+        </div>
 
         <!-- ==================== SALGADOS E QUITUTES ==================== -->
         <h2 class="category-title">Salgados e Quitutes (Preço por 1 Kg)</h2>
-        <div class="grid" id="grid-salgados"></div>
+        <div class="grid">
+            <div class="card">
+                <img src="9.jpeg" alt="Esfiha Carne ou Frango" onerror="this.src='https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=500&auto=format&fit=crop&q=60'">
+                <div class="card-content">
+                    <div class="card-title">Esfiha Carne ou Frango</div>
+                    <div class="card-desc">Salgados assados artesanais sem glúten e sem lactose, recheados com capricho.</div>
+                    <div class="card-price" id="preco-view-9">R$ 37,50 <span style="font-size:0.75rem; color:#666; font-weight:normal;">(500g)</span></div>
+                    <select class="weight-select" id="sel-9" onchange="atualizarVisualPreco(9, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <button class="btn-add" onclick="adicionarComPeso('Esfiha Carne ou Frango', 75.00, 'sel-9')">Adicionar ao Pedido</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="24.jpeg" alt="Empada de Frango" onerror="this.src='https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=500&auto=format&fit=crop&q=60'">
+                <div class="card-content">
+                    <div class="card-title">Empada de Frango</div>
+                    <div class="card-desc">Massa podre que derrete na boca com recheio cremoso de frango.</div>
+                    <div class="card-price" id="preco-view-24">R$ 37,50 <span style="font-size:0.75rem; color:#666; font-weight:normal;">(500g)</span></div>
+                    <select class="weight-select" id="sel-24" onchange="atualizarVisualPreco(24, 75.00)">
+                        <option value="0.25">250g - R$ 18,75</option>
+                        <option value="0.5" selected>500g - R$ 37,50</option>
+                        <option value="0.75">750g - R$ 56,25</option>
+                        <option value="1">1 Kg - R$ 75,00</option>
+                    </select>
+                    <button class="btn-add" onclick="adicionarComPeso('Empada de Frango', 75.00, 'sel-24')">Adicionar ao Pedido</button>
+                </div>
+            </div>
+        </div>
 
         <!-- ==================== BOLOS E TORTAS ==================== -->
         <h2 class="category-title">Bolos e Tortas (Preço por 1 Kg)</h2>
-        <div class="grid" id="grid-bolos"></div>
+        <div class="grid">
+            <div class="card">
+                <img src="10.jpeg" alt="Bolo de Banana" onerror="this.src='https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500&auto=format&fit=crop&q=60'">
+                <div class="card-content">
+                    <div class="card-title">Bolo de Banana</div>
+                    <div class="card-desc">Doce na medida certa, com toque caramelizado e textura super fofinha.</div>
+                    <div class="card-price" id="preco-view-10">R$ 40,00 <span style="font-size:0.75rem; color:#666; font-weight:normal;">(500g)</span></div>
+                    <select class="weight-select" id="sel-10" onchange="atualizarVisualPreco(10, 80.00)">
+                        <option value="0.25">250g - R$ 20,00</option>
+                        <option value="0.5" selected>500g - R$ 40,00</option>
+                        <option value="0.75">750g - R$ 60,00</option>
+                        <option value="1">1 Kg - R$ 80,00</option>
+                    </select>
+                    <button class="btn-add" onclick="adicionarComPeso('Bolo de Banana', 80.00, 'sel-10')">Adicionar ao Pedido</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="23.jpeg" alt="Bolo de Chocolate" onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&auto=format&fit=crop&q=60'">
+                <div class="card-content">
+                    <div class="card-title">Bolo de Chocolate</div>
+                    <div class="card-desc">Bolo rico em sabor com cacau de excelente qualidade e calda cremosa.</div>
+                    <div class="card-price" id="preco-view-23">R$ 40,00 <span style="font-size:0.75rem; color:#666; font-weight:normal;">(500g)</span></div>
+                    <select class="weight-select" id="sel-23" onchange="atualizarVisualPreco(23, 80.00)">
+                        <option value="0.25">250g - R$ 20,00</option>
+                        <option value="0.5" selected>500g - R$ 40,00</option>
+                        <option value="0.75">750g - R$ 60,00</option>
+                        <option value="1">1 Kg - R$ 80,00</option>
+                    </select>
+                    <button class="btn-add" onclick="adicionarComPeso('Bolo de Chocolate', 80.00, 'sel-23')">Adicionar ao Pedido</button>
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -261,8 +383,9 @@
         <div class="checkout-header">
             <div>Itens no Pedido: <span id="qtd-itens" style="color: #2ecc71; font-weight: bold;">0</span></div>
             <div class="pix-box">
-                <span>PIX: <strong id="chave-pix">00.000.000/0001-00</strong></span>
-                <button onclick="copiarPix()">Copiar PIX</button>
+                <span>PIX:</span>
+                <input type="text" id="chave-pix" value="Belabel Peixoto@gmail.com">
+                <button onclick="copiarPix()">Copiar</button>
             </div>
         </div>
         <div class="checkout-footer">
@@ -280,72 +403,8 @@
     </footer>
 
     <script>
-        const paes = [
-            { id: 2, nome: "Pão de Sementes Integral", precoKg: 75.00, img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&auto=format&fit=crop&q=60", desc: "Massa macia e nutritiva, rica em fibras, com mix de farinhas selecionadas." },
-            { id: 3, nome: "Pão Multigrãos", precoKg: 75.00, img: "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=500&auto=format&fit=crop&q=60", desc: "Saboroso e crocante, perfeito para acompanhar o seu café." },
-            { id: 4, nome: "Pão de Forma Branco", precoKg: 75.00, img: "https://images.unsplash.com/photo-1598373182133-52452f7691ef?w=500&auto=format&fit=crop&q=60", desc: "Leve, macio e versátil, ideal para todas as horas do dia." },
-            { id: 5, nome: "Pão Low Carb", precoKg: 75.00, img: "https://images.unsplash.com/photo-1534620808146-d3363f128480?w=500&auto=format&fit=crop&q=60", desc: "Opção leve, saborosa e com baixo carboidrato para o seu dia a dia." },
-            { id: 6, nome: "Pão de Hambúrguer", precoKg: 75.00, img: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500&auto=format&fit=crop&q=60", desc: "Perfeito para seus lanches artesanais, macio e sem glúten." },
-            { id: 7, nome: "Pão Tipo Bisnaguinha", precoKg: 75.00, img: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=500&auto=format&fit=crop&q=60", desc: "Fofinho e irresistível, ótimo para lanches rápidos e para as crianças." },
-            { id: 8, nome: "Pãozinho Recheado", precoKg: 75.00, img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=500&auto=format&fit=crop&q=60", desc: "Recheio caprichado e massa artesanal de excelente textura." },
-            { id: 13, nome: "Pão Italiano", precoKg: 75.00, img: "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=500&auto=format&fit=crop&q=60", desc: "Crosta marcante e miolo super macio, estilo rústico artesanal." },
-            { id: 14, nome: "Pão de Batata Doce", precoKg: 75.00, img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&auto=format&fit=crop&q=60", desc: "Massa nutritiva, fofinha e com um toque especial de batata doce." },
-            { id: 16, nome: "Pão de Sementes", precoKg: 75.00, img: "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=500&auto=format&fit=crop&q=60", desc: "Salpicado com mix de sementes selecionadas para dar mais crocância." },
-            { id: 17, nome: "Pão de Milho", precoKg: 75.00, img: "https://images.unsplash.com/photo-1598373182133-52452f7691ef?w=500&auto=format&fit=crop&q=60", desc: "Sabor caseiro inconfundível, leve e com aroma delicioso de milho fresco." },
-            { id: 18, nome: "Pão Recheado", precoKg: 75.00, img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=500&auto=format&fit=crop&q=60", desc: "Deliciosa combinação de massa artesanal com recheio especial da casa." },
-            { id: 19, nome: "Pão Australiano", precoKg: 75.00, img: "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=500&auto=format&fit=crop&q=60", desc: "Pão artesanal escuro com sabor adocicado sutil e textura extremamente macia." },
-            { id: 20, nome: "Pão de Batata Doce", precoKg: 75.00, img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&auto=format&fit=crop&q=60", desc: "Outra variação incrível e saudável para o seu café da manhã ou lanche." },
-            { id: 21, nome: "Pão Recheado", precoKg: 75.00, img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=500&auto=format&fit=crop&q=60", desc: "Opção de pão recheado artesanal com excelente apresentação e sabor." }
-        ];
-
-        const salgados = [
-            { id: 9, nome: "Esfiha Carne ou Frango", precoKg: 75.00, img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=500&auto=format&fit=crop&q=60", desc: "Salgados assados artesanais sem glúten e sem lactose, recheados com capricho." },
-            { id: 24, nome: "Empada de Frango", precoKg: 75.00, img: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=500&auto=format&fit=crop&q=60", desc: "Massa podre que derrete na boca com recheio cremoso de frango." },
-            { id: 28, nome: "Bolinho Frito", precoKg: 75.00, img: "https://images.unsplash.com/photo-1541529086526-db283c563270?w=500&auto=format&fit=crop&q=60", desc: "Quitute crocante por fora e macio por dentro, feito com ingredientes selecionados." }
-        ];
-
-        const bolos = [
-            { id: 10, nome: "Bolo de Banana", precoKg: 80.00, img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500&auto=format&fit=crop&q=60", desc: "Doce na medida certa, com toque caramelizado e textura super fofinha." },
-            { id: 11, nome: "Bolo de Café", precoKg: 80.00, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&auto=format&fit=crop&q=60", desc: "Sabor intenso e aconchegante, perfeito para acompanhar o seu café da tarde." },
-            { id: 12, nome: "Bolo Mesclado Simples", precoKg: 80.00, img: "https://images.unsplash.com/photo-1535141192574-5d4897c13136?w=500&auto=format&fit=crop&q=60", desc: "Combinação clássica de massa branca e chocolate, leve e deliciosa." },
-            { id: 15, nome: "Bolo de Lanche", precoKg: 80.00, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&auto=format&fit=crop&q=60", desc: "Bolo caseiro tradicional ideal para qualquer hora do dia." },
-            { id: 22, nome: "Bolo de Amendoim", precoKg: 80.00, img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500&auto=format&fit=crop&q=60", desc: "Massa fofinha com sabor marcante e cobertura especial de amendoim." },
-            { id: 23, nome: "Bolo de Chocolate", precoKg: 80.00, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&auto=format&fit=crop&q=60", desc: "Bolo rico em sabor com cacau de excelente qualidade e calda cremosa." },
-            { id: 25, nome: "Bolo Tipo Charge", precoKg: 80.00, img: "https://images.unsplash.com/photo-1535141192574-5d4897c13136?w=500&auto=format&fit=crop&q=60", desc: "Inspirado no clássico doce, com camadas de chocolate e amendoim irresistíveis." },
-            { id: 26, nome: "Bolo de Cenoura", precoKg: 80.00, img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500&auto=format&fit=crop&q=60", desc: "Massa fofinha de cenoura com generosa cobertura de chocolate." },
-            { id: 27, nome: "Bolo de Limão", precoKg: 80.00, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&auto=format&fit=crop&q=60", desc: "Toque cítrico refrescante com cobertura cremosa e raspas de limão." },
-            { id: 29, nome: "Bolo Mesclado com Cobertura", precoKg: 80.00, img: "https://images.unsplash.com/photo-1535141192574-5d4897c13136?w=500&auto=format&fit=crop&q=60", desc: "Massa mesclada especial finalizada com uma cobertura cremosa maravilhosa." }
-        ];
-
         let pedidoItens = [];
         const taxaEntrega = 12.00;
-
-        function montarGrid(lista, elementId) {
-            const container = document.getElementById(elementId);
-            let html = "";
-            lista.forEach(item => {
-                html += `
-                    <div class="card">
-                        <img src="${item.img}" alt="${item.nome}">
-                        <div class="card-content">
-                            <div class="card-title">${item.nome}</div>
-                            <div class="card-desc">${item.desc}</div>
-                            <div class="card-price" id="preco-view-${item.id}">R$ ${(item.precoKg * 0.5).toFixed(2).replace('.', ',')} <span style="font-size:0.75rem; color:#666; font-weight:normal;">(500g)</span></div>
-                            
-                            <select class="weight-select" id="sel-${item.id}" onchange="atualizarVisualPreco(${item.id}, ${item.precoKg})">
-                                <option value="0.25">250g - R$ ${(item.precoKg * 0.25).toFixed(2).replace('.', ',')}</option>
-                                <option value="0.5" selected>500g - R$ ${(item.precoKg * 0.5).toFixed(2).replace('.', ',')}</option>
-                                <option value="0.75">750g - R$ ${(item.precoKg * 0.75).toFixed(2).replace('.', ',')}</option>
-                                <option value="1">1 Kg - R$ ${item.precoKg.toFixed(2).replace('.', ',')}</option>
-                            </select>
-
-                            <button class="btn-add" onclick="adicionarComPeso('${item.nome}', ${item.precoKg}, 'sel-${item.id}')">Adicionar ao Pedido</button>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-        }
 
         function atualizarVisualPreco(id, precoKg) {
             const select = document.getElementById('sel-' + id);
@@ -362,6 +421,7 @@
         function adicionarItem(nome, valor, pesoStr) {
             pedidoItens.push({ nome: nome, valor: valor, peso: pesoStr });
             atualizarPainel();
+            alert("${nome} (${pesoStr})" foi adicionado ao pedido!);
         }
 
         function adicionarComPeso(nome, precoKg, selectId) {
@@ -387,9 +447,11 @@
         }
 
         function copiarPix() {
-            const chave = document.getElementById('chave-pix').innerText;
-            navigator.clipboard.writeText(chave);
-            alert("Chave PIX copiada com sucesso!");
+            const inputPix = document.getElementById('chave-pix');
+            inputPix.select();
+            inputPix.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(inputPix.value);
+            alert("Chave PIX copiada: " + inputPix.value);
         }
 
         function enviarPedidoWhatsApp() {
@@ -411,17 +473,10 @@
             mensagem += \nSubtotal dos Produtos: R$ ${subtotal.toFixed(2).replace('.', ',')};
             mensagem += \nTaxa de Entrega: R$ ${taxaEntrega.toFixed(2).replace('.', ',')};
             mensagem += \n*Valor Total com Entrega: R$ ${totalGeral.toFixed(2).replace('.', ',')}*;
-            mensagem += \n\nPagamento via PIX.;
+            mensagem += \n\nPagamento via PIX: belabelpeixoto@gmail.com;
 
             const url = https://wa.me/5544998546285?text=${encodeURIComponent(mensagem)};
             window.open(url, '_blank');
-        }
-
-        window.onload = function() {
-            montarGrid(paes, 'grid-paes');
-            montarGrid(salgados, 'grid-salgados');
-            montarGrid(bolos, 'grid-bolos');
-            atualizarPainel();
         }
     </script>
 </body>
