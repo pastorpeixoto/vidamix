@@ -206,79 +206,83 @@
     <script>
         const products = [
             // Cestas Especiais
-            { id: 1, category: "Cestas Especiais", name: "Cesta: Amor que nutre (Dia das Mães)", desc: "Seleção especial de produtos sem glúten e sem lactose, feita com muito carinho.", price: 129.90, unit: "unidade" },
-            
+            { id: 1, category: "Cestas Especiais", name: "Cesta: Amor que nutre (Dia das Mães)", desc: "Seleção especial de produtos sem glúten e sem lactose, feita com muito carinho.", price: 120.00, unit: "unidade" },
+            { id: 19, category: "Cestas Especiais", name: "Cesta de Pãezinhos e Pão Central", desc: "Mix de pãezinhos redondos e pão maior com gergelim em cesta rústica artesanal.", price: 80.00, unit: "cesta" },
+            { id: 28, category: "Cestas Especiais", name: "Kit Degustação / Bastidores", desc: "Variedade de pães e bolos recém-saídos do forno artesanal.", price: 70.00, unit: "kit" },
+
             // Pães e Baguetes
-            { id: 2, category: "Pães e Baguetes", name: "Pão Integral com Sementes", desc: "Massa macia e nutritiva, rica em fibras, com mix de farinhas.", price: 24.90, unit: "unidade" },
-            { id: 3, category: "Pães e Baguetes", name: "Pão Multigrãos", desc: "Saboroso e crocante, perfeito para acompanhar o seu café.", price: 26.90, unit: "unidade" },
-            { id: 4, category: "Pães e Baguetes", name: "Pão de Forma Tradicional", desc: "Leve e versátil, ideal para todas as horas do dia.", price: 22.90, unit: "unidade" },
-            { id: 13, category: "Pães e Baguetes", name: "Pão Rústico Artesanal", desc: "Pão artesanal rústico com miolo macio e crosta marcante.", price: 25.90, unit: "unidade" },
-            { id: 14, category: "Pães e Baguetes", name: "Pão de Abóbora com Sementes", desc: "Massa fofinha e nutritiva com toque de abóbora, coberta com mix de sementes.", price: 27.90, unit: "unidade" },
-            { id: 16, category: "Pães e Baguetes", name: "Pão de Forma Embalado", desc: "Produto fresco embalado com carinho e identificação artesanal.", price: 24.90, unit: "unidade" },
-            { id: 17, category: "Pães e Baguetes", name: "Kit Dupla de Pães Artesanais", desc: "Seleção com dois tipos de pães especiais da casa.", price: 48.00, unit: "kit" },
-            { id: 18, category: "Pães e Baguetes", name: "Pão Rústico Enfarinhado", desc: "Pão com casca levemente enfarinhada e sabor tradicional artesanal.", price: 25.90, unit: "unidade" },
-            { id: 20, category: "Pães e Baguetes", name: "Pão Branco de Forma Embalado", desc: "Composição detalhada: fécula de mandioca, farinha de arroz e fécula de batata.", price: 23.90, unit: "unidade" },
-            { id: 21, category: "Pães e Baguetes", name: "Baguetes Rústicas", desc: "Baguetes sem glúten e sem lactose com gergelim, excelente textura.", price: 12.90, unit: "unidade" },
+            { id: 2, category: "Pães e Baguetes", name: "Pão Integral com Sementes", desc: "Massa macia e nutritiva, rica em fibras, com mix de farinhas.", price: 70.00, unit: "unidade" },
+            { id: 3, category: "Pães e Baguetes", name: "Pão Multigrãos", desc: "Saboroso e crocante, perfeito para acompanhar o seu café.", price: 70.00, unit: "unidade" },
+            { id: 4, category: "Pães e Baguetes", name: "Pão de Forma Tradicional", desc: "Leve e versátil, ideal para todas as horas do dia.", price: 70.00, unit: "unidade" },
+            { id: 13, category: "Pães e Baguetes", name: "Pão Rústico Artesanal", desc: "Pão artesanal rústico com miolo macio e crosta marcante.", price: 70.00, unit: "unidade" },
+            { id: 14, category: "Pães e Baguetes", name: "Pão de Abóbora com Sementes", desc: "Massa fofinha e nutritiva com toque de abóbora, coberta com mix de sementes.", price: 70.00, unit: "unidade" },
+            { id: 16, category: "Pães e Baguetes", name: "Pão de Forma Embalado", desc: "Produto fresco embalado com carinho e identificação artesanal.", price: 70.00, unit: "unidade" },
+            { id: 17, category: "Pães e Baguetes", name: "Kit Dupla de Pães Artesanais", desc: "Seleção com dois tipos de pães especiais da casa.", price: 80.00, unit: "kit" },
+            { id: 18, category: "Pães e Baguetes", name: "Pão Rústico Enfarinhado", desc: "Pão com casca levemente enfarinhada e sabor tradicional artesanal.", price: 70.00, unit: "unidade" },
+            { id: 20, category: "Pães e Baguetes", name: "Pão Branco de Forma Embalado", desc: "Composição detalhada: fécula de mandioca, farinha de arroz e fécula de batata.", price: 70.00, unit: "unidade" },
+            { id: 21, category: "Pães e Baguetes", name: "Baguetes Rústicas", desc: "Baguetes sem glúten e sem lactose com gergelim, excelente textura.", price: 70.00, unit: "unidade" },
 
             // Pãezinhos e Quitutes
-            { id: 5, category: "Pãezinhos e Quitutes", name: "Pãozinho Rústico", desc: "Casquinha crocante e miolo macio.", price: 3.50, unit: "unidade" },
-            { id: 6, category: "Pãezinhos e Quitutes", name: "Mini Pão Redondo", desc: "Ideais para sanduíches e lanches rápidos.", price: 15.00, unit: "pct" },
-            { id: 7, category: "Pãezinhos e Quitutes", name: "Palitos de Queijo", desc: "Crocantes e irresistíveis, perfeitos para o petisco.", price: 18.90, unit: "pacote" },
-            { id: 8, category: "Pãezinhos e Quitutes", name: "Pãozinho Recheado", desc: "Saboroso recheio de frango cremoso.", price: 8.90, unit: "unidade" },
-            { id: 15, category: "Pãezinhos e Quitutes", name: "Kit Pãezinhos com Gergelim", desc: "Massa macia e levemente salpicada com gergelim.", price: 28.00, unit: "kit" },
-            { id: 19, category: "Pãezinhos e Quitutes", name: "Cesta de Pãezinhos e Pão Central", desc: "Mix de pãezinhos redondos e pão maior com gergelim em cesta rústica.", price: 45.00, unit: "cesta" },
+            { id: 5, category: "Pãezinhos e Quitutes", name: "Pãozinho Rústico", desc: "Casquinha crocante e miolo macio.", price: 70.00, unit: "unidade" },
+            { id: 6, category: "Pãezinhos e Quitutes", name: "Mini Pão Redondo", desc: "Ideais para sanduíches e lanches rápidos.", price: 70.00, unit: "pct" },
+            { id: 7, category: "Pãezinhos e Quitutes", name: "Palitos de Queijo", desc: "Crocantes e irresistíveis, perfeitos para o petisco.", price: 70.00, unit: "pacote" },
+            { id: 8, category: "Pãezinhos e Quitutes", name: "Pãozinho Recheado", desc: "Saboroso recheio de frango cremoso.", price: 70.00, unit: "unidade" },
+            { id: 15, category: "Pãezinhos e Quitutes", name: "Kit Pãezinhos com Gergelim", desc: "Massa macia e levemente salpicada com gergelim.", price: 80.00, unit: "kit" },
 
             // Bolos e Tortas
-            { id: 9, category: "Bolos e Tortas", name: "Esfihas ou Salgados", desc: "Opções deliciosas de carne ou frango artesanais.", price: 32.00, unit: "kit" },
-            { id: 10, category: "Bolos e Tortas", name: "Torta de Banana Caramelizada", desc: "Doce na medida certa, com cobertura brilhante e massa especial.", price: 55.00, unit: "unidade" },
-            { id: 11, category: "Bolos e Tortas", name: "Bolo de Café", desc: "Sabor intenso e textura fofinha, perfeito para o lanche.", price: 45.00, unit: "unidade" },
-            { id: 12, category: "Bolos e Tortas", name: "Bolo Mesclado", desc: "Uma combinação deliciosa de massa branca e chocolate, super fofinha.", price: 48.00, unit: "unidade" },
-            { id: 22, category: "Bolos e Tortas", name: "Bolo de Chocolate com Amendoim", desc: "Massa fofinha com cobertura cremosa de chocolate e amendoim crocante.", price: 52.00, unit: "unidade" },
-            { id: 23, category: "Bolos e Tortas", name: "Bolo Vulcão de Chocolate", desc: "Bolo com furo central transbordando calda cremosa e lascas de chocolate.", price: 49.90, unit: "unidade" },
-            { id: 24, category: "Bolos e Tortas", name: "Tortas Salgadas Artesanais", desc: "Tortas recheadas em tamanho família/marmita com linda decoração artesanal.", price: 58.00, unit: "unidade" },
-            { id: 25, category: "Bolos e Tortas", name: "Bolo Festivo de Chocolate e Amendoim", desc: "Cobertura e recheio generosos com amendoim picado selecionado.", price: 65.00, unit: "unidade" },
-            { id: 26, category: "Bolos e Tortas", name: "Bolo Vulcão Clássico", desc: "Massa leve e fofinha com cavidade recheada de calda de chocolate.", price: 46.00, unit: "unidade" },
-            { id: 27, category: "Bolos e Tortas", name: "Bolo Especial de Limão", desc: "Massa leve com toque cítrico, cobertura cremosa branca e raspas de limão.", price: 46.00, unit: "unidade" },
-            { id: 28, category: "Bolos e Tortas", name: "Kit Degustação / Bastidores", desc: "Variedade de pães e bolos recém-saídos do forno artesanal.", price: 50.00, unit: "kit" },
-            { id: 29, category: "Bolos e Tortas", name: "Bolo Mesclado com Brigadeiro", desc: "Feito com mix de farinhas, cacau em pó 100%, manteiga GHE e ovos. Cobertura especial.", price: 54.00, unit: "unidade" }
+            { id: 9, category: "Bolos e Tortas", name: "Esfihas ou Salgados", desc: "Opções deliciosas de carne ou frango artesanais.", price: 70.00, unit: "kit" },
+            { id: 10, category: "Bolos e Tortas", name: "Torta de Banana Caramelizada", desc: "Doce na medida certa, com cobertura brilhante e massa especial.", price: 80.00, unit: "unidade" },
+            { id: 11, category: "Bolos e Tortas", name: "Bolo de Café", desc: "Sabor intenso e textura fofinha, perfeito para o lanche.", price: 80.00, unit: "unidade" },
+            { id: 12, category: "Bolos e Tortas", name: "Bolo Mesclado", desc: "Uma combinação deliciosa de massa branca e chocolate, super fofinha.", price: 80.00, unit: "unidade" },
+            { id: 22, category: "Bolos e Tortas", name: "Bolo de Chocolate com Amendoim", desc: "Massa fofinha com cobertura cremosa de chocolate e amendoim crocante.", price: 80.00, unit: "unidade" },
+            { id: 23, category: "Bolos e Tortas", name: "Bolo Vulcão de Chocolate", desc: "Bolo com furo central transbordando calda cremosa e lascas de chocolate.", price: 80.00, unit: "unidade" },
+            { id: 24, category: "Bolos e Tortas", name: "Tortas Salgadas Artesanais", desc: "Tortas recheadas em tamanho família/marmita com linda decoração artesanal.", price: 80.00, unit: "unidade" },
+            { id: 25, category: "Bolos e Tortas", name: "Bolo Festivo de Chocolate e Amendoim", desc: "Cobertura e recheio generosos com amendoim picado selecionado.", price: 80.00, unit: "unidade" },
+            { id: 26, category: "Bolos e Tortas", name: "Bolo Vulcão Clássico", desc: "Massa leve e fofinha com cavidade recheada de calda de chocolate.", price: 80.00, unit: "unidade" },
+            { id: 27, category: "Bolos e Tortas", name: "Bolo Especial de Limão", desc: "Massa leve com toque cítrico, cobertura cremosa branca e raspas de limão.", price: 80.00, unit: "unidade" },
+            { id: 29, category: "Bolos e Tortas", name: "Bolo Mesclado com Brigadeiro", desc: "Feito com mix de farinhas, cacau em pó 100%, manteiga GHE e ovos. Cobertura especial.", price: 80.00, unit: "unidade" }
         ];
 
-        const categories = [...new Set(products.map(p => p.category))];
+        // Organizar e exibir separando rigorosamente por categoria exata
         const container = document.getElementById('catalog-container');
+        const categoriesOrder = ["Cestas Especiais", "Pães e Baguetes", "Pãezinhos e Quitutes", "Bolos e Tortas"];
 
-        categories.forEach(cat => {
-            const catTitle = document.createElement('h2');
-            catTitle.className = 'category-title';
-            catTitle.textContent = cat;
-            container.appendChild(catTitle);
+        categoriesOrder.forEach(catName => {
+            const catProducts = products.filter(p => p.category === catName);
+            if (catProducts.length > 0) {
+                const catTitle = document.createElement('h2');
+                catTitle.className = 'category-title';
+                catTitle.textContent = catName;
+                container.appendChild(catTitle);
 
-            const grid = document.createElement('div');
-            grid.className = 'grid';
+                const grid = document.createElement('div');
+                grid.className = 'grid';
 
-            products.filter(p => p.category === cat).forEach(product => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <img src="${product.id}.jpeg" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x200?text=Vidamix+Foto+${product.id}'">
-                    <div class="card-content">
-                        <div class="card-title">${product.name}</div>
-                        <div class="card-desc">${product.desc}</div>
-                        <div class="card-price">R$ ${product.price.toFixed(2).replace('.', ',')}</div>
-                        <div class="quantity-control">
-                            <label>Qtd (${product.unit}):</label>
-                            <div class="counter-btns">
-                                <button onclick="changeQty(${product.id}, -1)">-</button>
-                                <span class="counter-value" id="qty-${product.id}">1</span>
-                                <button onclick="changeQty(${product.id}, 1)">+</button>
+                catProducts.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <img src="${product.id}.jpeg" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x200?text=Vidamix+Foto+${product.id}'">
+                        <div class="card-content">
+                            <div class="card-title">${product.name}</div>
+                            <div class="card-desc">${product.desc}</div>
+                            <div class="card-price">R$ ${product.price.toFixed(2).replace('.', ',')}</div>
+                            <div class="quantity-control">
+                                <label>Qtd (${product.unit}):</label>
+                                <div class="counter-btns">
+                                    <button onclick="changeQty(${product.id}, -1)">-</button>
+                                    <span class="counter-value" id="qty-${product.id}">1</span>
+                                    <button onclick="changeQty(${product.id}, 1)">+</button>
+                                </div>
                             </div>
+                            <a href="#" class="btn-order" onclick="sendOrder(event, '${product.name}', ${product.id}, ${product.price})">Pedir no WhatsApp</a>
                         </div>
-                        <a href="#" class="btn-order" onclick="sendOrder(event, '${product.name}', ${product.id}, ${product.price})">Pedir no WhatsApp</a>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
+                    `;
+                    grid.appendChild(card);
+                });
 
-            container.appendChild(grid);
+                container.appendChild(grid);
+            }
         });
 
         function changeQty(id, delta) {
@@ -299,8 +303,6 @@
     </script>
 </body>
 </html>
-
-
 
 
 
