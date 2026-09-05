@@ -25,7 +25,7 @@
         body {
             background: var(--bg-gradient);
             color: var(--text-color);
-            padding-bottom: 240px;
+            padding-bottom: 280px;
             min-height: 100vh;
         }
         header {
@@ -98,11 +98,11 @@
             flex-grow: 1;
             line-height: 1.4;
         }
-        /* Preço em destaque em vermelho por quilo */
+        /* Preço por quilo em vermelho bem destacado */
         .card-price {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #c0392b;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #d9534f;
             margin-bottom: 0.8rem;
         }
         .weight-select {
@@ -142,13 +142,13 @@
             width: 100%;
             background: #1a252f;
             color: white;
-            padding: 1.2rem 2rem;
+            padding: 1rem 2rem;
             box-shadow: 0 -4px 25px rgba(0,0,0,0.3);
-            z-index: 1000;
+            z-index: 99999;
             border-top: 4px solid var(--secondary-color);
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
         .checkout-header {
             display: flex;
@@ -156,27 +156,27 @@
             align-items: center;
             font-size: 0.95rem;
             border-bottom: 1px solid rgba(255,255,255,0.15);
-            padding-bottom: 8px;
+            padding-bottom: 6px;
             flex-wrap: wrap;
             gap: 10px;
         }
         .pix-box {
             background: rgba(255, 255, 255, 0.1);
-            padding: 6px 12px;
+            padding: 5px 10px;
             border-radius: 6px;
             font-size: 0.85rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         .pix-box input {
             background: transparent;
             border: 1px solid rgba(255,255,255,0.3);
             color: #fff;
-            padding: 4px 8px;
+            padding: 4px 6px;
             border-radius: 4px;
             font-size: 0.85rem;
-            width: 230px;
+            width: 220px;
         }
         .pix-box button {
             background: #27ae60;
@@ -195,7 +195,7 @@
             gap: 10px;
         }
         .checkout-totals {
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
         .checkout-totals span {
             font-weight: bold;
@@ -205,9 +205,9 @@
             background-color: #25d366;
             color: white;
             border: none;
-            padding: 0.8rem 1.5rem;
+            padding: 0.7rem 1.2rem;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: bold;
             cursor: pointer;
             display: flex;
@@ -239,7 +239,7 @@
 
     <div class="container">
 
-        <!-- ==================== CESTAS ESPECIAIS ==================== -->
+        <!-- CESTAS ESPECIAIS -->
         <h2 class="category-title">Cestas Especiais</h2>
         <div class="grid">
             <div class="card">
@@ -247,13 +247,13 @@
                 <div class="card-content">
                     <div class="card-title">Cesta do Amor</div>
                     <div class="card-desc">Seleção especial de produtos artesanais sem glúten e sem lactose feita com muito carinho.</div>
-                    <div class="card-price">R$ 120,00 <span style="font-size: 0.8rem; font-weight: normal;">(Unidade)</span></div>
+                    <div class="card-price">R$ 120,00 <span style="font-size: 0.8rem; font-weight: normal; color: #666;">(Unidade)</span></div>
                     <button type="button" class="btn-add" onclick="adicionarItem('Cesta do Amor', 120.00, 'Unidade')">Adicionar ao Pedido</button>
                 </div>
             </div>
         </div>
 
-        <!-- ==================== PÃES ARTESANAIS ==================== -->
+        <!-- PÃES ARTESANAIS -->
         <h2 class="category-title">Pães Artesanais</h2>
         <div class="grid">
             <!-- 2 -->
@@ -262,7 +262,7 @@
                 <div class="card-content">
                     <div class="card-title">Pão Australiano</div>
                     <div class="card-desc">Sabor marcante e textura macia, sem glúten e sem lactose.</div>
-                    <div class="card-price" id="preco-view-2">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-2">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-2" onchange="atualizarVisualPreco(2, 75.00)">
                         <option value="0.25">250g - R$ 18,75</option>
                         <option value="0.5" selected>500g - R$ 37,50</option>
@@ -279,7 +279,7 @@
                 <div class="card-content">
                     <div class="card-title">Pão Low Carb</div>
                     <div class="card-desc">Opção leve e nutritiva para o seu dia a dia.</div>
-                    <div class="card-price" id="preco-view-3">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-3">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-3" onchange="atualizarVisualPreco(3, 80.00)">
                         <option value="0.25">250g - R$ 20,00</option>
                         <option value="0.5" selected>500g - R$ 40,00</option>
@@ -296,7 +296,7 @@
                 <div class="card-content">
                     <div class="card-title">Pão de Sementes Integral</div>
                     <div class="card-desc">Rico em fibras e sementes selecionadas.</div>
-                    <div class="card-price" id="preco-view-4">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-4">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-4" onchange="atualizarVisualPreco(4, 75.00)">
                         <option value="0.25">250g - R$ 18,75</option>
                         <option value="0.5" selected>500g - R$ 37,50</option>
@@ -313,7 +313,7 @@
                 <div class="card-content">
                     <div class="card-title">Pão Italiano</div>
                     <div class="card-desc">Casca crocante por fora e miolo macio.</div>
-                    <div class="card-price" id="preco-view-5">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-5">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-5" onchange="atualizarVisualPreco(5, 75.00)">
                         <option value="0.25">250g - R$ 18,75</option>
                         <option value="0.5" selected>500g - R$ 37,50</option>
@@ -330,7 +330,7 @@
                 <div class="card-content">
                     <div class="card-title">Pão de Hambúrguer</div>
                     <div class="card-desc">Perfeito para o seu lanche artesanal em casa.</div>
-                    <div class="card-price" id="preco-view-7">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-7">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-7" onchange="atualizarVisualPreco(7, 75.00)">
                         <option value="0.25">250g - R$ 18,75</option>
                         <option value="0.5" selected>500g - R$ 37,50</option>
@@ -347,7 +347,7 @@
                 <div class="card-content">
                     <div class="card-title">Pãozinho Recheado</div>
                     <div class="card-desc">Delicioso pãozinho com recheio especial.</div>
-                    <div class="card-price" id="preco-view-8">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-8">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-8" onchange="atualizarVisualPreco(8, 80.00)">
                         <option value="0.25">250g - R$ 20,00</option>
                         <option value="0.5" selected>500g - R$ 40,00</option>
@@ -364,7 +364,7 @@
                 <div class="card-content">
                     <div class="card-title">Pão de Lanche</div>
                     <div class="card-desc">Prático e macio para os lanches do dia a dia.</div>
-                    <div class="card-price" id="preco-view-13">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-13">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-13" onchange="atualizarVisualPreco(13, 75.00)">
                         <option value="0.25">250g - R$ 18,75</option>
                         <option value="0.5" selected>500g - R$ 37,50</option>
@@ -381,7 +381,7 @@
                 <div class="card-content">
                     <div class="card-title">Pão Multigrãos</div>
                     <div class="card-desc">Saboroso, estruturado e cheio de grãos saudáveis.</div>
-                    <div class="card-price" id="preco-view-14">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-14">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-14" onchange="atualizarVisualPreco(14, 75.00)">
                         <option value="0.25">250g - R$ 18,75</option>
                         <option value="0.5" selected>500g - R$ 37,50</option>
@@ -398,7 +398,7 @@
                 <div class="card-content">
                     <div class="card-title">Pão tipo Bisnaguinha</div>
                     <div class="card-desc">Fofinho e adocicado na medida certa.</div>
-                    <div class="card-price" id="preco-view-15">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-15">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-15" onchange="atualizarVisualPreco(15, 75.00)">
                         <option value="0.25">250g - R$ 18,75</option>
                         <option value="0.5" selected>500g - R$ 37,50</option>
@@ -415,7 +415,7 @@
                 <div class="card-content">
                     <div class="card-title">Pão de Batata Doce</div>
                     <div class="card-desc">Textura aveludada e excelente fonte de energia.</div>
-                    <div class="card-price" id="preco-view-16">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-16">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-16" onchange="atualizarVisualPreco(16, 75.00)">
                         <option value="0.25">250g - R$ 18,75</option>
                         <option value="0.5" selected>500g - R$ 37,50</option>
@@ -432,7 +432,7 @@
                 <div class="card-content">
                     <div class="card-title">Pão de Sementes</div>
                     <div class="card-desc">Mix especial de sementes nutritivas.</div>
-                    <div class="card-price" id="preco-view-18">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-18">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-18" onchange="atualizarVisualPreco(18, 75.00)">
                         <option value="0.25">250g - R$ 18,75</option>
                         <option value="0.5" selected>500g - R$ 37,50</option>
@@ -449,7 +449,7 @@
                 <div class="card-content">
                     <div class="card-title">Pão de Milho</div>
                     <div class="card-desc">Sabor caseiro tradicional que lembra a fazenda.</div>
-                    <div class="card-price" id="preco-view-19">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-19">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-19" onchange="atualizarVisualPreco(19, 75.00)">
                         <option value="0.25">250g - R$ 18,75</option>
                         <option value="0.5" selected>500g - R$ 37,50</option>
@@ -466,7 +466,7 @@
                 <div class="card-content">
                     <div class="card-title">Pão de Batata Doce Especial</div>
                     <div class="card-desc">Receita aprimorada com toque especial da casa.</div>
-                    <div class="card-price" id="preco-view-20">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-20">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-20" onchange="atualizarVisualPreco(20, 75.00)">
                         <option value="0.25">250g - R$ 18,75</option>
                         <option value="0.5" selected>500g - R$ 37,50</option>
@@ -483,7 +483,7 @@
                 <div class="card-content">
                     <div class="card-title">Pão de Forma Branco</div>
                     <div class="card-desc">Leve e versátil para fatiar e torrar.</div>
-                    <div class="card-price" id="preco-view-21">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-21">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-21" onchange="atualizarVisualPreco(21, 75.00)">
                         <option value="0.25">250g - R$ 18,75</option>
                         <option value="0.5" selected>500g - R$ 37,50</option>
@@ -500,7 +500,7 @@
                 <div class="card-content">
                     <div class="card-title">Pão Recheado</div>
                     <div class="card-desc">Surpreendente e recheado na medida certa.</div>
-                    <div class="card-price" id="preco-view-22">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-22">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-22" onchange="atualizarVisualPreco(22, 80.00)">
                         <option value="0.25">250g - R$ 20,00</option>
                         <option value="0.5" selected>500g - R$ 40,00</option>
@@ -512,7 +512,7 @@
             </div>
         </div>
 
-        <!-- ==================== SALGADOS E QUITUTES ==================== -->
+        <!-- SALGADOS E QUITUTES -->
         <h2 class="category-title">Salgados e Quitutes</h2>
         <div class="grid">
             <!-- 6 -->
@@ -521,7 +521,7 @@
                 <div class="card-content">
                     <div class="card-title">Bolinho Frito</div>
                     <div class="card-desc">Crocante por fora e macio por dentro, sem glúten e sem lactose.</div>
-                    <div class="card-price" id="preco-view-6">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-6">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-6" onchange="atualizarVisualPreco(6, 80.00)">
                         <option value="0.25">250g - R$ 20,00</option>
                         <option value="0.5" selected>500g - R$ 40,00</option>
@@ -538,7 +538,7 @@
                 <div class="card-content">
                     <div class="card-title">Esfirra Carne ou Frango</div>
                     <div class="card-desc">Assada artesanalmente com recheio suculento.</div>
-                    <div class="card-price" id="preco-view-9">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-9">R$ 75,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-9" onchange="atualizarVisualPreco(9, 75.00)">
                         <option value="0.25">250g - R$ 18,75</option>
                         <option value="0.5" selected>500g - R$ 37,50</option>
@@ -555,7 +555,7 @@
                 <div class="card-content">
                     <div class="card-title">Empada de Frango</div>
                     <div class="card-desc">Massa artesanal que derrete na boca com recheio cremoso.</div>
-                    <div class="card-price" id="preco-view-25">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-25">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-25" onchange="atualizarVisualPreco(25, 80.00)">
                         <option value="0.25">250g - R$ 20,00</option>
                         <option value="0.5" selected>500g - R$ 40,00</option>
@@ -567,7 +567,7 @@
             </div>
         </div>
 
-        <!-- ==================== BOLOS E TORTAS ==================== -->
+        <!-- BOLOS E TORTAS -->
         <h2 class="category-title">Bolos e Tortas</h2>
         <div class="grid">
             <!-- 10 -->
@@ -576,7 +576,7 @@
                 <div class="card-content">
                     <div class="card-title">Bolo de Banana</div>
                     <div class="card-desc">Doce na medida certa, fofinho e com toque caramelizado.</div>
-                    <div class="card-price" id="preco-view-10">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-10">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-10" onchange="atualizarVisualPreco(10, 80.00)">
                         <option value="0.25">250g - R$ 20,00</option>
                         <option value="0.5" selected>500g - R$ 40,00</option>
@@ -593,7 +593,7 @@
                 <div class="card-content">
                     <div class="card-title">Bolo de Café</div>
                     <div class="card-desc">Aromatizado com café de excelente qualidade.</div>
-                    <div class="card-price" id="preco-view-11">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-11">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-11" onchange="atualizarVisualPreco(11, 80.00)">
                         <option value="0.25">250g - R$ 20,00</option>
                         <option value="0.5" selected>500g - R$ 40,00</option>
@@ -610,7 +610,7 @@
                 <div class="card-content">
                     <div class="card-title">Bolo Mesclado Simples</div>
                     <div class="card-desc">A clássica combinação que agrada a todos.</div>
-                    <div class="card-price" id="preco-view-12">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-12">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-12" onchange="atualizarVisualPreco(12, 80.00)">
                         <option value="0.25">250g - R$ 20,00</option>
                         <option value="0.5" selected>500g - R$ 40,00</option>
@@ -627,7 +627,7 @@
                 <div class="card-content">
                     <div class="card-title">Bolo de Laranja</div>
                     <div class="card-desc">Fresco, cítrico e super fofinho.</div>
-                    <div class="card-price" id="preco-view-17">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-17">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-17" onchange="atualizarVisualPreco(17, 80.00)">
                         <option value="0.25">250g - R$ 20,00</option>
                         <option value="0.5" selected>500g - R$ 40,00</option>
@@ -644,7 +644,7 @@
                 <div class="card-content">
                     <div class="card-title">Bolo de Amendoim</div>
                     <div class="card-desc">Sabor marcante de amendoim com textura incrível.</div>
-                    <div class="card-price" id="preco-view-23">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-23">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-23" onchange="atualizarVisualPreco(23, 80.00)">
                         <option value="0.25">250g - R$ 20,00</option>
                         <option value="0.5" selected>500g - R$ 40,00</option>
@@ -661,7 +661,7 @@
                 <div class="card-content">
                     <div class="card-title">Bolo de Chocolate</div>
                     <div class="card-desc">Rico em sabor com cacau de excelente qualidade.</div>
-                    <div class="card-price" id="preco-view-24">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-24">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-24" onchange="atualizarVisualPreco(24, 80.00)">
                         <option value="0.25">250g - R$ 20,00</option>
                         <option value="0.5" selected>500g - R$ 40,00</option>
@@ -678,7 +678,7 @@
                 <div class="card-content">
                     <div class="card-title">Bolo tipo Charge</div>
                     <div class="card-desc">Inspiração deliciosa com notas de amendoim e chocolate.</div>
-                    <div class="card-price" id="preco-view-26">R$ 90,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-26">R$ 90,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-26" onchange="atualizarVisualPreco(26, 90.00)">
                         <option value="0.25">250g - R$ 22,50</option>
                         <option value="0.5" selected>500g - R$ 45,00</option>
@@ -695,7 +695,7 @@
                 <div class="card-content">
                     <div class="card-title">Bolo de Cenoura</div>
                     <div class="card-desc">Fofinho e tradicional.</div>
-                    <div class="card-price" id="preco-view-27">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-27">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-27" onchange="atualizarVisualPreco(27, 80.00)">
                         <option value="0.25">250g - R$ 20,00</option>
                         <option value="0.5" selected>500g - R$ 40,00</option>
@@ -712,7 +712,7 @@
                 <div class="card-content">
                     <div class="card-title">Bolo de Limão</div>
                     <div class="card-desc">Toque refrescante e aroma irresistível.</div>
-                    <div class="card-price" id="preco-view-28">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-28">R$ 80,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-28" onchange="atualizarVisualPreco(28, 80.00)">
                         <option value="0.25">250g - R$ 20,00</option>
                         <option value="0.5" selected>500g - R$ 40,00</option>
@@ -729,7 +729,7 @@
                 <div class="card-content">
                     <div class="card-title">Bolo Mesclado com Cobertura de Brigadeiro</div>
                     <div class="card-desc">Massa mesclada com cobertura generosa de brigadeiro sem lactose.</div>
-                    <div class="card-price" id="preco-view-29">R$ 90,00 <span style="font-size:0.75rem; font-weight:normal;">(Preço por Kg)</span></div>
+                    <div class="card-price" id="preco-view-29">R$ 90,00 <span style="font-size:0.75rem; font-weight:normal; color:#666;">(Preço por Kg)</span></div>
                     <select class="weight-select" id="sel-29" onchange="atualizarVisualPreco(29, 90.00)">
                         <option value="0.25">250g - R$ 22,50</option>
                         <option value="0.5" selected>500g - R$ 45,00</option>
@@ -755,10 +755,10 @@
         </div>
         <div class="checkout-footer">
             <div class="checkout-totals">
-                Subtotal: <span id="val-subtotal">R$ 0,00</span> | Taxa de Entrega: <span>R$ 12,00</span> | <strong>Total: <span id="val-total" style="color: #f1c40f;">R$ 12,00</span></strong>
+                Subtotal: <span id="val-subtotal">R$ 0,00</span> | Entrega: <span>R$ 12,00</span> | <strong>Total: <span id="val-total" style="color: #f1c40f;">R$ 12,00</span></strong>
             </div>
             <button type="button" class="checkout-btn" onclick="enviarPedidoWhatsApp()">
-                📱 Enviar Pedido Completo para o WhatsApp
+                📱 Enviar Pedido ao WhatsApp
             </button>
         </div>
     </div>
@@ -780,7 +780,7 @@
             else if(mult === 0.75) textoPeso = "750g";
             else if(mult === 1) textoPeso = "1 Kg";
 
-            document.getElementById('preco-view-' + id).innerHTML = R$ ${val.toFixed(2).replace('.', ',')} <span style="font-size:0.75rem; font-weight:normal;">(${textoPeso})</span>;
+            document.getElementById('preco-view-' + id).innerHTML = R$ ${val.toFixed(2).replace('.', ',')} <span style="font-size:0.75rem; font-weight:normal; color:#666;">(${textoPeso})</span>;
         }
 
         function adicionarItem(nome, valor, pesoStr) {
@@ -815,13 +815,17 @@
             const inputPix = document.getElementById('chave-pix');
             inputPix.select();
             inputPix.setSelectionRange(0, 99999);
-            try {
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(inputPix.value).then(() => {
-                    alert("Chave PIX copiada: " + inputPix.value);
+                    alert("Chave PIX copiada com sucesso!");
+                }).catch(() => {
+                    document.execCommand('copy');
+                    alert("Chave PIX copiada!");
                 });
-            } catch (err) {
+            } else {
                 document.execCommand('copy');
-                alert("Chave PIX copiada: " + inputPix.value);
+                alert("Chave PIX copiada!");
             }
         }
 
