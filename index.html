@@ -49,6 +49,8 @@
         .btn-action:hover { background-color: #235d26; }
         .btn-pix { background-color: #00838f; }
         .btn-pix:hover { background-color: #005f6b; }
+        .btn-zerar { background-color: #c62828; }
+        .btn-zerar:hover { background-color: #8e0000; }
 
         footer { background-color: #2c221e; color: #ffffff; text-align: center; padding: 20px; margin-top: 40px; }
     </style>
@@ -503,6 +505,7 @@
                 <p id="order-total" style="font-weight: bold; color: #b85d18;">Total Geral (com frete): R$ 12,00</p>
                 <div class="order-actions">
                     <button class="btn-action btn-pix" onclick="copiarPix()">Copiar Pix</button>
+                    <button class="btn-action btn-zerar" onclick="zerarPedido()">Zerar Pedido</button>
                     <button class="btn-action" onclick="enviarWhatsApp()">Enviar pedido WhatsApp</button>
                 </div>
             </div>
@@ -546,6 +549,12 @@
             document.getElementById('order-total').innerText = "Total Geral (com frete): R$ " + totalGeral.toFixed(2).replace('.', ',');
         }
 
+        function zerarPedido() {
+            carrinho = [];
+            atualizarResumo();
+            alert("O pedido foi zerado!");
+        }
+
         function copiarPix() {
             const chavePix = "belabelpeixoto@gmail.com";
             
@@ -563,21 +572,11 @@
         function fallbackCopiarPix(texto) {
             let textarea = document.createElement("textarea");
             textarea.value = texto;
-            textarea.style.position = "fixed";
             document.body.appendChild(textarea);
-            textarea.focus();
             textarea.select();
-            try {
-                let sucesso = document.execCommand('copy');
-                if (sucesso) {
-                    alert("Chave Pix copiada com sucesso!");
-                } else {
-                    alert("Não foi possível copiar automaticamente. Chave: " + texto);
-                }
-            } catch (err) {
-                alert("Erro ao copiar chave Pix. Chave: " + texto);
-            }
+            document.execCommand('copy');
             document.body.removeChild(textarea);
+            alert("Chave Pix copiada com sucesso!");
         }
 
         function enviarWhatsApp() {
@@ -601,12 +600,10 @@
             texto += "%0ATotal Geral com Frete: R$ " + totalGeral.toFixed(2).replace('.', ',');
             
             let numeroWhatsApp = "5544998546285"; 
-            
             window.open("https://wa.me/" + numeroWhatsApp + "?text=" + texto, "_blank");
         }
     </script>
 </body>
 </html>
-
 
 
