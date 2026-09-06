@@ -854,6 +854,169 @@
             window.open(url, '_blank');
         }
     </script>
+    <!-- INÍCIO DO CARDÁPIO VIDAMIX -->
+<style>
+    .vidamix-catalog { background-color: #f9f6f0; padding: 60px 20px; font-family: 'Arial', sans-serif; color: #333333; }
+    .vidamix-catalog .container { max-width: 1200px; margin: 0 auto; text-align: center; }
+    .vidamix-catalog h2 { font-size: 2.5rem; color: #2c221e; margin-bottom: 10px; font-weight: 700; }
+    .vidamix-catalog .subtitle { font-size: 1.1rem; color: #6b5b52; margin-bottom: 40px; font-style: italic; }
+    .vidamix-catalog .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; justify-content: center; }
+    .vidamix-catalog .product-card { background: #ffffff; padding: 25px 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #eae3d9; }
+    .vidamix-catalog .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
+    .vidamix-catalog .product-card h3 { font-size: 1.25rem; color: #2c221e; margin-bottom: 15px; font-weight: 600; }
+    .vidamix-catalog .product-card .price { font-size: 1.35rem; color: #b85d18; font-weight: bold; }
+    .vidamix-catalog .product-card .unit { font-size: 0.85rem; color: #888888; text-transform: uppercase; margin-top: 4px; }
+</style>
+
+<section id="cardapio" class="vidamix-catalog">
+    <div class="container">
+        <h2>Cardápio Vidamix</h2>
+        <p class="subtitle">100% Artesanal | Sem Glúten | Sem Lactose (Preços por quilo)</p>
+        
+        <div class="product-grid">
+            <!-- R$ 130,00 -->
+            <div class="product-card" data-price="130.00">
+                <h3>Bolo de amendoim</h3>
+                <span class="price">R$ 130,00</span>
+                <span class="unit">kg</span>
+            </div>
+
+            <!-- R$ 120,00 -->
+            <div class="product-card" data-price="120.00">
+                <h3>Cesta do Amor</h3>
+                <span class="price">R$ 120,00</span>
+                <span class="unit">kg</span>
+            </div>
+
+            <!-- R$ 85,00 -->
+            <div class="product-card" data-price="85.00">
+                <h3>Pão recheado</h3>
+                <span class="price">R$ 85,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="85.00">
+                <h3>Bolo de chocolate</h3>
+                <span class="price">R$ 85,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="85.00">
+                <h3>Bolo mesclado, cobertura de brigadeiro</h3>
+                <span class="price">R$ 85,00</span>
+                <span class="unit">kg</span>
+            </div>
+
+            <!-- R$ 80,00 -->
+            <div class="product-card" data-price="80.00">
+                <h3>Bolinho frito da vovó</h3>
+                <span class="price">R$ 80,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="80.00">
+                <h3>Bolo tipo charge</h3>
+                <span class="price">R$ 80,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="80.00">
+                <h3>Bolo de cenoura</h3>
+                <span class="price">R$ 80,00</span>
+                <span class="unit">kg</span>
+            </div>
+
+            <!-- R$ 75,00 -->
+            <div class="product-card" data-price="75.00">
+                <h3>Pão Australiano</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Pão Low Carb</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Pão de Sementes Integral</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Pão Italiano</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Pão de hambúrguer</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Esfiha de carne ou de frango</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Bolo de banana</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Bolo de café</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Bolo mesclado simples</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Pão de lanche</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Pão multigrãos</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Pão tipo bisnaguinha</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Pão de batata doce</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Bolo de laranja</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Bolo de limão</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Pão de sementes</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Pão de milho</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+            <div class="product-card" data-price="75.00">
+                <h3>Pão de forma branco</h3>
+                <span class="price">R$ 75,00</span>
+                <span class="unit">kg</span>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- FIM DO CARDÁPIO VIDAMIX -->
 </body>
 </html>
 
