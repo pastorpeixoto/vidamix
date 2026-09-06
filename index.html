@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vidamix - Delícias Artesanais</title>
     <style>
-        /* ESTILOS GERAIS DA PÁGINA */
         body {
             margin: 0;
             padding: 0;
@@ -13,8 +12,6 @@
             background-color: #f9f6f0;
             color: #333333;
         }
-
-        /* CABEÇALHO */
         header {
             background-color: #2c221e;
             color: #ffffff;
@@ -23,21 +20,10 @@
             justify-content: space-between;
             align-items: center;
         }
-        header h1 {
-            margin: 0;
-            font-size: 1.8rem;
-        }
-        nav a {
-            color: #ffffff;
-            text-decoration: none;
-            margin-left: 20px;
-            font-weight: bold;
-        }
-        nav a:hover {
-            color: #b85d18;
-        }
+        header h1 { margin: 0; font-size: 1.8rem; }
+        nav a { color: #ffffff; text-decoration: none; margin-left: 20px; font-weight: bold; }
+        nav a:hover { color: #b85d18; }
 
-        /* ESTILOS VISUAIS DO CARDÁPIO */
         .vidamix-catalog { background-color: #f9f6f0; padding: 60px 20px; }
         .vidamix-catalog .container { max-width: 1200px; margin: 0 auto; text-align: center; }
         .vidamix-catalog h2 { font-size: 3rem; color: #2c221e; margin-bottom: 5px; font-weight: 700; }
@@ -45,13 +31,16 @@
         .vidamix-catalog .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; justify-content: center; }
         .vidamix-catalog .product-card { background: #ffffff; padding: 25px 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #eae3d9; text-align: left; }
         .vidamix-catalog .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
-        .vidamix-catalog .product-card h3 { font-size: 1.25rem; color: #2c221e; margin-bottom: 15px; font-weight: 600; }
-        .vidamix-catalog .product-card .price { font-size: 1.35rem; color: #b85d18; font-weight: bold; display: block; margin-bottom: 10px; }
-        .vidamix-catalog .product-card .unit { font-size: 0.85rem; color: #888888; text-transform: uppercase; }
-        .vidamix-catalog .btn-add { background-color: #b85d18; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 15px; transition: background 0.2s; }
+        .vidamix-catalog .product-card h3 { font-size: 1.25rem; color: #2c221e; margin-bottom: 10px; font-weight: 600; }
+        .vidamix-catalog .product-card .price { font-size: 1.35rem; color: #b85d18; font-weight: bold; display: block; margin-bottom: 15px; }
+        
+        .quantity-box { margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .quantity-box label { font-size: 0.9rem; color: #555; }
+        .quantity-box input { width: 70px; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; }
+
+        .vidamix-catalog .btn-add { background-color: #b85d18; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; transition: background 0.2s; }
         .vidamix-catalog .btn-add:hover { background-color: #9a4c13; }
         
-        /* PAINEL DE RESUMO E BOTÕES */
         .order-summary { margin-top: 40px; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #eae3d9; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto; }
         .order-summary h3 { margin-top: 0; color: #2c221e; }
         .order-actions { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
@@ -60,19 +49,11 @@
         .btn-pix { background-color: #00838f; }
         .btn-pix:hover { background-color: #005f6b; }
 
-        /* RODAPÉ */
-        footer {
-            background-color: #2c221e;
-            color: #ffffff;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-        }
+        footer { background-color: #2c221e; color: #ffffff; text-align: center; padding: 20px; margin-top: 40px; }
     </style>
 </head>
 <body>
 
-    <!-- CABEÇALHO -->
     <header>
         <h1>Vidamix</h1>
         <nav>
@@ -80,203 +61,306 @@
         </nav>
     </header>
 
-    <!-- CARDÁPIO COMPLETO -->
     <section id="cardapio" class="vidamix-catalog">
         <div class="container">
             <h2>Cardápio Vidamix</h2>
             <p class="subtitle">100% Artesanal | Sem Glúten | Sem Lactose (Preços por quilo)</p>
             
-            <div class="product-grid">
+            <div class="product-grid" id="grid-produtos">
                 <!-- R$ 130,00 -->
                 <div class="product-card" data-name="Bolo de amendoim" data-price="130.00">
                     <div>
                         <h3>Bolo de amendoim</h3>
-                        <span class="price">R$ 130,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 130,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Bolo de amendoim', 130.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de amendoim', 130.00)">Adicionar Pedido</button>
                 </div>
 
                 <!-- R$ 120,00 -->
                 <div class="product-card" data-name="Cesta do Amor" data-price="120.00">
                     <div>
                         <h3>Cesta do Amor</h3>
-                        <span class="price">R$ 120,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 120,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Cesta do Amor', 120.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Cesta do Amor', 120.00)">Adicionar Pedido</button>
                 </div>
 
                 <!-- R$ 85,00 -->
                 <div class="product-card" data-name="Pão recheado" data-price="85.00">
                     <div>
                         <h3>Pão recheado</h3>
-                        <span class="price">R$ 85,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 85,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Pão recheado', 85.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão recheado', 85.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Bolo de chocolate" data-price="85.00">
                     <div>
                         <h3>Bolo de chocolate</h3>
-                        <span class="price">R$ 85,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 85,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Bolo de chocolate', 85.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de chocolate', 85.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Bolo mesclado, cobertura de brigadeiro" data-price="85.00">
                     <div>
                         <h3>Bolo mesclado, cobertura de brigadeiro</h3>
-                        <span class="price">R$ 85,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 85,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Bolo mesclado, cobertura de brigadeiro', 85.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo mesclado, cobertura de brigadeiro', 85.00)">Adicionar Pedido</button>
                 </div>
 
                 <!-- R$ 80,00 -->
                 <div class="product-card" data-name="Bolinho frito da vovó" data-price="80.00">
                     <div>
                         <h3>Bolinho frito da vovó</h3>
-                        <span class="price">R$ 80,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 80,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Bolinho frito da vovó', 80.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolinho frito da vovó', 80.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Bolo tipo charge" data-price="80.00">
                     <div>
                         <h3>Bolo tipo charge</h3>
-                        <span class="price">R$ 80,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 80,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Bolo tipo charge', 80.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo tipo charge', 80.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Bolo de cenoura" data-price="80.00">
                     <div>
                         <h3>Bolo de cenoura</h3>
-                        <span class="price">R$ 80,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 80,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Bolo de cenoura', 80.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de cenoura', 80.00)">Adicionar Pedido</button>
                 </div>
 
                 <!-- R$ 75,00 -->
                 <div class="product-card" data-name="Pão Australiano" data-price="75.00">
                     <div>
                         <h3>Pão Australiano</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Pão Australiano', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão Australiano', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Pão Low Carb" data-price="75.00">
                     <div>
                         <h3>Pão Low Carb</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Pão Low Carb', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão Low Carb', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Pão de Sementes Integral" data-price="75.00">
                     <div>
                         <h3>Pão de Sementes Integral</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Pão de Sementes Integral', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de Sementes Integral', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Pão Italiano" data-price="75.00">
                     <div>
                         <h3>Pão Italiano</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Pão Italiano', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão Italiano', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Pão de hambúrguer" data-price="75.00">
                     <div>
                         <h3>Pão de hambúrguer</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Pão de hambúrguer', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de hambúrguer', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Esfiha de carne ou de frango" data-price="75.00">
                     <div>
                         <h3>Esfiha de carne ou de frango</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Esfiha de carne ou de frango', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Esfiha de carne ou de frango', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Bolo de banana" data-price="75.00">
                     <div>
                         <h3>Bolo de banana</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Bolo de banana', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de banana', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Bolo de café" data-price="75.00">
                     <div>
                         <h3>Bolo de café</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Bolo de café', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de café', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Bolo mesclado simples" data-price="75.00">
                     <div>
                         <h3>Bolo mesclado simples</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Bolo mesclado simples', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo mesclado simples', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Pão de lanche" data-price="75.00">
                     <div>
                         <h3>Pão de lanche</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Pão de lanche', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de lanche', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Pão multigrãos" data-price="75.00">
                     <div>
                         <h3>Pão multigrãos</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Pão multigrãos', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão multigrãos', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Pão tipo bisnaguinha" data-price="75.00">
                     <div>
                         <h3>Pão tipo bisnaguinha</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Pão tipo bisnaguinha', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão tipo bisnaguinha', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Pão de batata doce" data-price="75.00">
                     <div>
                         <h3>Pão de batata doce</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Pão de batata doce', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de batata doce', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Bolo de laranja" data-price="75.00">
                     <div>
                         <h3>Bolo de laranja</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Bolo de laranja', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de laranja', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Bolo de limão" data-price="75.00">
                     <div>
                         <h3>Bolo de limão</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Bolo de limão', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de limão', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Pão de sementes" data-price="75.00">
                     <div>
                         <h3>Pão de sementes</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Pão de sementes', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de sementes', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Pão de milho" data-price="75.00">
                     <div>
                         <h3>Pão de milho</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Pão de milho', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de milho', 75.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-name="Pão de forma branco" data-price="75.00">
                     <div>
                         <h3>Pão de forma branco</h3>
-                        <span class="price">R$ 75,00 <span class="unit">/ kg</span></span>
+                        <span class="price">R$ 75,00 / kg</span>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem('Pão de forma branco', 75.00)">Adicionar Pedido</button>
+                    <div class="quantity-box">
+                        <label>Qtd (kg):</label>
+                        <input type="number" class="qtd-input" value="1" min="0.1" step="0.1">
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de forma branco', 75.00)">Adicionar Pedido</button>
                 </div>
             </div>
 
@@ -292,19 +376,28 @@
         </div>
     </section>
 
-    <!-- RODAPÉ -->
     <footer>
         <p>&copy; Vidamix - Delícias Artesanais Sem Glúten e Sem Lactose</p>
     </footer>
 
-    <!-- SCRIPTS PARA FAZER OS BOTÕES FUNCIONAREM -->
     <script>
         let carrinho = [];
 
-        function adicionarItem(nome, preco) {
-            carrinho.push({ nome, preco });
+        function adicionarItem(botao, nome, precoKg) {
+            // Pega o valor digitado no campo de quantidade daquele card específico
+            let inputQtd = botao.parentElement.querySelector('.qtd-input');
+            let quantidade = parseFloat(inputQtd.value);
+
+            if (isNaN(quantidade) || quantidade <= 0) {
+                alert("Por favor, digite uma quantidade válida.");
+                return;
+            }
+
+            let precoTotal = precoKg * quantidade;
+            carrinho.push({ nome, quantidade, precoTotal });
             atualizarResumo();
-            alert(nome + " adicionado ao pedido!");
+            
+            alert(quantidade + " kg de " + nome + " adicionado ao pedido!");
         }
 
         function atualizarResumo() {
@@ -312,7 +405,7 @@
         }
 
         function copiarPix() {
-            const chavePix = "sua-chave-pix-aqui";
+            const chavePix = "belabelpeixoto@gmail.com";
             navigator.clipboard.writeText(chavePix).then(() => {
                 alert("Chave Pix copiada com sucesso!");
             });
@@ -324,11 +417,17 @@
                 return;
             }
             let texto = "Olá! Gostaria de fazer o seguinte pedido na Vidamix:%0A";
-            carrinho.forEach((item, index) => {
-                texto += (index + 1) + ". " + item.nome + " - R$ " + item.preco.toFixed(2) + "%0A";
-            });
+            let totalGeral = 0;
             
-            let numeroWhatsApp = "5500000000000"; 
+            carrinho.forEach((item, index) => {
+                texto += (index + 1) + ". " + item.quantidade + "kg de " + item.nome + " - R$ " + item.precoTotal.toFixed(2) + "%0A";
+                totalGeral += item.precoTotal;
+            });
+
+            texto += "%0ATotal aproximado: R$ " + totalGeral.toFixed(2);
+            
+            // Substitua abaixo pelo seu número de WhatsApp real (Ex: 5544998546285)
+            let numeroWhatsApp = "5544998546285"; 
             window.open("https://wa.me/" + numeroWhatsApp + "?text=" + texto, "_blank");
         }
     </script>
