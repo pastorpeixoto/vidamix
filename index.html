@@ -75,21 +75,12 @@
             
             <div class="product-grid" id="grid-produtos">
                 <!-- Itens do Cardápio -->
-                <div class="product-card" data-name="Cesta amor">
+                <div class="product-card" data-name="Cesta de presente">
                     <div>
-                        <h3>Cesta amor</h3>
-                        <span class="price">R$ 120,00 / kg</span>
+                        <h3>Cesta de presente</h3>
+                        <span class="price">R$ 120,00</span>
                     </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Cesta amor', 120.00)">Adicionar Pedido</button>
+                    <button class="btn-add" onclick="adicionarItemUnico(this, 'Cesta de presente', 120.00)">Adicionar Pedido</button>
                 </div>
 
                 <div class="product-card" data-name="Pão australiano">
@@ -568,11 +559,17 @@
 
             let precoTotal = (precoKg / 1000) * gramas;
             
-            carrinho.push({ nome, gramas, precoTotal });
+            carrinho.push({ nome, tipo: 'peso', gramas, precoTotal });
             atualizarResumo();
             
             let textoQtd = gramas >= 1000 ? "1 kg" : gramas + "g";
             alert(textoQtd + " de " + nome + " adicionado ao pedido!");
+        }
+
+        function adicionarItemUnico(botao, nome, precoUnico) {
+            carrinho.push({ nome, tipo: 'unico', precoTotal: precoUnico });
+            atualizarResumo();
+            alert(nome + " adicionado ao pedido!");
         }
 
         function atualizarResumo() {
@@ -636,8 +633,12 @@
             let totalProdutos = 0;
             
             carrinho.forEach((item, index) => {
-                let qtdTexto = item.gramas >= 1000 ? "1 kg" : item.gramas + "g";
-                texto += (index + 1) + ". " + qtdTexto + " de " + item.nome + " - R$ " + item.precoTotal.toFixed(2).replace('.', ',') + "%0A";
+                if (item.tipo === 'unico') {
+                    texto += (index + 1) + ". 1 unidade de " + item.nome + " - R$ " + item.precoTotal.toFixed(2).replace('.', ',') + "%0A";
+                } else {
+                    let qtdTexto = item.gramas >= 1000 ? "1 kg" : item.gramas + "g";
+                    texto += (index + 1) + ". " + qtdTexto + " de " + item.nome + " - R$ " + item.precoTotal.toFixed(2).replace('.', ',') + "%0A";
+                }
                 totalProdutos += item.precoTotal;
             });
 
@@ -653,8 +654,7 @@
                 texto += "%0ATotal Geral com Frete: R$ " + totalGeral.toFixed(2).replace('.', ',');
             }
             
-            let numeroWhatsApp = "5544998546285"
-            
+            let numeroWhatsApp = "5544998546285"; 
             window.open("https://wa.me/" + numeroWhatsApp + "?text=" + texto, "_blank");
         }
     </script>
