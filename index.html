@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vidamix® - Delícias Artesanais</title>
+    <title>Vidamix® - Produtos Artesanais</title>
     <style>
         body {
             margin: 0;
@@ -67,11 +67,368 @@
     <section id="cardapio" class="vidamix-catalog">
         <div class="container">
             <h2>Cardápio Vidamix®</h2>
-            <p class="subtitle">100% Artesanal | Sem Glúten | Sem Lactose</p>
+            <p class="subtitle">Vidamix® - Produtos Artesanais Sem Glúten e Sem Lactose</p>
             
             <div class="product-grid" id="grid-produtos">
-                <!-- R$ 130,00 -->
-                <div class="product-card" data-name="Bolo de amendoim" data-price="130.00">
+                <!-- Itens do Cardápio -->
+                <div class="product-card" data-name="Cesta amor">
+                    <div>
+                        <h3>Cesta amor</h3>
+                        <span class="price">R$ 120,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Cesta amor', 120.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Pão australiano">
+                    <div>
+                        <h3>Pão australiano</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão australiano', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Pão lowcarb">
+                    <div>
+                        <h3>Pão lowcarb</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão lowcarb', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Pão de sementes integral">
+                    <div>
+                        <h3>Pão de sementes integral</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de sementes integral', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Pão italiano">
+                    <div>
+                        <h3>Pão italiano</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão italiano', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Bolinho frito da vovó">
+                    <div>
+                        <h3>Bolinho frito da vovó</h3>
+                        <span class="price">R$ 80,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolinho frito da vovó', 80.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Pão de hambúrguer">
+                    <div>
+                        <h3>Pão de hambúrguer</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de hambúrguer', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Pãozinho recheado">
+                    <div>
+                        <h3>Pãozinho recheado</h3>
+                        <span class="price">R$ 85,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pãozinho recheado', 85.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Esfiha de carne ou frango">
+                    <div>
+                        <h3>Esfiha de carne ou frango</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Esfiha de carne ou frango', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Bolo de banana">
+                    <div>
+                        <h3>Bolo de banana</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de banana', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Bolo de café">
+                    <div>
+                        <h3>Bolo de café</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de café', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Bolo mesclado simples">
+                    <div>
+                        <h3>Bolo mesclado simples</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo mesclado simples', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Pão de lanche">
+                    <div>
+                        <h3>Pão de lanche</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de lanche', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Pão multigrãos">
+                    <div>
+                        <h3>Pão multigrãos</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão multigrãos', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Pão tipo bisnaguinha">
+                    <div>
+                        <h3>Pão tipo bisnaguinha</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão tipo bisnaguinha', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Pão de batata doce">
+                    <div>
+                        <h3>Pão de batata doce</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de batata doce', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Bolo de laranja">
+                    <div>
+                        <h3>Bolo de laranja</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de laranja', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Pão de sementes">
+                    <div>
+                        <h3>Pão de sementes</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de sementes', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Pão de milho">
+                    <div>
+                        <h3>Pão de milho</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de milho', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Pão de forma branco">
+                    <div>
+                        <h3>Pão de forma branco</h3>
+                        <span class="price">R$ 75,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de forma branco', 75.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Pão recheado">
+                    <div>
+                        <h3>Pão recheado</h3>
+                        <span class="price">R$ 85,00 / kg</span>
+                    </div>
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select">
+                            <option value="250">250g</option>
+                            <option value="500">500g</option>
+                            <option value="750">750g</option>
+                            <option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão recheado', 85.00)">Adicionar Pedido</button>
+                </div>
+
+                <div class="product-card" data-name="Bolo de amendoim">
                     <div>
                         <h3>Bolo de amendoim</h3>
                         <span class="price">R$ 130,00 / kg</span>
@@ -88,42 +445,7 @@
                     <button class="btn-add" onclick="adicionarItem(this, 'Bolo de amendoim', 130.00)">Adicionar Pedido</button>
                 </div>
 
-                <!-- R$ 120,00 -->
-                <div class="product-card" data-name="Cesta do Amor" data-price="120.00">
-                    <div>
-                        <h3>Cesta do Amor</h3>
-                        <span class="price">R$ 120,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Cesta do Amor', 120.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- R$ 85,00 -->
-                <div class="product-card" data-name="Pão recheado" data-price="85.00">
-                    <div>
-                        <h3>Pão recheado</h3>
-                        <span class="price">R$ 85,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão recheado', 85.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Bolo de chocolate" data-price="85.00">
+                <div class="product-card" data-name="Bolo de chocolate">
                     <div>
                         <h3>Bolo de chocolate</h3>
                         <span class="price">R$ 85,00 / kg</span>
@@ -139,41 +461,8 @@
                     </div>
                     <button class="btn-add" onclick="adicionarItem(this, 'Bolo de chocolate', 85.00)">Adicionar Pedido</button>
                 </div>
-                <div class="product-card" data-name="Bolo mesclado, cobertura de brigadeiro" data-price="85.00">
-                    <div>
-                        <h3>Bolo mesclado, cobertura de brigadeiro</h3>
-                        <span class="price">R$ 85,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo mesclado, cobertura de brigadeiro', 85.00)">Adicionar Pedido</button>
-                </div>
 
-                <!-- R$ 80,00 -->
-                <div class="product-card" data-name="Bolinho frito da vovó" data-price="80.00">
-                    <div>
-                        <h3>Bolinho frito da vovó</h3>
-                        <span class="price">R$ 80,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolinho frito da vovó', 80.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Bolo tipo charge" data-price="80.00">
+                <div class="product-card" data-name="Bolo tipo charge">
                     <div>
                         <h3>Bolo tipo charge</h3>
                         <span class="price">R$ 80,00 / kg</span>
@@ -189,7 +478,8 @@
                     </div>
                     <button class="btn-add" onclick="adicionarItem(this, 'Bolo tipo charge', 80.00)">Adicionar Pedido</button>
                 </div>
-                <div class="product-card" data-name="Bolo de cenoura" data-price="80.00">
+
+                <div class="product-card" data-name="Bolo de cenoura">
                     <div>
                         <h3>Bolo de cenoura</h3>
                         <span class="price">R$ 80,00 / kg</span>
@@ -206,232 +496,7 @@
                     <button class="btn-add" onclick="adicionarItem(this, 'Bolo de cenoura', 80.00)">Adicionar Pedido</button>
                 </div>
 
-                <!-- R$ 75,00 -->
-                <div class="product-card" data-name="Pão Australiano" data-price="75.00">
-                    <div>
-                        <h3>Pão Australiano</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão Australiano', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Pão Low Carb" data-price="75.00">
-                    <div>
-                        <h3>Pão Low Carb</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão Low Carb', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Pão de Sementes Integral" data-price="75.00">
-                    <div>
-                        <h3>Pão de Sementes Integral</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de Sementes Integral', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Pão Italiano" data-price="75.00">
-                    <div>
-                        <h3>Pão Italiano</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão Italiano', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Pão de hambúrguer" data-price="75.00">
-                    <div>
-                        <h3>Pão de hambúrguer</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de hambúrguer', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Esfiha de carne ou de frango" data-price="75.00">
-                    <div>
-                        <h3>Esfiha de carne ou de frango</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Esfiha de carne ou de frango', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Bolo de banana" data-price="75.00">
-                    <div>
-                        <h3>Bolo de banana</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de banana', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Bolo de café" data-price="75.00">
-                    <div>
-                        <h3>Bolo de café</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de café', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Bolo mesclado simples" data-price="75.00">
-                    <div>
-                        <h3>Bolo mesclado simples</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo mesclado simples', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Pão de lanche" data-price="75.00">
-                    <div>
-                        <h3>Pão de lanche</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de lanche', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Pão multigrãos" data-price="75.00">
-                    <div>
-                        <h3>Pão multigrãos</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão multigrãos', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Pão tipo bisnaguinha" data-price="75.00">
-                    <div>
-                        <h3>Pão tipo bisnaguinha</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão tipo bisnaguinha', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Pão de batata doce" data-price="75.00">
-                    <div>
-                        <h3>Pão de batata doce</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de batata doce', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Bolo de laranja" data-price="75.00">
-                    <div>
-                        <h3>Bolo de laranja</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de laranja', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Bolo de limão" data-price="75.00">
+                <div class="product-card" data-name="Bolo de limão">
                     <div>
                         <h3>Bolo de limão</h3>
                         <span class="price">R$ 75,00 / kg</span>
@@ -447,10 +512,11 @@
                     </div>
                     <button class="btn-add" onclick="adicionarItem(this, 'Bolo de limão', 75.00)">Adicionar Pedido</button>
                 </div>
-                <div class="product-card" data-name="Pão de sementes" data-price="75.00">
+
+                <div class="product-card" data-name="Pão mesclado com cobertura de brigadeiro">
                     <div>
-                        <h3>Pão de sementes</h3>
-                        <span class="price">R$ 75,00 / kg</span>
+                        <h3>Pão mesclado com cobertura de brigadeiro</h3>
+                        <span class="price">R$ 85,00 / kg</span>
                     </div>
                     <div class="quantity-box">
                         <label>Peso:</label>
@@ -461,39 +527,7 @@
                             <option value="1000" selected>1 kg</option>
                         </select>
                     </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de sementes', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Pão de milho" data-price="75.00">
-                    <div>
-                        <h3>Pão de milho</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de milho', 75.00)">Adicionar Pedido</button>
-                </div>
-                <div class="product-card" data-name="Pão de forma branco" data-price="75.00">
-                    <div>
-                        <h3>Pão de forma branco</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option>
-                            <option value="500">500g</option>
-                            <option value="750">750g</option>
-                            <option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de forma branco', 75.00)">Adicionar Pedido</button>
+                    <button class="btn-add" onclick="adicionarItem(this, 'Pão mesclado com cobertura de brigadeiro', 85.00)">Adicionar Pedido</button>
                 </div>
             </div>
 
@@ -513,7 +547,7 @@
     </section>
 
     <footer>
-        <p>&copy; Vidamix® - Delícias Artesanais Sem Glúten e Sem Lactose</p>
+        <p>&copy; Vidamix® - Produtos Artesanais Sem Glúten e Sem Lactose</p>
     </footer>
 
     <script>
@@ -599,7 +633,8 @@
             texto += "%0ATaxa de Frete: R$ " + VALOR_FRETE.toFixed(2).replace('.', ',');
             texto += "%0ATotal Geral com Frete: R$ " + totalGeral.toFixed(2).replace('.', ',');
             
-            let numeroWhatsApp = "5544998546285"; 
+            let numeroWhatsApp = "5544999998888"; // Substitua pelo seu número com DDD
+            
             window.open("https://wa.me/" + numeroWhatsApp + "?text=" + texto, "_blank");
         }
     </script>
