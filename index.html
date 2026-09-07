@@ -44,6 +44,10 @@
         .order-summary { margin-top: 40px; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #eae3d9; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto; }
         .order-summary h3 { margin-top: 0; color: #2c221e; }
         .order-summary p { margin: 8px 0; font-size: 1.05rem; }
+        
+        .delivery-option { margin: 15px 0; background: #fdfbf7; padding: 10px 12px; border-radius: 8px; border: 1px solid #e6ded3; display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: bold; color: #2c221e; }
+        .delivery-option input { cursor: pointer; width: 18px; height: 18px; }
+
         .order-actions { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
         .btn-action { background-color: #2e7d32; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
         .btn-action:hover { background-color: #235d26; }
@@ -536,6 +540,9 @@
                 <h3>Resumo do Pedido</h3>
                 <p id="order-count">Itens no pedido: 0</p>
                 <p id="order-frete">Taxa de Frete: R$ 12,00</p>
+                <label class="delivery-option">
+                    <input type="checkbox" id="retirar-local" onchange="atualizarResumo()"> Cliente vai retirar no local (Sem taxa de frete)
+                </label>
                 <p id="order-total" style="font-weight: bold; color: #b85d18;">Total Geral (com frete): R$ 12,00</p>
                 <div class="order-actions">
                     <button class="btn-action btn-pix" onclick="copiarPix()">Copiar Pix</button>
@@ -576,15 +583,22 @@
                 totalProdutos += item.precoTotal;
             });
 
-            let freteAtual = carrinho.length > 0 ? VALOR_FRETE : 0.00;
+            let retirarLocal = document.getElementById('retirar-local').checked;
+            let freteAtual = 0.00;
+
+            if (carrinho.length > 0 && !retirarLocal) {
+                freteAtual = VALOR_FRETE;
+            }
+
             let totalGeral = totalProdutos + freteAtual;
 
             document.getElementById('order-frete').innerText = "Taxa de Frete: R$ " + freteAtual.toFixed(2).replace('.', ',');
-            document.getElementById('order-total').innerText = "Total Geral (com frete): R$ " + totalGeral.toFixed(2).replace('.', ',');
+            document.getElementById('order-total').innerText = "Total Geral (" + (retirarLocal ? "Retirada" : "com frete") + "): R$ " + totalGeral.toFixed(2).replace('.', ',');
         }
 
         function zerarPedido() {
             carrinho = [];
+            document.getElementById('retirar-local').checked = false;
             atualizarResumo();
             alert("O pedido foi zerado!");
         }
@@ -594,7 +608,7 @@
             
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(chavePix).then(() => {
-                    alert("Chave Pix copiada com sucesso!");
+                    alert("Pix Copiado com Sucesso!\nChave: " + chavePix);
                 }).catch(err => {
                     fallbackCopiarPix(chavePix);
                 });
@@ -610,7 +624,7 @@
             textarea.select();
             document.execCommand('copy');
             document.body.removeChild(textarea);
-            alert("Chave Pix copiada com sucesso!");
+            alert("Pix Copiado com Sucesso!\nChave: " + texto);
         }
 
         function enviarWhatsApp() {
@@ -627,11 +641,17 @@
                 totalProdutos += item.precoTotal;
             });
 
-            let totalGeral = totalProdutos + VALOR_FRETE;
+            let retirarLocal = document.getElementById('retirar-local').checked;
+            let freteAtual = retirarLocal ? 0.00 : VALOR_FRETE;
+            let totalGeral = totalProdutos + freteAtual;
 
             texto += "%0ASubtotal dos produtos: R$ " + totalProdutos.toFixed(2).replace('.', ',');
-            texto += "%0ATaxa de Frete: R$ " + VALOR_FRETE.toFixed(2).replace('.', ',');
-            texto += "%0ATotal Geral com Frete: R$ " + totalGeral.toFixed(2).replace('.', ',');
+            if (retirarLocal) {
+                texto += "%0A*Forma de retirada: Retirar no local (Sem taxa de frete)*";
+            } else {
+                texto += "%0ATaxa de Frete: R$ " + VALOR_FRETE.toFixed(2).replace('.', ',');
+                texto += "%0ATotal Geral com Frete: R$ " + totalGeral.toFixed(2).replace('.', ',');
+            }
             
             let numeroWhatsApp = "5544998546285"; 
             
