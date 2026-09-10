@@ -44,7 +44,8 @@
         .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
         .product-image { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; background-color: #f0eae1; }
         .product-card h4 { font-size: 1.2rem; color: #2c221e; margin-bottom: 8px; font-weight: 600; }
-        .product-card .price { font-size: 1.3rem; color: #b85d18; font-weight: bold; display: block; margin-bottom: 15px; }
+        .product-card .price { font-size: 1.3rem; color: #b85d18; font-weight: bold; display: block; margin-bottom: 6px; }
+        .product-card .min-warning { font-size: 0.85rem; color: #d32f2f; font-weight: bold; margin-bottom: 12px; display: block; }
         .quantity-box { margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; background: #fdfbf7; padding: 8px 12px; border-radius: 8px; border: 1px solid #e6ded3; }
         .quantity-box label { font-size: 0.9rem; color: #555; font-weight: bold; }
         .quantity-select { padding: 5px; border-radius: 6px; border: 1px solid #ccc; font-weight: bold; color: #2c221e; background: #fff; cursor: pointer; }
@@ -78,7 +79,7 @@
         <nav><a href="#cardapio-itens">Ver Cardápio</a></nav>
     </header>
 
-    <!-- SEÇÃO DE INTRODUÇÃO COM FUNDO ESCURO / PRETO -->
+    <!-- INTRODUÇÃO DE IMPACTO COM FUNDO ESCURO / PRETO -->
     <section class="hero-section">
         <img src="./jog.png" alt="Vidamix Logo" class="hero-logo" onerror="this.style.display='none'">
         <h2>Vidamix®</h2>
@@ -130,8 +131,8 @@
             { id: 5, nome: "Pão italiano", preco: 75.00, tipo: "peso", img: baseUrl + "5.jpg.jpeg" },
             { id: 6, nome: "Bolinho frito da vovó", preco: 80.00, tipo: "peso", img: baseUrl + "7.jpg.jpeg" },
             { id: 7, nome: "Pão de hambúrguer", preco: 75.00, tipo: "peso", img: baseUrl + "6.jpg.jpeg" },
-            { id: 8, nome: "Pãozinho recheado", preco: 85.00, tipo: "peso", img: baseUrl + "8.jpg.jpeg" },
-            { id: 9, nome: "Esfiha de carne ou frango", preco: 75.00, tipo: "peso", img: baseUrl + "9.jpg.jpeg" },
+            { id: 8, nome: "Pãozinho recheado", preco: 8.00, tipo: "unidade_minima", min: 6, aviso: "Pedido mínimo de 6 unidades", img: baseUrl + "8.jpg.jpeg" },
+            { id: 9, nome: "Esfiha de carne ou frango", preco: 8.00, tipo: "unidade_minima", min: 6, aviso: "Pedido mínimo de 6 unidades", img: baseUrl + "9.jpg.jpeg" },
             { id: 10, nome: "Bolo de banana", preco: 75.00, tipo: "peso", img: baseUrl + "10.jpg.jpeg" },
             { id: 11, nome: "Bolo de café", preco: 75.00, tipo: "peso", img: baseUrl + "11.jpg.jpeg" },
             { id: 12, nome: "Bolo mesclado simples", preco: 75.00, tipo: "peso", img: baseUrl + "12.jpg.jpeg" },
@@ -147,7 +148,7 @@
             { id: 22, nome: "Pão recheado", preco: 85.00, tipo: "peso", img: baseUrl + "22.jpg.jpeg" },
             { id: 23, nome: "Bolo de amendoim", preco: 130.00, tipo: "peso", img: baseUrl + "23.jpg.jpeg" },
             { id: 24, nome: "Bolo de chocolate", preco: 85.00, tipo: "peso", img: baseUrl + "24%2Cjpg.jpeg" },
-            { id: 25, nome: "Empada de frango", preco: 75.00, tipo: "peso", img: baseUrl + "25.jpeg.jpeg" },
+            { id: 25, nome: "Empadão de frango", preco: 120.00, tipo: "peso", img: baseUrl + "25.jpeg.jpeg" },
             { id: 26, nome: "Bolo tipo charge", preco: 80.00, tipo: "peso", img: baseUrl + "26.jpg.jpeg" },
             { id: 27, nome: "Bolo de cenoura", preco: 80.00, tipo: "peso", img: baseUrl + "27.jpg.jpeg" },
             { id: 28, nome: "Bolo de limão", preco: 75.00, tipo: "peso", img: baseUrl + "28.jpg.jpeg" },
@@ -164,13 +165,28 @@
                     <img src="${p.img}" alt="${p.nome}" class="product-image">
                     <div>
                         <h4>${p.nome}</h4>
-                        <span class="price">R$ ${p.preco.toFixed(2).replace('.', ',')}${p.tipo === 'peso' ? ' / kg' : ''}</span>
+                        <span class="price">R$ ${p.preco.toFixed(2).replace('.', ',')}${p.tipo === 'peso' ? ' / kg' : (p.tipo === 'unidade_minima' ? ' a unidade' : '')}</span>
+                        ${p.aviso ? `<span class="min-warning">${p.aviso}</span>` : ''}
                     </div>
                     ${p.tipo === 'peso' ? `
                     <div class="quantity-box">
                         <label>Peso:</label>
-                        <select class="quantity-select" id="peso-${p.id}">
+                        <select class="quantity-select" id="qtd-${p.id}">
                             <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>` : ''}
+                    ${p.tipo === 'unidade_minima' ? `
+                    <div class="quantity-box">
+                        <label>Quantidade:</label>
+                        <select class="quantity-select" id="qtd-${p.id}">
+                            <option value="6" selected>6 unidades</option>
+                            <option value="7">7 unidades</option>
+                            <option value="8">8 unidades</option>
+                            <option value="9">9 unidades</option>
+                            <option value="10">10 unidades</option>
+                            <option value="12">12 unidades</option>
+                            <option value="15">15 unidades</option>
+                            <option value="20">20 unidades</option>
                         </select>
                     </div>` : ''}
                     <button class="btn-add" onclick="adicionarAoCarrinho(${p.id})">Adicionar Pedido</button>
@@ -181,14 +197,21 @@
         function adicionarAoCarrinho(id) {
             const p = produtos.find(item => item.id === id);
             let precoTotal = p.preco;
-            let gramas = 1000;
+            let gramas = 0;
+            let unidades = 1;
+
             if (p.tipo === 'peso') {
-                gramas = parseInt(document.getElementById(`peso-${id}`).value);
+                gramas = parseInt(document.getElementById(`qtd-${id}`).value);
                 precoTotal = (p.preco / 1000) * gramas;
+            } else if (p.tipo === 'unidade_minima') {
+                unidades = parseInt(document.getElementById(`qtd-${id}`).value);
+                precoTotal = p.preco * unidades;
             }
-            carrinho.push({ nome: p.nome, tipo: p.tipo, gramas, precoTotal });
+
+            carrinho.push({ nome: p.nome, tipo: p.tipo, gramas, unidades, precoTotal });
             atualizarResumo();
-            let textoQtd = p.tipo === 'peso' ? (gramas >= 1000 ? '1 kg' : gramas + 'g') : '1 unidade';
+
+            let textoQtd = p.tipo === 'peso' ? (gramas >= 1000 ? '1 kg' : gramas + 'g') : (p.tipo === 'unidade_minima' ? `${unidades} unidades` : '1 unidade');
             alert(`${textoQtd} de ${p.nome} adicionado ao pedido!`);
         }
 
@@ -226,7 +249,14 @@
             let texto = "Olá! Gostaria de fazer o seguinte pedido na Vidamix®:%0A";
             let total = 0;
             carrinho.forEach((item, i) => {
-                let qtd = item.tipo === 'peso' ? (item.gramas >= 1000 ? '1 kg' : item.gramas + 'g') : '1 un';
+                let qtd = '';
+                if (item.tipo === 'peso') {
+                    qtd = item.gramas >= 1000 ? '1 kg' : item.gramas + 'g';
+                } else if (item.tipo === 'unidade_minima') {
+                    qtd = item.unidades + ' unidades';
+                } else {
+                    qtd = '1 un';
+                }
                 texto += `${i + 1}. ${qtd} de ${item.nome} - R$ ${item.precoTotal.toFixed(2).replace('.', ',')}%0A`;
                 total += item.precoTotal;
             });
@@ -245,5 +275,6 @@
     </script>
 </body>
 </html>
+
 
 
