@@ -17,30 +17,48 @@
 
     <style>
         body { margin: 0; padding: 0; font-family: 'Arial', sans-serif; background-color: #f9f6f0; color: #333333; }
-        header { background-color: #2c221e; color: #ffffff; padding: 16px 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+        
+        /* CABEÇALHO */
+        header { background-color: #2c221e; color: #ffffff; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .logo-box { display: flex; align-items: center; gap: 10px; }
-        .logo-img { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; }
-        header h1 { margin: 0; font-size: 1.6rem; letter-spacing: 1px; }
-        nav a { color: #ffffff; text-decoration: none; font-weight: bold; font-size: 0.95rem; }
-        nav a:hover { color: #b85d18; }
-        .vidamix-catalog { background-color: #f9f6f0; padding: 40px 15px; }
+        .logo-img { width: 34px; height: 34px; border-radius: 6px; object-fit: cover; }
+        header h1 { margin: 0; font-size: 1.5rem; letter-spacing: 1px; }
+        nav a { color: #f9f6f0; text-decoration: none; font-weight: bold; font-size: 0.95rem; background: #b85d18; padding: 6px 14px; border-radius: 6px; }
+        nav a:hover { background-color: #9a4c13; }
+
+        /* INTRODUÇÃO DE IMPACTO COM FUNDO ESCURO / PRETO */
+        .hero-section { background-color: #2c221e; color: #ffffff; text-align: center; padding: 45px 20px; border-bottom: 4px solid #b85d18; }
+        .hero-logo { width: 90px; height: 90px; border-radius: 18px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+        .hero-section h2 { font-size: 2.2rem; margin: 0 0 10px 0; color: #ffffff; font-weight: 700; letter-spacing: 1px; }
+        .hero-section p { font-size: 1.05rem; color: #d7ccc8; max-width: 600px; margin: 0 auto 20px auto; line-height: 1.5; }
+        .btn-ver-cardapio { display: inline-block; background-color: #b85d18; color: #ffffff; text-decoration: none; padding: 12px 25px; border-radius: 25px; font-weight: bold; font-size: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.2s; }
+        .btn-ver-cardapio:hover { transform: scale(1.05); background-color: #9a4c13; }
+
+        /* CATÁLOGO */
+        .vidamix-catalog { background-color: #f9f6f0; padding: 35px 15px; }
         .vidamix-catalog .container { max-width: 1200px; margin: 0 auto; text-align: center; }
-        .vidamix-catalog h2 { font-size: 2.4rem; color: #2c221e; margin-bottom: 5px; font-weight: 700; }
-        .vidamix-catalog .subtitle { font-size: 1.05rem; color: #6b5b52; margin-bottom: 30px; font-style: italic; }
-        .vidamix-catalog .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; justify-content: center; }
-        .vidamix-catalog .product-card { background: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #eae3d9; text-align: left; }
-        .vidamix-catalog .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
+        .vidamix-catalog h3 { font-size: 2rem; color: #2c221e; margin-bottom: 5px; font-weight: 700; }
+        .vidamix-catalog .subtitle { font-size: 1rem; color: #6b5b52; margin-bottom: 30px; font-style: italic; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; justify-content: center; }
+        .product-card { background: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #eae3d9; text-align: left; }
+        .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
         .product-image { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; background-color: #f0eae1; }
-        .vidamix-catalog .product-card h3 { font-size: 1.2rem; color: #2c221e; margin-bottom: 8px; font-weight: 600; }
-        .vidamix-catalog .product-card .price { font-size: 1.3rem; color: #b85d18; font-weight: bold; display: block; margin-bottom: 15px; }
+        .product-card h4 { font-size: 1.2rem; color: #2c221e; margin-bottom: 8px; font-weight: 600; }
+        .product-card .price { font-size: 1.3rem; color: #b85d18; font-weight: bold; display: block; margin-bottom: 15px; }
         .quantity-box { margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; background: #fdfbf7; padding: 8px 12px; border-radius: 8px; border: 1px solid #e6ded3; }
         .quantity-box label { font-size: 0.9rem; color: #555; font-weight: bold; }
         .quantity-select { padding: 5px; border-radius: 6px; border: 1px solid #ccc; font-weight: bold; color: #2c221e; background: #fff; cursor: pointer; }
         .btn-add { background-color: #b85d18; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; font-size: 0.95rem; }
         .btn-add:hover { background-color: #9a4c13; }
+
+        /* RESUMO DO PEDIDO */
         .order-summary { margin-top: 40px; background: #fff; padding: 22px; border-radius: 12px; border: 1px solid #eae3d9; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
-        .order-summary h3 { margin-top: 0; color: #2c221e; }
+        .order-summary h4 { margin-top: 0; color: #2c221e; font-size: 1.3rem; }
         .delivery-option { margin: 15px 0; background: #fdfbf7; padding: 10px 12px; border-radius: 8px; border: 1px solid #e6ded3; display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: bold; color: #2c221e; }
+        
+        .horario-aviso { background-color: #fff8e1; border: 1px solid #ffe082; border-radius: 8px; padding: 12px; margin: 15px 0; font-size: 0.92rem; color: #795548; line-height: 1.4; }
+        .horario-aviso strong { color: #b85d18; }
+
         .order-actions { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
         .btn-action { background-color: #2e7d32; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; }
         .btn-action:hover { background-color: #235d26; }
@@ -57,23 +75,38 @@
             <img src="./jog.png" alt="Vidamix" class="logo-img" onerror="this.style.display='none'">
             <h1>Vidamix®</h1>
         </div>
-        <nav><a href="#cardapio">Cardápio</a></nav>
+        <nav><a href="#cardapio-itens">Ver Cardápio</a></nav>
     </header>
 
-    <section id="cardapio" class="vidamix-catalog">
+    <!-- SEÇÃO DE INTRODUÇÃO COM FUNDO ESCURO / PRETO -->
+    <section class="hero-section">
+        <img src="./jog.png" alt="Vidamix Logo" class="hero-logo" onerror="this.style.display='none'">
+        <h2>Vidamix®</h2>
+        <p>Produtos Artesanais Sem Glúten e Sem Lactose.<br>Sabor irresistível, cuidado e nutrição que você sente em cada pedaço.</p>
+        <a href="#cardapio-itens" class="btn-ver-cardapio">Explorar Cardápio 👇</a>
+    </section>
+
+    <!-- SEÇÃO DO CARDÁPIO -->
+    <section id="cardapio-itens" class="vidamix-catalog">
         <div class="container">
-            <h2>Cardápio Vidamix®</h2>
-            <p class="subtitle">Vidamix® - Produtos Artesanais Sem Glúten e Sem Lactose</p>
+            <h3>Nosso Cardápio</h3>
+            <p class="subtitle">Escolha seus produtos favoritos e adicione ao pedido</p>
             <div class="product-grid" id="grid-produtos"></div>
 
             <div class="order-summary">
-                <h3>Resumo do Pedido</h3>
+                <h4>Resumo do Pedido</h4>
                 <p id="order-count">Itens no pedido: 0</p>
                 <p id="order-frete">Taxa de Frete: R$ 12,00</p>
                 <label class="delivery-option">
                     <input type="checkbox" id="retirar-local" onchange="atualizarResumo()"> Cliente vai retirar no local (Sem taxa de frete)
                 </label>
                 <p id="order-total" style="font-weight: bold; color: #b85d18; font-size: 1.15rem;">Total Geral (com frete): R$ 12,00</p>
+                
+                <div class="horario-aviso">
+                    ⏰ <strong>Horário de Atendimento:</strong> das 13h às 18h.<br>
+                    Pedidos enviados após as 18h serão respondidos no dia seguinte.
+                </div>
+
                 <div class="order-actions">
                     <button class="btn-action btn-pix" onclick="copiarPix()">Copiar Pix</button>
                     <button class="btn-action btn-zerar" onclick="zerarPedido()">Zerar Pedido</button>
@@ -130,7 +163,7 @@
                 <div class="product-card">
                     <img src="${p.img}" alt="${p.nome}" class="product-image">
                     <div>
-                        <h3>${p.nome}</h3>
+                        <h4>${p.nome}</h4>
                         <span class="price">R$ ${p.preco.toFixed(2).replace('.', ',')}${p.tipo === 'peso' ? ' / kg' : ''}</span>
                     </div>
                     ${p.tipo === 'peso' ? `
@@ -201,6 +234,10 @@
             let frete = retirarLocal ? 0.0 : VALOR_FRETE;
             texto += `%0ASubtotal: R$ ${total.toFixed(2).replace('.', ',')}%0A`;
             texto += retirarLocal ? "*Forma: Retirar no local (Sem frete)*" : `Taxa de Frete: R$ ${VALOR_FRETE.toFixed(2).replace('.', ',')}%0A*Total Geral: R$ ${(total + frete).toFixed(2).replace('.', ',')}*`;
+            
+            // AVISO DE ATENDIMENTO
+            texto += `%0A%0A⏰ *Aviso: Nosso atendimento é das 13h às 18h, após as 18h só no outro dia.*`;
+
             window.open(`https://wa.me/5544998546285?text=${texto}`, "_blank");
         }
 
