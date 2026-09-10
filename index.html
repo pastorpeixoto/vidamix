@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vidamix® - Produtos Artesanais</title>
-    <!-- CONFIGURAÇÃO DO APP E DO ÍCONE DAS FOLHINHAS -->
+
+    <!-- CONFIGURAÇÃO DO APP E DO ÍCONE -->
     <link rel="manifest" href="./manifest.json">
     <link rel="icon" type="image/png" href="./jog.png">
     <link rel="apple-touch-icon" href="./jog.png">
@@ -13,547 +14,58 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Vidamix">
+
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #f9f6f0;
-            color: #333333;
-        }
-        header {
-            background-color: #2c221e;
-            color: #ffffff;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        header h1 { margin: 0; font-size: 1.8rem; }
-        nav a { color: #ffffff; text-decoration: none; margin-left: 20px; font-weight: bold; }
+        body { margin: 0; padding: 0; font-family: 'Arial', sans-serif; background-color: #f9f6f0; color: #333333; }
+        header { background-color: #2c221e; color: #ffffff; padding: 16px 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+        .logo-box { display: flex; align-items: center; gap: 10px; }
+        .logo-img { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; }
+        header h1 { margin: 0; font-size: 1.6rem; letter-spacing: 1px; }
+        nav a { color: #ffffff; text-decoration: none; font-weight: bold; font-size: 0.95rem; }
         nav a:hover { color: #b85d18; }
-
-        .vidamix-catalog { background-color: #f9f6f0; padding: 60px 20px; }
+        .vidamix-catalog { background-color: #f9f6f0; padding: 40px 15px; }
         .vidamix-catalog .container { max-width: 1200px; margin: 0 auto; text-align: center; }
-        .vidamix-catalog h2 { font-size: 3rem; color: #2c221e; margin-bottom: 5px; font-weight: 700; }
-        .vidamix-catalog .subtitle { font-size: 1.1rem; color: #6b5b52; margin-bottom: 40px; font-style: italic; }
+        .vidamix-catalog h2 { font-size: 2.4rem; color: #2c221e; margin-bottom: 5px; font-weight: 700; }
+        .vidamix-catalog .subtitle { font-size: 1.05rem; color: #6b5b52; margin-bottom: 30px; font-style: italic; }
         .vidamix-catalog .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; justify-content: center; }
-        
-        .vidamix-catalog .product-card { background: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #eae3d9; text-align: left; }
-        .vidamix-catalog .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
-        
-        .product-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            background-color: #f0eae1;
-        }
-
-        .vidamix-catalog .product-card h3 { font-size: 1.25rem; color: #2c221e; margin-bottom: 10px; font-weight: 600; }
-        .vidamix-catalog .product-card .price { font-size: 1.35rem; color: #b85d18; font-weight: bold; display: block; margin-bottom: 15px; }
-        
+        .vidamix-catalog .product-card { background: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #eae3d9; text-align: left; }
+        .vidamix-catalog .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
+        .product-image { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; background-color: #f0eae1; }
+        .vidamix-catalog .product-card h3 { font-size: 1.2rem; color: #2c221e; margin-bottom: 8px; font-weight: 600; }
+        .vidamix-catalog .product-card .price { font-size: 1.3rem; color: #b85d18; font-weight: bold; display: block; margin-bottom: 15px; }
         .quantity-box { margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; background: #fdfbf7; padding: 8px 12px; border-radius: 8px; border: 1px solid #e6ded3; }
         .quantity-box label { font-size: 0.9rem; color: #555; font-weight: bold; }
         .quantity-select { padding: 5px; border-radius: 6px; border: 1px solid #ccc; font-weight: bold; color: #2c221e; background: #fff; cursor: pointer; }
-
-        .vidamix-catalog .btn-add { background-color: #b85d18; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; transition: background 0.2s; }
-        .vidamix-catalog .btn-add:hover { background-color: #9a4c13; }
-        
-        .order-summary { margin-top: 40px; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #eae3d9; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .btn-add { background-color: #b85d18; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; font-size: 0.95rem; }
+        .btn-add:hover { background-color: #9a4c13; }
+        .order-summary { margin-top: 40px; background: #fff; padding: 22px; border-radius: 12px; border: 1px solid #eae3d9; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
         .order-summary h3 { margin-top: 0; color: #2c221e; }
-        .order-summary p { margin: 8px 0; font-size: 1.05rem; }
-        
         .delivery-option { margin: 15px 0; background: #fdfbf7; padding: 10px 12px; border-radius: 8px; border: 1px solid #e6ded3; display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: bold; color: #2c221e; }
-        .delivery-option input { cursor: pointer; width: 18px; height: 18px; }
-
         .order-actions { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
-        .btn-action { background-color: #2e7d32; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .btn-action { background-color: #2e7d32; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; }
         .btn-action:hover { background-color: #235d26; }
         .btn-pix { background-color: #00838f; }
         .btn-pix:hover { background-color: #005f6b; }
         .btn-zerar { background-color: #c62828; }
         .btn-zerar:hover { background-color: #8e0000; }
-
-        footer { background-color: #2c221e; color: #ffffff; text-align: center; padding: 20px; margin-top: 40px; }
+        footer { background-color: #2c221e; color: #ffffff; text-align: center; padding: 20px; margin-top: 40px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
-
     <header>
-        <h1>Vidamix®</h1>
-        <nav>
-            <a href="#cardapio">Cardápio</a>
-        </nav>
+        <div class="logo-box">
+            <img src="./jog.png" alt="Vidamix" class="logo-img" onerror="this.style.display='none'">
+            <h1>Vidamix®</h1>
+        </div>
+        <nav><a href="#cardapio">Cardápio</a></nav>
     </header>
 
     <section id="cardapio" class="vidamix-catalog">
         <div class="container">
             <h2>Cardápio Vidamix®</h2>
             <p class="subtitle">Vidamix® - Produtos Artesanais Sem Glúten e Sem Lactose</p>
-            
-            <div class="product-grid" id="grid-produtos">
-                <!-- 1. Cesta presente -->
-                <div class="product-card">
-                    <img src="1.jpg.jpeg" alt="Cesta presente" class="product-image">
-                    <div>
-                        <h3>Cesta presente</h3>
-                        <span class="price">R$ 120,00</span>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItemUnico(this, 'Cesta presente', 120.00)">Adicionar Pedido</button>
-                </div>
+            <div class="product-grid" id="grid-produtos"></div>
 
-                <!-- 2. Pão australiano -->
-                <div class="product-card">
-                    <img src="2.jpg.jpeg" alt="Pão australiano" class="product-image">
-                    <div>
-                        <h3>Pão australiano</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão australiano', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 3. Pão lowcarb -->
-                <div class="product-card">
-                    <img src="3.jpg.jpeg" alt="Pão lowcarb" class="product-image">
-                    <div>
-                        <h3>Pão lowcarb</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão lowcarb', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 4. Pão de sementes integral -->
-                <div class="product-card">
-                    <img src="4.jpg.jpeg" alt="Pão de sementes integral" class="product-image">
-                    <div>
-                        <h3>Pão de sementes integral</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de sementes integral', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 5. Pão italiano -->
-                <div class="product-card">
-                    <img src="5.jpg.jpeg" alt="Pão italiano" class="product-image">
-                    <div>
-                        <h3>Pão italiano</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão italiano', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 6. Bolinho frito da vovó -->
-                <div class="product-card">
-                    <img src="6.jpg.jpeg" alt="Bolinho frito da vovó" class="product-image">
-                    <div>
-                        <h3>Bolinho frito da vovó</h3>
-                        <span class="price">R$ 80,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolinho frito da vovó', 80.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 7. Pão de hambúrguer -->
-                <div class="product-card">
-                    <img src="7.jpg.jpeg" alt="Pão de hambúrguer" class="product-image">
-                    <div>
-                        <h3>Pão de hambúrguer</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de hambúrguer', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 8. Pãozinho recheado -->
-                <div class="product-card">
-                    <img src="8.jpg.jpeg" alt="Pãozinho recheado" class="product-image">
-                    <div>
-                        <h3>Pãozinho recheado</h3>
-                        <span class="price">R$ 85,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pãozinho recheado', 85.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 9. Esfiha de carne ou frango -->
-                <div class="product-card">
-                    <img src="9.jpg.jpeg" alt="Esfiha de carne ou frango" class="product-image">
-                    <div>
-                        <h3>Esfiha de carne ou frango</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Esfiha de carne ou frango', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 10. Bolo de banana -->
-                <div class="product-card">
-                    <img src="10.jpg.jpeg" alt="Bolo de banana" class="product-image">
-                    <div>
-                        <h3>Bolo de banana</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de banana', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 11. Bolo de café -->
-                <div class="product-card">
-                    <img src="11.jpg.jpeg" alt="Bolo de café" class="product-image">
-                    <div>
-                        <h3>Bolo de café</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de café', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 12. Bolo mesclado simples -->
-                <div class="product-card">
-                    <img src="12.jpg.jpeg" alt="Bolo mesclado simples" class="product-image">
-                    <div>
-                        <h3>Bolo mesclado simples</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo mesclado simples', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 13. Pão de lanche -->
-                <div class="product-card">
-                    <img src="13.jpg.jpeg" alt="Pão de lanche" class="product-image">
-                    <div>
-                        <h3>Pão de lanche</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de lanche', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 14. Pão multigrãos -->
-                <div class="product-card">
-                    <img src="14.jpg.jpeg" alt="Pão multigrãos" class="product-image">
-                    <div>
-                        <h3>Pão multigrãos</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão multigrãos', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 15. Pão tipo bisnaguinha -->
-                <div class="product-card">
-                    <img src="15.jpg.jpeg" alt="Pão tipo bisnaguinha" class="product-image">
-                    <div>
-                        <h3>Pão tipo bisnaguinha</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão tipo bisnaguinha', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 16. Pão de batata doce -->
-                <div class="product-card">
-                    <img src="16.jpg.jpeg" alt="Pão de batata doce" class="product-image">
-                    <div>
-                        <h3>Pão de batata doce</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de batata doce', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 17. Bolo de laranja -->
-                <div class="product-card">
-                    <img src="17.jpg.jpeg" alt="Bolo de laranja" class="product-image">
-                    <div>
-                        <h3>Bolo de laranja</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de laranja', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 18. Pão de sementes -->
-                <div class="product-card">
-                    <img src="18.jpg.jpeg" alt="Pão de sementes" class="product-image">
-                    <div>
-                        <h3>Pão de sementes</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de sementes', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 19. Pão de milho -->
-                <div class="product-card">
-                    <img src="19.jpg.jpeg" alt="Pão de milho" class="product-image">
-                    <div>
-                        <h3>Pão de milho</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de milho', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 20. Pão de batata doce e bisnaguinha -->
-                <div class="product-card">
-                    <img src="20.jpg.jpeg" alt="Pão de batata doce e bisnaguinha" class="product-image">
-                    <div>
-                        <h3>Pão de batata doce e bisnaguinha</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de batata doce e bisnaguinha', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 21. Pão de forma branco -->
-                <div class="product-card">
-                    <img src="21.jpg.jpeg" alt="Pão de forma branco" class="product-image">
-                    <div>
-                        <h3>Pão de forma branco</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão de forma branco', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 22. Pão recheado -->
-                <div class="product-card">
-                    <img src="22.jpg.jpeg" alt="Pão recheado" class="product-image">
-                    <div>
-                        <h3>Pão recheado</h3>
-                        <span class="price">R$ 85,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão recheado', 85.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 23. Bolo de amendoim -->
-                <div class="product-card">
-                    <img src="23.jpg.jpeg" alt="Bolo de amendoim" class="product-image">
-                    <div>
-                        <h3>Bolo de amendoim</h3>
-                        <span class="price">R$ 130,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de amendoim', 130.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 24. Bolo de chocolate -->
-                <div class="product-card">
-                    <img src="24.jpg.jpeg" alt="Bolo de chocolate" class="product-image">
-                    <div>
-                        <h3>Bolo de chocolate</h3>
-                        <span class="price">R$ 85,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de chocolate', 85.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 25. Empada de frango -->
-                <div class="product-card">
-                    <img src="25.jpg.jpeg" alt="Empada de frango" class="product-image">
-                    <div>
-                        <h3>Empada de frango</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Empada de frango', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 26. Bolo tipo charge -->
-                <div class="product-card">
-                    <img src="26.jpg.jpeg" alt="Bolo tipo charge" class="product-image">
-                    <div>
-                        <h3>Bolo tipo charge</h3>
-                        <span class="price">R$ 80,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo tipo charge', 80.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 27. Bolo de cenoura -->
-                <div class="product-card">
-                    <img src="27.jpg.jpeg" alt="Bolo de cenoura" class="product-image">
-                    <div>
-                        <h3>Bolo de cenoura</h3>
-                        <span class="price">R$ 80,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de cenoura', 80.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 28. Bolo de limão -->
-                <div class="product-card">
-                    <img src="28.jpg.jpeg" alt="Bolo de limão" class="product-image">
-                    <div>
-                        <h3>Bolo de limão</h3>
-                        <span class="price">R$ 75,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Bolo de limão', 75.00)">Adicionar Pedido</button>
-                </div>
-
-                <!-- 29. Pão mesclado com cobertura de brigadeiro -->
-                <div class="product-card">
-                    <img src="29.jpg.jpeg" alt="Pão mesclado com cobertura de brigadeiro" class="product-image">
-                    <div>
-                        <h3>Pão mesclado com cobertura de brigadeiro</h3>
-                        <span class="price">R$ 85,00 / kg</span>
-                    </div>
-                    <div class="quantity-box">
-                        <label>Peso:</label>
-                        <select class="quantity-select">
-                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
-                        </select>
-                    </div>
-                    <button class="btn-add" onclick="adicionarItem(this, 'Pão mesclado com cobertura de brigadeiro', 85.00)">Adicionar Pedido</button>
-                </div>
-            </div>
-
-            <!-- PAINEL DE RESUMO DO PEDIDO -->
             <div class="order-summary">
                 <h3>Resumo do Pedido</h3>
                 <p id="order-count">Itens no pedido: 0</p>
@@ -561,7 +73,7 @@
                 <label class="delivery-option">
                     <input type="checkbox" id="retirar-local" onchange="atualizarResumo()"> Cliente vai retirar no local (Sem taxa de frete)
                 </label>
-                <p id="order-total" style="font-weight: bold; color: #b85d18;">Total Geral (com frete): R$ 12,00</p>
+                <p id="order-total" style="font-weight: bold; color: #b85d18; font-size: 1.15rem;">Total Geral (com frete): R$ 12,00</p>
                 <div class="order-actions">
                     <button class="btn-action btn-pix" onclick="copiarPix()">Copiar Pix</button>
                     <button class="btn-action btn-zerar" onclick="zerarPedido()">Zerar Pedido</button>
@@ -576,47 +88,83 @@
     </footer>
 
     <script>
+        const produtos = [
+            { id: 1, nome: "Cesta Amor que Nutre", preco: 120.00, tipo: "unico", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/1.jpg.jpeg" },
+            { id: 2, nome: "Pão australiano", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/2.jpg.jpeg" },
+            { id: 3, nome: "Pão lowcarb", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/3.jpg.jpeg" },
+            { id: 4, nome: "Pão de sementes integral", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/4.jpg.jpeg" },
+            { id: 5, nome: "Pão italiano", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/5.jpg.jpeg" },
+            { id: 6, nome: "Bolinho frito da vovó", preco: 80.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/7.jpg.jpeg" },
+            { id: 7, nome: "Pão de hambúrguer", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/6.jpg.jpeg" },
+            { id: 8, nome: "Pãozinho recheado", preco: 85.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/8.jpg.jpeg" },
+            { id: 9, nome: "Esfiha de carne ou frango", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/9.jpg.jpeg" },
+            { id: 10, nome: "Bolo de banana", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/10.jpg.jpeg" },
+            { id: 11, nome: "Bolo de café", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/11.jpg.jpeg" },
+            { id: 12, nome: "Bolo mesclado simples", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/12.jpg.jpeg" },
+            { id: 13, nome: "Pão de lanche", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/13%2Cjpg.jpeg" },
+            { id: 14, nome: "Pão multigrãos", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/14.jpg.jpeg" },
+            { id: 15, nome: "Pão tipo bisnaguinha", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/15.jpg.jpeg" },
+            { id: 16, nome: "Pão de batata doce", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/16.jpg.jpeg" },
+            { id: 17, nome: "Bolo de laranja", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/17.jpg.jpeg" },
+            { id: 18, nome: "Pão de sementes", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/18.jpg.jpeg" },
+            { id: 19, nome: "Pão de milho", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/19.jpg.jpeg" },
+            { id: 20, nome: "Pão de batata doce e bisnaguinha", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/20.jpg.jpg" },
+            { id: 21, nome: "Pão de forma branco", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/21.jpg.jpeg" },
+            { id: 22, nome: "Pão recheado", preco: 85.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/22.jpg.jpeg" },
+            { id: 23, nome: "Bolo de amendoim", preco: 130.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/23.jpg.jpeg" },
+            { id: 24, nome: "Bolo de chocolate", preco: 85.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/24%2Cjpg.jpeg" },
+            { id: 25, nome: "Empada de frango", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/25.jpeg.jpeg" },
+            { id: 26, nome: "Bolo tipo charge", preco: 80.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/26.jpg.jpeg" },
+            { id: 27, nome: "Bolo de cenoura", preco: 80.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/27.jpg.jpeg" },
+            { id: 28, nome: "Bolo de limão", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/28.jpg.jpeg" },
+            { id: 29, nome: "Pão mesclado com brigadeiro", preco: 85.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/29.jpg.jpeg" }
+        ];
+
         let carrinho = [];
         const VALOR_FRETE = 12.00;
 
-        function adicionarItem(botao, nome, precoKg) {
-            let card = botao.closest('.product-card');
-            let select = card.querySelector('.quantity-select');
-            let gramas = parseInt(select.value);
-
-            let precoTotal = (precoKg / 1000) * gramas;
-            
-            carrinho.push({ nome, tipo: 'peso', gramas, precoTotal });
-            atualizarResumo();
-            
-            let textoQtd = gramas >= 1000 ? "1 kg" : gramas + "g";
-            alert(textoQtd + " de " + nome + " adicionado ao pedido!");
+        function renderizarProdutos() {
+            const grid = document.getElementById('grid-produtos');
+            grid.innerHTML = produtos.map(p => `
+                <div class="product-card">
+                    <img src="${p.img}" alt="${p.nome}" class="product-image">
+                    <div>
+                        <h3>${p.nome}</h3>
+                        <span class="price">R$ ${p.preco.toFixed(2).replace('.', ',')}${p.tipo === 'peso' ? ' / kg' : ''}</span>
+                    </div>
+                    ${p.tipo === 'peso' ? `
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select" id="peso-${p.id}">
+                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>` : ''}
+                    <button class="btn-add" onclick="adicionarAoCarrinho(${p.id})">Adicionar Pedido</button>
+                </div>
+            `).join('');
         }
 
-        function adicionarItemUnico(botao, nome, precoUnico) {
-            carrinho.push({ nome, tipo: 'unico', precoTotal: precoUnico });
+        function adicionarAoCarrinho(id) {
+            const p = produtos.find(item => item.id === id);
+            let precoTotal = p.preco;
+            let gramas = 1000;
+            if (p.tipo === 'peso') {
+                gramas = parseInt(document.getElementById(`peso-${id}`).value);
+                precoTotal = (p.preco / 1000) * gramas;
+            }
+            carrinho.push({ nome: p.nome, tipo: p.tipo, gramas, precoTotal });
             atualizarResumo();
-            alert(nome + " adicionado ao pedido!");
+            let textoQtd = p.tipo === 'peso' ? (gramas >= 1000 ? '1 kg' : gramas + 'g') : '1 unidade';
+            alert(`${textoQtd} de ${p.nome} adicionado ao pedido!`);
         }
 
         function atualizarResumo() {
             document.getElementById('order-count').innerText = "Itens no pedido: " + carrinho.length;
-            
-            let totalProdutos = 0;
-            carrinho.forEach(item => {
-                totalProdutos += item.precoTotal;
-            });
-
+            let total = carrinho.reduce((sum, item) => sum + item.precoTotal, 0);
             let retirarLocal = document.getElementById('retirar-local').checked;
-            let freteAtual = 0.00;
-
-            if (carrinho.length > 0 && !retirarLocal) {
-                freteAtual = VALOR_FRETE;
-            }
-
-            let totalGeral = totalProdutos + freteAtual;
-
-            document.getElementById('order-frete').innerText = "Taxa de Frete: R$ " + freteAtual.toFixed(2).replace('.', ',');
+            let frete = (carrinho.length > 0 && !retirarLocal) ? VALOR_FRETE : 0.0;
+            let totalGeral = total + frete;
+            document.getElementById('order-frete').innerText = "Taxa de Frete: R$ " + frete.toFixed(2).replace('.', ',');
             document.getElementById('order-total').innerText = "Total Geral (" + (retirarLocal ? "Retirada" : "com frete") + "): R$ " + totalGeral.toFixed(2).replace('.', ',');
         }
 
@@ -628,62 +176,37 @@
         }
 
         function copiarPix() {
-            const chavePix = "belabelpeixoto@gmail.com";
-            
+            const chave = "belabelpeixoto@gmail.com";
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(chavePix).then(() => {
-                    alert("Pix Copiado com Sucesso!\nChave: " + chavePix);
-                }).catch(err => {
-                    fallbackCopiarPix(chavePix);
-                });
+                navigator.clipboard.writeText(chave).then(() => alert("Pix copiado com sucesso!\nChave: " + chave));
             } else {
-                fallbackCopiarPix(chavePix);
+                alert("Chave Pix: " + chave);
             }
-        }
-
-        function fallbackCopiarPix(texto) {
-            let textarea = document.createElement("textarea");
-            textarea.value = texto;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            alert("Pix Copiado com Sucesso!\nChave: " + texto);
         }
 
         function enviarWhatsApp() {
             if (carrinho.length === 0) {
-                alert("Seu pedido está vazio. Adicione pelo menos um item antes de enviar.");
+                alert("Seu pedido está vazio.");
                 return;
             }
             let texto = "Olá! Gostaria de fazer o seguinte pedido na Vidamix®:%0A";
-            let totalProdutos = 0;
-            
-            carrinho.forEach((item, index) => {
-                if (item.tipo === 'unico') {
-                    texto += (index + 1) + ". 1 unidade de " + item.nome + " - R$ " + item.precoTotal.toFixed(2).replace('.', ',') + "%0A";
-                } else {
-                    let qtdTexto = item.gramas >= 1000 ? "1 kg" : item.gramas + "g";
-                    texto += (index + 1) + ". " + qtdTexto + " de " + item.nome + " - R$ " + item.precoTotal.toFixed(2).replace('.', ',') + "%0A";
-                }
-                totalProdutos += item.precoTotal;
+            let total = 0;
+            carrinho.forEach((item, i) => {
+                let qtd = item.tipo === 'peso' ? (item.gramas >= 1000 ? '1 kg' : item.gramas + 'g') : '1 un';
+                texto += `${i + 1}. ${qtd} de ${item.nome} - R$ ${item.precoTotal.toFixed(2).replace('.', ',')}%0A`;
+                total += item.precoTotal;
             });
-
             let retirarLocal = document.getElementById('retirar-local').checked;
-            let freteAtual = retirarLocal ? 0.00 : VALOR_FRETE;
-            let totalGeral = totalProdutos + freteAtual;
+            let frete = retirarLocal ? 0.0 : VALOR_FRETE;
+            texto += `%0ASubtotal: R$ ${total.toFixed(2).replace('.', ',')}%0A`;
+            texto += retirarLocal ? "*Forma: Retirar no local (Sem frete)*" : `Taxa de Frete: R$ ${VALOR_FRETE.toFixed(2).replace('.', ',')}%0A*Total Geral: R$ ${(total + frete).toFixed(2).replace('.', ',')}*`;
+            window.open(`https://wa.me/5544998546285?text=${texto}`, "_blank");
+        }
 
-            texto += "%0ASubtotal dos produtos: R$ " + totalProdutos.toFixed(2).replace('.', ',');
-            if (retirarLocal) {
-                texto += "%0A*Forma de retirada: Retirar no local (Sem taxa de frete)*";
-            } else {
-                texto += "%0ATaxa de Frete: R$ " + VALOR_FRETE.toFixed(2).replace('.', ',');
-                texto += "%0ATotal Geral com Frete: R$ " + totalGeral.toFixed(2).replace('.', ',');
-            }
-            
-            let numeroWhatsApp = "5544998546285";
-            
-            window.open("https://wa.me/" + numeroWhatsApp + "?text=" + texto, "_blank");
+        renderizarProdutos();
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js');
         }
     </script>
 </body>
