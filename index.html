@@ -88,36 +88,37 @@
     </footer>
 
     <script>
+        const baseUrl = "https://pastorpeixoto.github.io/fotos/";
         const produtos = [
-            { id: 1, nome: "Cesta Amor que Nutre", preco: 120.00, tipo: "unico", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/1.jpg.jpeg" },
-            { id: 2, nome: "Pão australiano", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/2.jpg.jpeg" },
-            { id: 3, nome: "Pão lowcarb", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/3.jpg.jpeg" },
-            { id: 4, nome: "Pão de sementes integral", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/4.jpg.jpeg" },
-            { id: 5, nome: "Pão italiano", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/5.jpg.jpeg" },
-            { id: 6, nome: "Bolinho frito da vovó", preco: 80.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/7.jpg.jpeg" },
-            { id: 7, nome: "Pão de hambúrguer", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/6.jpg.jpeg" },
-            { id: 8, nome: "Pãozinho recheado", preco: 85.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/8.jpg.jpeg" },
-            { id: 9, nome: "Esfiha de carne ou frango", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/9.jpg.jpeg" },
-            { id: 10, nome: "Bolo de banana", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/10.jpg.jpeg" },
-            { id: 11, nome: "Bolo de café", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/11.jpg.jpeg" },
-            { id: 12, nome: "Bolo mesclado simples", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/12.jpg.jpeg" },
-            { id: 13, nome: "Pão de lanche", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/13%2Cjpg.jpeg" },
-            { id: 14, nome: "Pão multigrãos", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/14.jpg.jpeg" },
-            { id: 15, nome: "Pão tipo bisnaguinha", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/15.jpg.jpeg" },
-            { id: 16, nome: "Pão de batata doce", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/16.jpg.jpeg" },
-            { id: 17, nome: "Bolo de laranja", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/17.jpg.jpeg" },
-            { id: 18, nome: "Pão de sementes", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/18.jpg.jpeg" },
-            { id: 19, nome: "Pão de milho", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/19.jpg.jpeg" },
-            { id: 20, nome: "Pão de batata doce e bisnaguinha", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/20.jpg.jpg" },
-            { id: 21, nome: "Pão de forma branco", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/21.jpg.jpeg" },
-            { id: 22, nome: "Pão recheado", preco: 85.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/22.jpg.jpeg" },
-            { id: 23, nome: "Bolo de amendoim", preco: 130.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/23.jpg.jpeg" },
-            { id: 24, nome: "Bolo de chocolate", preco: 85.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/24%2Cjpg.jpeg" },
-            { id: 25, nome: "Empada de frango", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/25.jpeg.jpeg" },
-            { id: 26, nome: "Bolo tipo charge", preco: 80.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/26.jpg.jpeg" },
-            { id: 27, nome: "Bolo de cenoura", preco: 80.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/27.jpg.jpeg" },
-            { id: 28, nome: "Bolo de limão", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/28.jpg.jpeg" },
-            { id: 29, nome: "Pão mesclado com brigadeiro", preco: 85.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/29.jpg.jpeg" }
+            { id: 1, nome: "Cesta Amor que Nutre", preco: 120.00, tipo: "unico", img: baseUrl + "1.jpg.jpeg" },
+            { id: 2, nome: "Pão australiano", preco: 75.00, tipo: "peso", img: baseUrl + "2.jpg.jpeg" },
+            { id: 3, nome: "Pão lowcarb", preco: 75.00, tipo: "peso", img: baseUrl + "3.jpg.jpeg" },
+            { id: 4, nome: "Pão de sementes integral", preco: 75.00, tipo: "peso", img: baseUrl + "4.jpg.jpeg" },
+            { id: 5, nome: "Pão italiano", preco: 75.00, tipo: "peso", img: baseUrl + "5.jpg.jpeg" },
+            { id: 6, nome: "Bolinho frito da vovó", preco: 80.00, tipo: "peso", img: baseUrl + "7.jpg.jpeg" },
+            { id: 7, nome: "Pão de hambúrguer", preco: 75.00, tipo: "peso", img: baseUrl + "6.jpg.jpeg" },
+            { id: 8, nome: "Pãozinho recheado", preco: 85.00, tipo: "peso", img: baseUrl + "8.jpg.jpeg" },
+            { id: 9, nome: "Esfiha de carne ou frango", preco: 75.00, tipo: "peso", img: baseUrl + "9.jpg.jpeg" },
+            { id: 10, nome: "Bolo de banana", preco: 75.00, tipo: "peso", img: baseUrl + "10.jpg.jpeg" },
+            { id: 11, nome: "Bolo de café", preco: 75.00, tipo: "peso", img: baseUrl + "11.jpg.jpeg" },
+            { id: 12, nome: "Bolo mesclado simples", preco: 75.00, tipo: "peso", img: baseUrl + "12.jpg.jpeg" },
+            { id: 13, nome: "Pão de lanche", preco: 75.00, tipo: "peso", img: baseUrl + "13%2Cjpg.jpeg" },
+            { id: 14, nome: "Pão multigrãos", preco: 75.00, tipo: "peso", img: baseUrl + "14.jpg.jpeg" },
+            { id: 15, nome: "Pão tipo bisnaguinha", preco: 75.00, tipo: "peso", img: baseUrl + "15.jpg.jpeg" },
+            { id: 16, nome: "Pão de batata doce", preco: 75.00, tipo: "peso", img: baseUrl + "16.jpg.jpeg" },
+            { id: 17, nome: "Bolo de laranja", preco: 75.00, tipo: "peso", img: baseUrl + "17.jpg.jpeg" },
+            { id: 18, nome: "Pão de sementes", preco: 75.00, tipo: "peso", img: baseUrl + "18.jpg.jpeg" },
+            { id: 19, nome: "Pão de milho", preco: 75.00, tipo: "peso", img: baseUrl + "19.jpg.jpeg" },
+            { id: 20, nome: "Pão de batata doce e bisnaguinha", preco: 75.00, tipo: "peso", img: baseUrl + "20.jpg.jpg" },
+            { id: 21, nome: "Pão de forma branco", preco: 75.00, tipo: "peso", img: baseUrl + "21.jpg.jpeg" },
+            { id: 22, nome: "Pão recheado", preco: 85.00, tipo: "peso", img: baseUrl + "22.jpg.jpeg" },
+            { id: 23, nome: "Bolo de amendoim", preco: 130.00, tipo: "peso", img: baseUrl + "23.jpg.jpeg" },
+            { id: 24, nome: "Bolo de chocolate", preco: 85.00, tipo: "peso", img: baseUrl + "24%2Cjpg.jpeg" },
+            { id: 25, nome: "Empada de frango", preco: 75.00, tipo: "peso", img: baseUrl + "25.jpeg.jpeg" },
+            { id: 26, nome: "Bolo tipo charge", preco: 80.00, tipo: "peso", img: baseUrl + "26.jpg.jpeg" },
+            { id: 27, nome: "Bolo de cenoura", preco: 80.00, tipo: "peso", img: baseUrl + "27.jpg.jpeg" },
+            { id: 28, nome: "Bolo de limão", preco: 75.00, tipo: "peso", img: baseUrl + "28.jpg.jpeg" },
+            { id: 29, nome: "Pão mesclado com brigadeiro", preco: 85.00, tipo: "peso", img: baseUrl + "29.jpg.jpeg" }
         ];
 
         let carrinho = [];
@@ -204,10 +205,6 @@
         }
 
         renderizarProdutos();
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js');
-        }
     </script>
 </body>
 </html>
