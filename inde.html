@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidamix® - Produtos Artesanais</title>
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Arial', sans-serif; background-color: #f9f6f0; color: #333333; }
+        header { background-color: #2c221e; color: #ffffff; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { margin: 0; font-size: 1.8rem; }
+        nav a { color: #ffffff; text-decoration: none; margin-left: 20px; font-weight: bold; }
+        nav a:hover { color: #b85d18; }
+        .vidamix-catalog { background-color: #f9f6f0; padding: 60px 20px; }
+        .vidamix-catalog .container { max-width: 1200px; margin: 0 auto; text-align: center; }
+        .vidamix-catalog h2 { font-size: 2.8rem; color: #2c221e; margin-bottom: 5px; font-weight: 700; }
+        .vidamix-catalog .subtitle { font-size: 1.1rem; color: #6b5b52; margin-bottom: 40px; font-style: italic; }
+        .vidamix-catalog .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; justify-content: center; }
+        .vidamix-catalog .product-card { background: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #eae3d9; text-align: left; }
+        .vidamix-catalog .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); }
+        .product-image { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; background-color: #f0eae1; }
+        .vidamix-catalog .product-card h3 { font-size: 1.2rem; color: #2c221e; margin-bottom: 8px; font-weight: 600; }
+        .vidamix-catalog .product-card .price { font-size: 1.3rem; color: #b85d18; font-weight: bold; display: block; margin-bottom: 15px; }
+        .quantity-box { margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; background: #fdfbf7; padding: 8px 12px; border-radius: 8px; border: 1px solid #e6ded3; }
+        .quantity-box label { font-size: 0.9rem; color: #555; font-weight: bold; }
+        .quantity-select { padding: 5px; border-radius: 6px; border: 1px solid #ccc; font-weight: bold; color: #2c221e; background: #fff; cursor: pointer; }
+        .btn-add { background-color: #b85d18; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; }
+        .btn-add:hover { background-color: #9a4c13; }
+        .order-summary { margin-top: 40px; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #eae3d9; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .order-summary h3 { margin-top: 0; color: #2c221e; }
+        .delivery-option { margin: 15px 0; background: #fdfbf7; padding: 10px 12px; border-radius: 8px; border: 1px solid #e6ded3; display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: bold; color: #2c221e; }
+        .order-actions { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn-action { background-color: #2e7d32; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .btn-action:hover { background-color: #235d26; }
+        .btn-pix { background-color: #00838f; }
+        .btn-zerar { background-color: #c62828; }
+        footer { background-color: #2c221e; color: #ffffff; text-align: center; padding: 20px; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Vidamix®</h1>
+        <nav><a href="#cardapio">Cardápio</a></nav>
+    </header>
+
+    <section id="cardapio" class="vidamix-catalog">
+        <div class="container">
+            <h2>Cardápio Vidamix®</h2>
+            <p class="subtitle">Vidamix® - Produtos Artesanais Sem Glúten e Sem Lactose</p>
+            <div class="product-grid" id="grid-produtos"></div>
+
+            <div class="order-summary">
+                <h3>Resumo do Pedido</h3>
+                <p id="order-count">Itens no pedido: 0</p>
+                <p id="order-frete">Taxa de Frete: R$ 12,00</p>
+                <label class="delivery-option">
+                    <input type="checkbox" id="retirar-local" onchange="atualizarResumo()"> Cliente vai retirar no local (Sem taxa de frete)
+                </label>
+                <p id="order-total" style="font-weight: bold; color: #b85d18;">Total Geral (com frete): R$ 12,00</p>
+                <div class="order-actions">
+                    <button class="btn-action btn-pix" onclick="copiarPix()">Copiar Pix</button>
+                    <button class="btn-action btn-zerar" onclick="zerarPedido()">Zerar Pedido</button>
+                    <button class="btn-action" onclick="enviarWhatsApp()">Enviar pedido WhatsApp</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; Vidamix® - Produtos Artesanais Sem Glúten e Sem Lactose</p>
+    </footer>
+
+    <script>
+        const produtos = [
+            { id: 1, nome: "Cesta Amor que Nutre", preco: 120.00, tipo: "unico", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/1.jpg.jpeg" },
+            { id: 2, nome: "Pão australiano", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/2.jpg.jpeg" },
+            { id: 3, nome: "Pão lowcarb", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/3.jpg.jpeg" },
+            { id: 4, nome: "Pão de sementes integral", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/4.jpg.jpeg" },
+            { id: 5, nome: "Pão italiano", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/5.jpg.jpeg" },
+            { id: 6, nome: "Bolinho frito da vovó", preco: 80.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/7.jpg.jpeg" },
+            { id: 7, nome: "Pão de hambúrguer", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/6.jpg.jpeg" },
+            { id: 8, nome: "Pãozinho recheado", preco: 85.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/8.jpg.jpeg" },
+            { id: 9, nome: "Esfiha de carne ou frango", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/9.jpg.jpeg" },
+            { id: 10, nome: "Bolo de banana", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/10.jpg.jpeg" },
+            { id: 11, nome: "Bolo de café", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/11.jpg.jpeg" },
+            { id: 12, nome: "Bolo mesclado simples", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/12.jpg.jpeg" },
+            { id: 13, nome: "Pão de lanche", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/13%2Cjpg.jpeg" },
+            { id: 14, nome: "Pão multigrãos", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/14.jpg.jpeg" },
+            { id: 15, nome: "Pão tipo bisnaguinha", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/15.jpg.jpeg" },
+            { id: 16, nome: "Pão de batata doce", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/16.jpg.jpeg" },
+            { id: 17, nome: "Bolo de laranja", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/17.jpg.jpeg" },
+            { id: 18, nome: "Pão de sementes", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/18.jpg.jpeg" },
+            { id: 19, nome: "Pão de milho", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/19.jpg.jpeg" },
+            { id: 20, nome: "Pão de batata doce e bisnaguinha", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/20.jpg.jpg" },
+            { id: 21, nome: "Pão de forma branco", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/21.jpg.jpeg" },
+            { id: 22, nome: "Pão recheado", preco: 85.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/22.jpg.jpeg" },
+            { id: 23, nome: "Bolo de amendoim", preco: 130.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/23.jpg.jpeg" },
+            { id: 24, nome: "Bolo de chocolate", preco: 85.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/24%2Cjpg.jpeg" },
+            { id: 25, nome: "Empada de frango", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/25.jpeg.jpeg" },
+            { id: 26, nome: "Bolo tipo charge", preco: 80.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/26.jpg.jpeg" },
+            { id: 27, nome: "Bolo de cenoura", preco: 80.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/27.jpg.jpeg" },
+            { id: 28, nome: "Bolo de limão", preco: 75.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/28.jpg.jpeg" },
+            { id: 29, nome: "Pão mesclado com brigadeiro", preco: 85.00, tipo: "peso", img: "https://raw.githubusercontent.com/pastorpeixoto/fotos/main/29.jpg.jpeg" }
+        ];
+
+        let carrinho = [];
+        const VALOR_FRETE = 12.00;
+
+        function renderizarProdutos() {
+            const grid = document.getElementById('grid-produtos');
+            grid.innerHTML = produtos.map(p => `
+                <div class="product-card">
+                    <img src="${p.img}" alt="${p.nome}" class="product-image">
+                    <div>
+                        <h3>${p.nome}</h3>
+                        <span class="price">R$ ${p.preco.toFixed(2).replace('.', ',')}${p.tipo === 'peso' ? ' / kg' : ''}</span>
+                    </div>
+                    ${p.tipo === 'peso' ? `
+                    <div class="quantity-box">
+                        <label>Peso:</label>
+                        <select class="quantity-select" id="peso-${p.id}">
+                            <option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option>
+                        </select>
+                    </div>` : ''}
+                    <button class="btn-add" onclick="adicionarAoCarrinho(${p.id})">Adicionar Pedido</button>
+                </div>
+            `).join('');
+        }
+
+        function adicionarAoCarrinho(id) {
+            const p = produtos.find(item => item.id === id);
+            let precoTotal = p.preco;
+            let gramas = 1000;
+            if (p.tipo === 'peso') {
+                gramas = parseInt(document.getElementById(`peso-${id}`).value);
+                precoTotal = (p.preco / 1000) * gramas;
+            }
+            carrinho.push({ nome: p.nome, tipo: p.tipo, gramas, precoTotal });
+            atualizarResumo();
+            let textoQtd = p.tipo === 'peso' ? (gramas >= 1000 ? '1 kg' : gramas + 'g') : '1 unidade';
+            alert(`${textoQtd} de ${p.nome} adicionado ao pedido!`);
+        }
+
+        function atualizarResumo() {
+            document.getElementById('order-count').innerText = "Itens no pedido: " + carrinho.length;
+            let total = carrinho.reduce((sum, item) => sum + item.precoTotal, 0);
+            let retirarLocal = document.getElementById('retirar-local').checked;
+            let frete = (carrinho.length > 0 && !retirarLocal) ? VALOR_FRETE : 0.0;
+            let totalGeral = total + frete;
+            document.getElementById('order-frete').innerText = "Taxa de Frete: R$ " + frete.toFixed(2).replace('.', ',');
+            document.getElementById('order-total').innerText = "Total Geral (" + (retirarLocal ? "Retirada" : "com frete") + "): R$ " + totalGeral.toFixed(2).replace('.', ',');
+        }
+
+        function zerarPedido() {
+            carrinho = [];
+            document.getElementById('retirar-local').checked = false;
+            atualizarResumo();
+            alert("O pedido foi zerado!");
+        }
+
+        function copiarPix() {
+            const chave = "belabelpeixoto@gmail.com";
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(chave).then(() => alert("Pix copiado com sucesso!\nChave: " + chave));
+            } else {
+                alert("Chave Pix: " + chave);
+            }
+        }
+
+        function enviarWhatsApp() {
+            if (carrinho.length === 0) {
+                alert("Seu pedido está vazio.");
+                return;
+            }
+            let texto = "Olá! Gostaria de fazer o seguinte pedido na Vidamix®:%0A";
+            let total = 0;
+            carrinho.forEach((item, i) => {
+                let qtd = item.tipo === 'peso' ? (item.gramas >= 1000 ? '1 kg' : item.gramas + 'g') : '1 un';
+                texto += `${i + 1}. ${qtd} de ${item.nome} - R$ ${item.precoTotal.toFixed(2).replace('.', ',')}%0A`;
+                total += item.precoTotal;
+            });
+            let retirarLocal = document.getElementById('retirar-local').checked;
+            let frete = retirarLocal ? 0.0 : VALOR_FRETE;
+            texto += `%0ASubtotal: R$ ${total.toFixed(2).replace('.', ',')}%0A`;
+            texto += retirarLocal ? "*Forma: Retirar no local (Sem frete)*" : `Taxa de Frete: R$ ${VALOR_FRETE.toFixed(2).replace('.', ',')}%0A*Total Geral: R$ ${(total + frete).toFixed(2).replace('.', ',')}*`;
+            window.open(`https://wa.me/5544998546285?text=${texto}`, "_blank");
+        }
+
+        renderizarProdutos();
+    </script>
+</body>
+</html>
