@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vidamix® - Produtos Artesanais</title>
+    <link rel="manifest" href="manifest.json">
     <style>
         body { margin: 0; padding: 0; font-family: 'Arial', sans-serif; background-color: #f9f6f0; color: #333333; }
         
@@ -15,7 +16,7 @@
         .header-main { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; }
         
         .brand-container { display: flex; align-items: center; gap: 15px; }
-        .brand-logo-placeholder { width: 50px; height: 50px; background-color: #b85d18; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; font-size: 1.2rem; }
+        .brand-logo-img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid #b85d18; background-color: #fff; }
         .brand-info h1 { margin: 0; font-size: 1.8rem; color: #fff; line-height: 1.1; }
         .brand-subtitle { font-size: 0.85rem; color: #d4c5b9; margin-top: 3px; }
 
@@ -26,7 +27,7 @@
         .btn-action-header { border: none; padding: 9px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.9rem; transition: opacity 0.2s; color: white; }
         .btn-action-header:hover { opacity: 0.9; }
         
-        .btn-install { background-color: #2e7d32; display: none; } /* Verde */
+        .btn-install { background-color: #2e7d32; display: inline-block; } /* Verde para Instalar app */
         .btn-pedidos { background-color: #594741; } /* Marrom mais claro */
 
         /* Filtros de Categorias alinhados abaixo do símbolo/logo */
@@ -84,10 +85,10 @@
             100% artesanal • sem glúten • sem lactose
         </div>
 
-        <!-- Segunda linha com o Símbolo, Nome, Descrição e Botões -->
+        <!-- Segunda linha com a Logo Oficial, Nome, Descrição e Botões -->
         <div class="header-main">
             <div class="brand-container">
-                <div class="brand-logo-placeholder">VM</div>
+                <img src="logo.png.png" alt="Logo Vidamix" class="brand-logo-img">
                 <div class="brand-info">
                     <h1>Vidamix®</h1>
                     <div class="brand-subtitle">produtos artesanais sem glúten e sem lactose</div>
@@ -344,8 +345,9 @@
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     deferredPrompt = null;
-                    document.getElementById('btnInstallApp').style.display = 'none';
                 });
+            } else {
+                alert("Para instalar o aplicativo, abra o menu do seu navegador (três pontinhos no topo) e selecione 'Adicionar à tela inicial' ou 'Instalar aplicativo'.");
             }
         }
 
