@@ -16,7 +16,7 @@
         
         .brand-container { display: flex; align-items: center; gap: 25px; }
         
-        /* LOGO BEM GRANDE COMO VOCÊ PEDIU */
+        /* LOGO BEM GRANDE */
         .brand-logo-img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid #b85d18; background-color: #fff; box-shadow: 0 6px 18px rgba(0,0,0,0.4); }
         
         .brand-info h1 { margin: 0; font-size: 3.2rem; color: #fff; line-height: 1.1; font-weight: 800; letter-spacing: 0.5px; }
@@ -80,14 +80,10 @@
         .btn-pix { background-color: #00838f; }
         .btn-zerar { background-color: #c62828; flex: 0.7; }
         
-        /* Modal de Instalação */
+        /* Modal de Instalação Simplificado */
         #modal-instalar { display: none; position: fixed; z-index: 99999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); align-items: center; justify-content: center; padding: 15px; box-sizing: border-box; }
-        .modal-conteudo { background-color: #ffffff; color: #2c221e; border-radius: 14px; max-width: 420px; width: 100%; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: center; border-top: 6px solid #2c221e; }
-        .modal-topo-marrom { background-color: #2c221e; color: #fff; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 1.1rem; font-weight: bold; }
-        .modal-logo-img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid #b85d18; margin-bottom: 12px; }
-        .passos-lista { text-align: left; background: #fdfbf7; padding: 15px 15px 15px 35px; border-radius: 8px; border: 1px solid #e6ded3; margin-bottom: 20px; font-size: 0.9rem; color: #444; line-height: 1.6; }
-        .passos-lista li { margin-bottom: 8px; }
-        .btn-fechar-modal { background-color: #b85d18; color: white; border: none; padding: 10px 24px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.95rem; width: 100%; }
+        .modal-conteudo { background-color: #ffffff; color: #2c221e; border-radius: 14px; max-width: 380px; width: 100%; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: center; border-top: 6px solid #2e7d32; }
+        .btn-fechar-modal { background-color: #b85d18; color: white; border: none; padding: 10px 24px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.95rem; width: 100%; margin-top: 15px; }
 
         footer { background-color: #2c221e; color: #ffffff; text-align: center; padding: 20px; margin-top: 40px; }
     </style>
@@ -121,21 +117,13 @@
         </div>
     </header>
 
+    <!-- Modal de Instalação com mensagem curta e botão Confirmar -->
     <div id="modal-instalar">
         <div class="modal-conteudo">
-            <div class="modal-topo-marrom">Instalar app Vidamix®</div>
-            <img src="logo.png.png" alt="Ícone Vidamix" class="modal-logo-img">
-            <div style="font-size: 1.2rem; font-weight: bold; margin-bottom: 8px;">Adicione à tela inicial</div>
-            <div style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Tenha acesso rápido como um aplicativo nativo.</div>
-            <div class="passos-lista">
-                <strong>No Google Chrome do celular:</strong>
-                <ol>
-                    <li>Toque nos três pontinhos no canto superior direito.</li>
-                    <li>Selecione <strong>Instalar aplicativo</strong> ou <strong>Adicionar à tela inicial</strong>.</li>
-                    <li>Confirme em <strong>Instalar</strong>.</li>
-                </ol>
-            </div>
-            <button class="btn-fechar-modal" onclick="fecharModalInstalar()">Fechar</button>
+            <img src="logo.png.png" alt="Ícone Vidamix" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 3px solid #b85d18; margin-bottom: 10px;">
+            <div style="font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #2c221e;">Instalar Vidamix®</div>
+            <p style="font-size: 0.95rem; color: #555; line-height: 1.4; margin-bottom: 15px;">Deseja adicionar o aplicativo à tela inicial do seu celular para acesso rápido?</p>
+            <button class="btn-fechar-modal" onclick="confirmarInstalacao()">Confirmar</button>
         </div>
     </div>
 
@@ -329,10 +317,10 @@
                     <button class="btn-add" onclick="adicionarItemPeso(this, 'Bolo de amendoim', 130.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-categoria="bolo">
-                    <img src="24.jpg" alt="Bolo de chocolate" class="product-image">
-                    <div><h3>Bolo de chocolate</h3><span class="price">R$ 85,00 / kg</span></div>
+                    <img src="24.jpg" alt="Bolo de cacau" class="product-image">
+                    <div><h3>Bolo de cacau</h3><span class="price">R$ 85,00 / kg</span></div>
                     <div class="quantity-box"><label>Peso:</label><select class="quantity-select"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select></div>
-                    <button class="btn-add" onclick="adicionarItemPeso(this, 'Bolo de chocolate', 85.00)">Adicionar Pedido</button>
+                    <button class="btn-add" onclick="adicionarItemPeso(this, 'Bolo de cacau', 85.00)">Adicionar Pedido</button>
                 </div>
                 <div class="product-card" data-categoria="salgado">
                     <img src="25.jpg" alt="Empada de frango" class="product-image">
@@ -383,7 +371,7 @@
 
                 <div class="attendance-info">
                     🕒 <strong>Horário de atendimento:</strong> Das 13h às 18h.<br>
-                    ⚠️ Pedidos enviados após as 18h serão respondidos no dia seguinte.
+                    ⚠️ Pedidos enviados após las 18h serão respondidos no dia seguinte.
                 </div>
 
                 <div class="pix-box">
@@ -404,13 +392,27 @@
     <script>
         let carrinho = [];
         const VALOR_FRETE = 12.00;
+        let deferredPrompt = null;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
 
         function instalarApp() {
             document.getElementById('modal-instalar').style.display = 'flex';
         }
 
-        function fecharModalInstalar() {
+        function confirmarInstalacao() {
             document.getElementById('modal-instalar').style.display = 'none';
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    deferredPrompt = null;
+                });
+            } else {
+                alert("Para instalar, toque nos três pontinhos do navegador e selecione 'Adicionar à tela inicial' ou 'Instalar aplicativo'.");
+            }
         }
 
         function rolarParaResumo() {
