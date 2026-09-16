@@ -42,7 +42,7 @@
         .vidamix-catalog { background-color: #f9f6f0; padding: 30px 20px; }
         .vidamix-catalog .container { max-width: 1200px; margin: 0 auto; text-align: left; }
         
-        /* Textos descritivos solicitados abaixo da faixa marrom */
+        /* Textos descritivos abaixo da faixa marrom */
         .catalog-intro { text-align: center; margin-bottom: 30px; border-bottom: 1px solid #eae3d9; padding-bottom: 25px; }
         .catalog-status { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: #b85d18; font-weight: bold; margin-bottom: 5px; }
         .vidamix-catalog h2 { font-size: 2.4rem; color: #2c221e; margin: 0 0 5px 0; font-weight: 700; }
@@ -144,9 +144,9 @@
     <!-- Caixa de diálogo personalizada (Modal) de Instalação -->
     <div id="modal-instalar">
         <div class="modal-conteudo">
-            <div class="modal-topo-marrom">Instalar app Vida Mix</div>
-            <img src="logo.png.png" alt="Ícone Oficial Vida Mix R" class="modal-logo-img">
-            <div class="modal-titulo">Ícone oficial Vida Mix®</div>
+            <div class="modal-topo-marrom">Instalar app Vidamix</div>
+            <img src="logo.png.png" alt="Ícone Oficial Vidamix R" class="modal-logo-img">
+            <div class="modal-titulo">Ícone oficial Vidamix®</div>
             <div class="modal-sub">Fica salvo na tela inicial como um aplicativo nativo, sem ocupar memória.</div>
             
             <div class="passos-lista">
@@ -164,7 +164,7 @@
 
     <section id="cardapio" class="vidamix-catalog">
         <div class="container">
-            <!-- Bloco de Apresentação Solicitado -->
+            <!-- Bloco de Apresentação -->
             <div class="catalog-intro">
                 <div class="catalog-status">Cardápio artesanal atualizado</div>
                 <h2>Cardápio VIDAMIX®</h2>
@@ -428,23 +428,9 @@
     <script>
         let carrinho = [];
         const VALOR_FRETE = 12.00;
-        let deferredPrompt;
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
 
         function instalarApp() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    deferredPrompt = null;
-                });
-            } else {
-                // Abre a caixa de diálogo personalizada com o passo a passo solicitado
-                document.getElementById('modal-instalar').style.display = 'flex';
-            }
+            document.getElementById('modal-instalar').style.display = 'flex';
         }
 
         function fecharModalInstalar() {
