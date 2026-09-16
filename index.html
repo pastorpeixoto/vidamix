@@ -120,19 +120,19 @@
             </div>
 
             <div class="header-actions">
-                <input type="text" id="searchInput" class="search-input" placeholder="Buscar no cardápio..." onkeyup="filtrarProdutos()">
-                <button id="btnInstallApp" class="btn-action-header btn-install" onclick="instalarApp()">Instalar app</button>
-                <button class="btn-action-header btn-pedidos" onclick="rolarParaResumo()">O meu pedido</button>
+                <input type="text" id="searchInput" class="search-input" placeholder="Buscar no cardápio...">
+                <button id="btnInstallApp" class="btn-action-header btn-install">Instalar app</button>
+                <button id="btnPedidos" class="btn-action-header btn-pedidos">O meu pedido</button>
             </div>
         </div>
 
         <!-- Filtros rápidos posicionados abaixo -->
         <div class="category-filters">
-            <button class="filter-btn active" onclick="filtrarCategoria('todos', this)">Todos</button>
-            <button class="filter-btn" onclick="filtrarCategoria('cesta', this)">Cestas</button>
-            <button class="filter-btn" onclick="filtrarCategoria('pao', this)">Pães</button>
-            <button class="filter-btn" onclick="filtrarCategoria('bolo', this)">Bolos</button>
-            <button class="filter-btn" onclick="filtrarCategoria('salgado', this)">Salgados</button>
+            <button class="filter-btn active" data-cat="todos">Todos</button>
+            <button class="filter-btn" data-cat="cesta">Cestas</button>
+            <button class="filter-btn" data-cat="pao">Pães</button>
+            <button class="filter-btn" data-cat="bolo">Bolos</button>
+            <button class="filter-btn" data-cat="salgado">Salgados</button>
         </div>
     </header>
 
@@ -153,7 +153,7 @@
                 </ol>
             </div>
 
-            <button class="btn-fechar-modal" onclick="fecharModalInstalar()">Fechar</button>
+            <button id="btnCloseModal" class="btn-fechar-modal">Fechar</button>
         </div>
     </div>
 
@@ -395,7 +395,7 @@
                 </div>
                 
                 <label class="delivery-option">
-                    <input type="checkbox" id="retirar-local" onchange="atualizarResumo()"> Cliente vai retirar no local (Sem taxa de frete)
+                    <input type="checkbox" id="retirar-local"> Cliente vai retirar no local (Sem taxa de frete)
                 </label>
 
                 <p id="order-total" style="font-weight: bold; color: #2c221e; font-size: 1.15rem; margin-top: 15px;">Total Geral com Frete: R$ 12,00</p>
@@ -410,9 +410,9 @@
                 </div>
 
                 <div class="order-actions">
-                    <button class="btn-action btn-pix" onclick="copiarPix()">Copiar Pix</button>
-                    <button class="btn-action btn-zerar" onclick="zerarPedido()">Zerar Pedido</button>
-                    <button class="btn-action" onclick="enviarWhatsApp()">Enviar ao WhatsApp</button>
+                    <button id="btnCopiarPix" class="btn-action btn-pix">Copiar Pix</button>
+                    <button id="btnZerar" class="btn-action btn-zerar">Zerar Pedido</button>
+                    <button id="btnWhatsapp" class="btn-action">Enviar ao WhatsApp</button>
                 </div>
             </div>
         </div>
@@ -424,53 +424,87 @@
         let carrinho = [];
         const VALOR_FRETE = 12.00;
 
-        function instalarApp() {
-            document.getElementById('modal-instalar').style.display = 'flex';
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            // Instalar App
+            const btnInstall = document.getElementById('btnInstallApp');
+            if(btnInstall) {
+                btnInstall.addEventListener('click', function() {
+                    document.getElementById('modal-instalar').style.display = 'flex';
+                });
+            }
 
-        function fecharModalInstalar() {
-            document.getElementById('modal-instalar').style.display = 'none';
-        }
+            const btnClose = document.getElementById('btnCloseModal');
+            if(btnClose) {
+                btnClose.addEventListener('click', function() {
+                    document.getElementById('modal-instalar').style.display = 'none';
+                });
+            }
 
-        function rolarParaResumo() {
-            document.getElementById('resumo-pedido').scrollIntoView({ behavior: 'smooth' });
-        }
+            // O meu pedido (Rolar a página)
+            const btnPedidos = document.getElementById('btnPedidos');
+            if(btnPedidos) {
+                btnPedidos.addEventListener('click', function() {
+                    document.getElementById('resumo-pedido').scrollIntoView({ behavior: 'smooth' });
+                });
+            }
 
-        function atualizarContador(visiveis, total) {
-            document.getElementById('contador-delicias').innerText = Mostrando ${visiveis} de ${total} delícias;
-        }
+            // Busca por texto
+            const searchInput = document.getElementById('searchInput');
+            if(searchInput) {
+                searchInput.addEventListener('keyup', function() {
+                    let termo = this.value.toLowerCase();
+                    let cards = document.querySelectorAll('.product-card');
+                    let visiveis = 0;
+                    cards.forEach(card => {
+                        let nome = card.querySelector('h3').innerText.toLowerCase();
+                        if (nome.includes(termo)) {
+                            card.style.display = "flex";
+                            visiveis++;
+                        } else {
+                            card.style.display = "none";
+                        }
+                    });
+                    document.getElementById('contador-delicias').innerText = Mostrando ${visiveis} de ${cards.length} delícias;
+                });
+            }
 
-        function filtrarProdutos() {
-            let termo = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.querySelectorAll('.product-card');
-            let visiveis = 0;
-            cards.forEach(card => {
-                let nome = card.querySelector('h3').innerText.toLowerCase();
-                if (nome.includes(termo)) {
-                    card.style.display = "flex";
-                    visiveis++;
-                } else {
-                    card.style.display = "none";
-                }
+            // Filtros de Categorias (Todos, Cestas, Pães, Bolos, Salgados)
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    let cat = this.getAttribute('data-cat');
+                    let cards = document.querySelectorAll('.product-card');
+                    let visiveis = 0;
+                    cards.forEach(card => {
+                        if (cat === 'todos' || card.getAttribute('data-categoria') === cat) {
+                            card.style.display = "flex";
+                            visiveis++;
+                        } else {
+                            card.style.display = "none";
+                        }
+                    });
+                    document.getElementById('contador-delicias').innerText = Mostrando ${visiveis} de ${cards.length} delícias;
+                });
             });
-            atualizarContador(visiveis, cards.length);
-        }
 
-        function filtrarCategoria(cat, elemento) {
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            elemento.classList.add('active');
-            let cards = document.querySelectorAll('.product-card');
-            let visiveis = 0;
-            cards.forEach(card => {
-                if (cat === 'todos' || card.getAttribute('data-categoria') === cat) {
-                    card.style.display = "flex";
-                    visiveis++;
-                } else {
-                    card.style.display = "none";
-                }
-            });
-            atualizarContador(visiveis, cards.length);
-        }
+            // Opção de retirada no local
+            const checkRetirar = document.getElementById('retirar-local');
+            if(checkRetirar) {
+                checkRetirar.addEventListener('change', atualizarResumo);
+            }
+
+            // Botões de ação do resumo
+            const btnCopiar = document.getElementById('btnCopiarPix');
+            if(btnCopiar) btnCopiar.addEventListener('click', copiarPix);
+
+            const btnZerar = document.getElementById('btnZerar');
+            if(btnZerar) btnZerar.addEventListener('click', zerarPedido);
+
+            const btnWpp = document.getElementById('btnWhatsapp');
+            if(btnWpp) btnWpp.addEventListener('click', enviarWhatsApp);
+        });
 
         function adicionarItemPeso(botao, nome, precoKg) {
             let card = botao.closest('.product-card');
