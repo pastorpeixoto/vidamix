@@ -7,49 +7,69 @@
     <style>
         * { box-sizing: border-box; }
         body { margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f9f6f0; color: #333; }
-        header { background-color: #2c221e; color: #fff; padding: 25px 20px; text-align: center; }
+        
+        /* Cabeçalho original restaurado */
+        header { background-color: #2c221e; color: #fff; padding: 30px 20px; text-align: center; }
         .logo { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid #b85d18; margin-bottom: 15px; background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         h1 { margin: 0; font-size: 3rem; color: #fff; }
-        .subtitle { color: #d4c5b9; font-size: 1.1rem; margin-top: 5px; }
+        .subtitle { color: #d4c5b9; font-size: 1.15rem; margin-top: 8px; }
+        .header-info { color: #f3efe6; font-size: 0.95rem; margin-top: 5px; opacity: 0.9; }
         
-        .nav-bar { display: flex; justify-content: center; gap: 10px; background: #433530; padding: 15px; flex-wrap: wrap; }
-        .btn-cat { background: #332722; color: #d4c5b9; border: none; padding: 10px 18px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.95rem; }
-        .btn-cat.active, .btn-cat:hover { background: #b85d18; color: #fff; }
+        /* Barra de categorias totalmente interativa */
+        .nav-bar { display: flex; justify-content: center; gap: 10px; background: #433530; padding: 15px; flex-wrap: wrap; box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2); }
+        .btn-cat { background: #332722; color: #d4c5b9; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.95rem; transition: 0.2s; }
+        .btn-cat.active, .btn-cat:hover { background: #b85d18; color: #fff; transform: translateY(-1px); }
 
-        .container { max-width: 1200px; margin: 20px auto; padding: 15px; }
-        .topo-acoes { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
-        .btn-acao-topo { background: #2e7d32; color: #fff; border: none; padding: 12px 22px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.95rem; }
+        .container { max-width: 1200px; margin: 25px auto; padding: 15px; }
         
+        /* Topo de ações restaurado (Busca, Meu Pedido e Instalar App) */
+        .topo-acoes { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; background: #fff; padding: 15px 20px; border-radius: 12px; border: 1px solid #eae3d9; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .topo-acoes input { padding: 12px 18px; border-radius: 20px; border: 1px solid #ccc; width: 280px; outline: none; font-size: 0.95rem; }
+        .topo-acoes input:focus { border-color: #b85d18; }
+        
+        .acoes-botoes { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn-acao-topo { background: #2e7d32; color: #fff; border: none; padding: 12px 22px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
+        .btn-acao-topo:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-instalar { background: #1976d2; }
+        
+        /* Grade de produtos */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
-        .card { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #eae3d9; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .card { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #eae3d9; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: 0.2s; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.06); }
         .card img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; background: #f0eae1; }
         .card h3 { margin: 0 0 5px 0; font-size: 1.25rem; color: #2c221e; }
-        .product-desc { font-size: 0.85rem; color: #666; margin-bottom: 10px; line-height: 1.3; }
+        .product-desc { font-size: 0.85rem; color: #666; margin-bottom: 10px; line-height: 1.3; min-height: 25px; }
         .price { color: #b85d18; font-size: 1.35rem; font-weight: bold; margin: 10px 0; display: block; }
         
-        .select-peso { width: 100%; padding: 8px; margin-bottom: 12px; border-radius: 6px; border: 1px solid #ccc; font-weight: bold; background: #fdfbf7; cursor: pointer; }
-        .btn-add { background: #b85d18; color: #fff; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; font-size: 0.95rem; }
+        .select-peso { width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 6px; border: 1px solid #ccc; font-weight: bold; background: #fdfbf7; cursor: pointer; color: #333; }
+        .btn-add { background: #b85d18; color: #fff; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; font-size: 0.95rem; transition: 0.2s; }
         .btn-add:hover { background: #9a4c13; }
 
-        .carrinho-box { margin-top: 40px; background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #eae3d9; max-width: 600px; margin-left: auto; margin-right: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .carrinho-box h3 { margin-top: 0; color: #2c221e; font-size: 1.4rem; border-bottom: 2px solid #f0eae1; padding-bottom: 8px; }
-        .btn-finalizar { background: #2e7d32; color: #fff; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 15px; font-size: 1rem; }
-        .btn-zerar { background: #c62828; color: #fff; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 8px; }
+        /* Seção do carrinho restaurada */
+        .carrinho-box { margin-top: 50px; background: #fff; padding: 30px; border-radius: 12px; border: 1px solid #eae3d9; max-width: 650px; margin-left: auto; margin-right: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .carrinho-box h3 { margin-top: 0; color: #2c221e; font-size: 1.4rem; border-bottom: 2px solid #f0eae1; padding-bottom: 10px; }
+        .btn-finalizar { background: #2e7d32; color: #fff; border: none; padding: 14px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 15px; font-size: 1.05rem; transition: 0.2s; }
+        .btn-finalizar:hover { background: #256428; }
+        .btn-zerar { background: #c62828; color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; transition: 0.2s; }
+        .btn-zerar:hover { background: #a72222; }
 
-        /* Modal simples */
-        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; padding: 15px; }
-        .modal-content { background: #fff; padding: 25px; border-radius: 14px; text-align: center; max-width: 380px; width: 100%; border-top: 6px solid #2e7d32; }
-        .btn-fechar { background: #b85d18; color: #fff; border: none; padding: 10px 24px; border-radius: 20px; font-weight: bold; cursor: pointer; margin-top: 15px; width: 100%; }
+        /* Modal de instalação do app */
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; padding: 15px; z-index: 1000; }
+        .modal-content { background: #fff; padding: 30px; border-radius: 14px; text-align: center; max-width: 380px; width: 100%; border-top: 6px solid #2e7d32; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .btn-fechar { background: #b85d18; color: #fff; border: none; padding: 12px 24px; border-radius: 20px; font-weight: bold; cursor: pointer; margin-top: 20px; width: 100%; font-size: 1rem; }
     </style>
 </head>
 <body>
 
+    <!-- CABEÇALHO COMPLETO E RESTAURADO -->
     <header>
         <img src="logo.png.png" alt="Logo Vidamix" class="logo">
         <h1>Vidamix®</h1>
         <div class="subtitle">Produtos artesanais sem glúten e sem lactose</div>
+        <div class="header-info">Feito com carinho para o seu bem-estar • Encomendas e Pedidos</div>
     </header>
 
+    <!-- BARRA DE CATEGORIAS ATIVAS -->
     <div class="nav-bar">
         <button class="btn-cat active" onclick="filtrar('todos', this)">Todos</button>
         <button class="btn-cat" onclick="filtrar('cesta', this)">Cestas</button>
@@ -59,40 +79,43 @@
     </div>
 
     <div class="container">
+        <!-- TOPO DE AÇÕES (BUSCA, MEU PEDIDO E INSTALAR APP) -->
         <div class="topo-acoes">
-            <input type="text" id="busca" placeholder="Buscar no cardápio..." onkeyup="buscarProduto()" style="padding: 10px 15px; border-radius: 20px; border: 1px solid #ccc; width: 240px; outline: none;">
-            <button class="btn-acao-topo" onclick="document.getElementById('carrinho-secao').scrollIntoView({behavior: 'smooth'})">O meu pedido</button>
-            <button class="btn-acao-topo" style="background: #1976d2;" onclick="abrirModal()">Instalar app</button>
+            <input type="text" id="busca" placeholder="🔍 Buscar no cardápio..." onkeyup="buscarProduto()">
+            <div class="acoes-botoes">
+                <button class="btn-acao-topo" onclick="irParaCarrinho()">🛒 O meu pedido</button>
+                <button class="btn-acao-topo btn-instalar" onclick="abrirModal()">📱 Instalar app</button>
+            </div>
         </div>
 
+        <!-- 29 PRODUTOS COMPLETOS -->
         <div class="grid" id="catalogo">
-            <!-- 29 PRODUTOS COMPLETOS -->
             <div class="card" data-cat="cesta">
                 <img src="1.jpg" alt="Cesta">
-                <div><h3>Cesta Amor que Nutre</h3><span class="price">R$ 120,00</span></div>
+                <div><h3>Cesta Amor que Nutre</h3><p class="product-desc">Seleção especial de produtos artesanais.</p><span class="price">R$ 120,00</span></div>
                 <button class="btn-add" onclick="adicionar('Cesta Amor que Nutre', 120.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="pao">
                 <img src="2.jpg" alt="Pão">
-                <div><h3>Pão australiano</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Pão australiano</h3><p class="product-desc">Massa macia e sabor inconfundível.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Pão australiano', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="pao">
                 <img src="3.jpg" alt="Pão">
-                <div><h3>Pão lowcarb</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Pão lowcarb</h3><p class="product-desc">Baixo teor de carboidratos, leve e nutritivo.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Pão lowcarb', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="pao">
                 <img src="4.jpg" alt="Pão">
-                <div><h3>Pão de sementes integral</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Pão de sementes integral</h3><p class="product-desc">Rico em fibras e sementes selecionadas.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Pão de sementes integral', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="pao">
                 <img src="5.jpg" alt="Pão">
-                <div><h3>Pão italiano</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Pão italiano</h3><p class="product-desc">Casca crocante e miolo macio.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Pão italiano', 75.00)">Adicionar Pedido</button>
             </div>
@@ -110,163 +133,175 @@
             </div>
             <div class="card" data-cat="pao">
                 <img src="8.jpg" alt="Pão">
-                <div><h3>Pãozinho recheado</h3><p class="product-desc">Recheio de frango (Mín. 6 un. = R$ 48,00)</p><span class="price">R$ 8,00 / un</span></div>
+                <div><h3>Pãozinho recheado</h3><p class="product-desc">Recheio de frango (Mín. 6 un.)</p><span class="price">R$ 8,00 / un</span></div>
                 <select class="select-peso"><option value="6" selected>6 unidades</option><option value="8">8 unidades</option><option value="10">10 unidades</option><option value="12">12 unidades</option></select>
                 <button class="btn-add" onclick="adicionarUnidade(this, 'Pãozinho recheado', 8.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="salgado">
                 <img src="9.jpg" alt="Salgado">
-                <div><h3>Esfiha de carne ou frango</h3><p class="product-desc">Massa macia com gergelim (Mín. 6 un. = R$ 48,00)</p><span class="price">R$ 8,00 / un</span></div>
+                <div><h3>Esfiha de carne ou frango</h3><p class="product-desc">Massa macia com gergelim (Mín. 6 un.)</p><span class="price">R$ 8,00 / un</span></div>
                 <select class="select-peso"><option value="6" selected>6 unidades</option><option value="8">8 unidades</option><option value="10">10 unidades</option><option value="12">12 unidades</option></select>
                 <button class="btn-add" onclick="adicionarUnidade(this, 'Esfiha de carne ou frango', 8.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="bolo">
                 <img src="10.jpg" alt="Bolo">
-                <div><h3>Bolo de banana</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Bolo de banana</h3><p class="product-desc">Aromático e com sabor natural de banana.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Bolo de banana', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="bolo">
                 <img src="11.jpg" alt="Bolo">
-                <div><h3>Bolo de café</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Bolo de café</h3><p class="product-desc">Perfeito para acompanhar o seu café.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Bolo de café', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="bolo">
                 <img src="12.jpg" alt="Bolo">
-                <div><h3>Bolo mesclado simples</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Bolo mesclado simples</h3><p class="product-desc">A combinação ideal de massas.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Bolo mesclado simples', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="pao">
                 <img src="13.jpg" alt="Pão">
-                <div><h3>Pão de lanche</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Pão de lanche</h3><p class="product-desc">Ideal para sanduíches saborosos.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Pão de lanche', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="pao">
                 <img src="14.jpg" alt="Pão">
-                <div><h3>Pão multigrãos</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Pão multigrãos</h3><p class="product-desc">Seleção de grãos nobres integrais.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Pão multigrãos', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="pao">
                 <img src="15.jpg" alt="Pão">
-                <div><h3>Pão tipo bisnaguinha</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Pão tipo bisnaguinha</h3><p class="product-desc">Pequenos, macios e deliciosos.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Pão tipo bisnaguinha', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="pao">
                 <img src="16.jpg" alt="Pão">
-                <div><h3>Pão de batata doce</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Pão de batata doce</h3><p class="product-desc">Textura macia e diferenciada.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Pão de batata doce', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="bolo">
                 <img src="17.jpg" alt="Bolo">
-                <div><h3>Bolo de laranja</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Bolo de laranja</h3><p class="product-desc">Fresco e com toque cítrico natural.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Bolo de laranja', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="pao">
                 <img src="18.jpg" alt="Pão">
-                <div><h3>Pão de sementes</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Pão de sementes</h3><p class="product-desc">Crocância e sabor acentuado.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Pão de sementes', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="pao">
                 <img src="19.jpg" alt="Pão">
-                <div><h3>Pão de milho</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Pão de milho</h3><p class="product-desc">Sabor tradicional de milho verde.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Pão de milho', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="pao">
                 <img src="20.jpg" alt="Pão">
-                <div><h3>Pão de batata doce e bisnaguinha</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Pão de batata doce e bisnaguinha</h3><p class="product-desc">Combinação especial e macia.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Pão de batata doce e bisnaguinha', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="pao">
                 <img src="21.jpg" alt="Pão">
-                <div><h3>Pão de forma branco</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Pão de forma branco</h3><p class="product-desc">Macio, ideal para o dia a dia.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Pão de forma branco', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="pao">
                 <img src="22.jpg" alt="Pão">
-                <div><h3>Pão recheado</h3><span class="price">R$ 85,00 / kg</span></div>
+                <div><h3>Pão recheado</h3><p class="product-desc">Recheio especial selecionado.</p><span class="price">R$ 85,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Pão recheado', 85.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="bolo">
                 <img src="23.jpg" alt="Bolo">
-                <div><h3>Bolo de amendoim</h3><span class="price">R$ 130,00 / kg</span></div>
+                <div><h3>Bolo de amendoim</h3><p class="product-desc">Sabor marcante e textura cremosa.</p><span class="price">R$ 130,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Bolo de amendoim', 130.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="bolo">
                 <img src="24.jpg" alt="Bolo">
-                <div><h3>Bolo de cacau</h3><span class="price">R$ 85,00 / kg</span></div>
+                <div><h3>Bolo de cacau</h3><p class="product-desc">Intenso, saboroso e marcante.</p><span class="price">R$ 85,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Bolo de cacau', 85.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="salgado">
                 <img src="25.jpg" alt="Salgado">
-                <div><h3>Empada de frango</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Empada de frango</h3><p class="product-desc">Massa que derrete na boca com recheio suculento.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Empada de frango', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="bolo">
                 <img src="26.jpg" alt="Bolo">
-                <div><h3>Bolo tipo charge</h3><span class="price">R$ 80,00 / kg</span></div>
+                <div><h3>Bolo tipo charge</h3><p class="product-desc">Inspirado no clássico sabor de chocolate e amendoim.</p><span class="price">R$ 80,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Bolo tipo charge', 80.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="bolo">
                 <img src="27.jpg" alt="Bolo">
-                <div><h3>Bolo de cenoura</h3><span class="price">R$ 80,00 / kg</span></div>
+                <div><h3>Bolo de cenoura</h3><p class="product-desc">Fofinho e tradicional.</p><span class="price">R$ 80,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Bolo de cenoura', 80.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="bolo">
                 <img src="28.jpg" alt="Bolo">
-                <div><h3>Bolo de limão</h3><span class="price">R$ 75,00 / kg</span></div>
+                <div><h3>Bolo de limão</h3><p class="product-desc">Toque refrescante e aroma cítrico.</p><span class="price">R$ 75,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Bolo de limão', 75.00)">Adicionar Pedido</button>
             </div>
             <div class="card" data-cat="pao">
                 <img src="29.jpg" alt="Pão">
-                <div><h3>Pão mesclado com cobertura de brigadeiro</h3><span class="price">R$ 85,00 / kg</span></div>
+                <div><h3>Pão mesclado com cobertura de brigadeiro</h3><p class="product-desc">Irresistível combinação de pão com cobertura doce.</p><span class="price">R$ 85,00 / kg</span></div>
                 <select class="select-peso"><option value="250">250g</option><option value="500">500g</option><option value="750">750g</option><option value="1000" selected>1 kg</option></select>
                 <button class="btn-add" onclick="adicionarPeso(this, 'Pão mesclado com cobertura de brigadeiro', 85.00)">Adicionar Pedido</button>
             </div>
         </div>
 
+        <!-- SEÇÃO DO CARRINHO RESTAURADA -->
         <div class="carrinho-box" id="carrinho-secao">
-            <h3>Resumo do Pedido</h3>
-            <p id="status-carrinho" style="font-weight: bold; color: #b85d18;">Seu carrinho está vazio.</p>
+            <h3>🛒 Resumo do Pedido</h3>
+            <p id="status-carrinho" style="font-weight: bold; color: #b85d18; margin: 15px 0;">Seu carrinho está vazio.</p>
             <ul id="lista-itens" style="padding-left: 20px; line-height: 1.6;"></ul>
-            <p id="total-geral" style="font-weight: bold; font-size: 1.2rem; margin-top: 15px; color: #2c221e;"></p>
-            <button class="btn-finalizar" onclick="enviarWpp()">Enviar pedido ao WhatsApp</button>
-            <button class="btn-zerar" onclick="limparCarrinho()">Zerar Pedido</button>
+            <p id="total-geral" style="font-weight: bold; font-size: 1.25rem; margin-top: 15px; color: #2c221e;"></p>
+            <button class="btn-finalizar" onclick="enviarWpp()">🟢 Enviar pedido ao WhatsApp</button>
+            <button class="btn-zerar" onclick="limparCarrinho()">🔴 Zerar Pedido</button>
         </div>
     </div>
 
-    <!-- Modal simples -->
+    <!-- MODAL DE INSTALAÇÃO DO APP -->
     <div id="modal">
         <div class="modal-content">
             <img src="logo.png.png" alt="Logo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 3px solid #b85d18; margin-bottom: 10px;">
             <h3 style="margin: 5px 0; color: #2c221e;">Instalar Vidamix®</h3>
-            <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Deseja adicionar o app à tela inicial do seu celular?</p>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Deseja adicionar o app à tela inicial do seu celular?</p>
             <button class="btn-fechar" onclick="fecharModal()">Confirmar</button>
         </div>
     </div>
 
+    <!-- SCRIPT DE INTERATIVIDADE TOTAL -->
     <script>
         let carrinho = [];
 
-        function abrirModal() { document.getElementById('modal').style.display = 'flex'; }
-        function fecharModal() { document.getElementById('modal').style.display = 'none'; alert('Para instalar, toque nos três pontinhos do seu navegador e selecione "Adicionar à tela inicial".'); }
+        function abrirModal() { 
+            document.getElementById('modal').style.display = 'flex'; 
+        }
+        
+        function fecharModal() { 
+            document.getElementById('modal').style.display = 'none'; 
+            alert('Para instalar, toque nos três pontinhos do seu navegador e selecione "Adicionar à tela inicial".'); 
+        }
+
+        function irParaCarrinho() {
+            document.getElementById('carrinho-secao').scrollIntoView({ behavior: 'smooth' });
+        }
 
         function filtrar(cat, el) {
             document.querySelectorAll('.btn-cat').forEach(b => b.classList.remove('active'));
