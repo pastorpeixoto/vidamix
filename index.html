@@ -419,9 +419,9 @@
             document.getElementById('resumo-pedido').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function atualizarContador(visiveis, total) {
-            document.getElementById('contador-delicias').innerText = Mostrando ${visiveis} de ${total} delícias;
-        }
+     unction atualizarContador(visiveis, total) {
+        document.getElementById('contador-delicias').innerText = "Mostrando " + visiveis + " de " + total + " delícias";
+    }
 
         function filtrarProdutos() {
             let termo = document.getElementById('searchInput').value.toLowerCase();
