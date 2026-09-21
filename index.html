@@ -3,78 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vidamix® | Oficial</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="apple-touch-icon" href="favicon.ico">
+    <title>Vidamix®</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
         body {
             background-color: #faf8f5;
             color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
+            font-family: Arial, sans-serif;
             text-align: center;
+            padding: 50px 20px;
+            margin: 0;
         }
         .container {
             max-width: 400px;
-            width: 100%;
+            margin: 0 auto;
             background: #ffffff;
-            padding: 40px 20px;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         h1 {
-            font-size: 28px;
-            color: #111;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
+            font-size: 24px;
+            margin-bottom: 5px;
         }
-        .marca-registrada {
+        .sub {
             font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
             color: #666;
-            margin-bottom: 24px;
-            font-weight: 600;
-        }
-        p {
-            font-size: 15px;
-            color: #555;
-            margin-bottom: 30px;
-            line-height: 1.5;
+            margin-bottom: 25px;
+            font-weight: bold;
         }
         .btn {
             display: block;
             width: 100%;
-            padding: 14px;
+            padding: 15px;
             background-color: #2e7d32;
             color: white;
             text-decoration: none;
             font-size: 16px;
             font-weight: bold;
             border-radius: 8px;
-            transition: background 0.2s;
-            box-shadow: 0 2px 5px rgba(46, 125, 50, 0.3);
-            margin-bottom: 12px;
-        }
-        .btn:hover {
-            background-color: #1b5e20;
-        }
-        footer {
-            margin-top: 30px;
-            font-size: 12px;
-            color: #888;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -82,16 +50,12 @@
 
     <div class="container">
         <h1>Vidamix®</h1>
-        <div class="marca-registrada">Marca Registrada</div>
+        <div class="sub">Marca Registrada</div>
         
-        <p>Seja bem-vindo! Escolha uma opção abaixo:</p>
+        <p style="margin-bottom: 20px; color: #555;">Toque abaixo para ver nosso cardápio:</p>
 
-        <!-- Botão para acessar os botões/cardápio -->
-        <a href="botoes.html" class="btn">Acessar Cardápio Digital</a>
-
-        <footer>
-            &copy; 2026 Vidamix®. Todos os direitos reservados.
-        </footer>
+        <!-- Link exato apontando para o arquivo de cardápio -->
+        <a href="botoes.html" class="btn">Acessar Cardápio</a>
     </div>
 
 </body>
