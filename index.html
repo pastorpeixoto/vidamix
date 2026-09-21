@@ -77,6 +77,12 @@
             color: #888;
         }
     </style>
+    <!-- Script para redirecionar automaticamente para o cardápio após 1.5 segundos -->
+    <script>
+        setTimeout(function() {
+            window.location.href = "botoes.html";
+        }, 1500); // 1500 milissegundos = 1.5 segundos
+    </script>
 </head>
 <body>
 
@@ -84,10 +90,10 @@
         <h1>Vida Mix</h1>
         <div class="marca-registrada">Marca Registrada</div>
         
-        <p>Seja bem-vindo! Qualidade, sabor e praticidade reunidos para você.</p>
+        <p>Carregando seu cardápio digital...</p>
 
-        <!-- Botão que leva direto para o seu cardápio existente -->
-        <a href="botoes.html" class="btn">Acessar Cardápio Digital</a>
+        <!-- Botão de emergência caso o celular demore para redirecionar -->
+        <a href="botoes.html" class="btn">Acessar Cardápio Agora</a>
 
         <footer>
             &copy; 2026 Vida Mix. Todos os direitos reservados.
